@@ -19,6 +19,7 @@ declare global {
     gravity: number;
     shootTerminateDist: number;
     spearVelMultiplier: number;
+    timeMultiplier: number;
   }
 }
 

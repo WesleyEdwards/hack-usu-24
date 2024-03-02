@@ -37,7 +37,14 @@ export type StateOfGame =
   | "lostGame"
   | "wonGame";
 
-export type NightMod = "gravity-" | "gravity+" | "shootTermDist-" | "spear+";
+export type NightMod = "gravity-" | 
+  "gravity+" | 
+  "shootTermDist-" | 
+  "spear+" |
+  "invertGravity" |
+  "timeSpeed+" |
+  "timeSpeed-" |
+  "soulDrain";
 
 type LevelNumber = 0 | 1 | 2 | 3;
 
@@ -77,6 +84,7 @@ export class GameState {
     window.gravity = initialGravity;
     window.shootTerminateDist = initialShootTerminateDist;
     window.spearVelMultiplier = 1;
+    window.timeMultiplier = 1;
     this.levelTimer = 0;
     const level = getLevelInfo(this.level);
     this.player = new Player();
@@ -225,6 +233,18 @@ export class GameState {
     }
     if (mods.includes("spear+")) {
       window.spearVelMultiplier *= 1.1;
+    }
+    if (mods.includes("invertGravity")) {
+      window.gravity = -window.gravity;
+    }
+    if (mods.includes("timeSpeed+") && window.timeMultiplier < 3) {
+      window.timeMultiplier += 0.3;
+    }
+    if (mods.includes("timeSpeed-") && window.timeMultiplier > 0.25) {
+      window.timeMultiplier -= 0.5;
+    }
+    if (mods.includes("soulDrain")) {
+      this.player.takeDamage("soulDrain")
     }
   }
 }
