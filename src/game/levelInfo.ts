@@ -2,7 +2,7 @@ import { FusedProps } from "./Fused";
 import { ParshendiProps } from "./Parshendi";
 import { PlatProps } from "./Platform";
 
-type Level = {
+export type Level = {
   platProps: PlatProps[];
   fusedProps: FusedProps[];
   parshendiProps: ParshendiProps[];

@@ -31,3 +31,13 @@ export const addEventListeners = () => {
   });
   return keys;
 };
+
+export const addDevClickListeners = (
+  click: (coors: MouseEvent) => void,
+  consoleLog: () => void
+) => {
+  window.addEventListener("click", click);
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "p") consoleLog();
+  });
+};

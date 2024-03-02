@@ -7,6 +7,7 @@ import { canvasHeight, canvasWidth } from "./constants";
 declare global {
   interface Window {
     stopGame: boolean;
+    selectedWidth?: number;
   }
 }
 
