@@ -1,6 +1,7 @@
 {
   "platProps": [
     { "initPos": { "x": 344, "y": 346 }, "width": 276, "floor": false },
+    { "initPos": { "x": 344, "y": 546 }, "width": 276, "floor": false },
     { "initPos": { "x": 359, "y": 185 }, "width": 303, "floor": false },
     { "initPos": { "x": 672, "y": 435 }, "width": 190, "floor": false },
     { "initPos": { "x": 813, "y": 147 }, "width": 257, "floor": false },
@@ -10,10 +11,13 @@
     { "initPos": { "x": 2319, "y": 376 }, "width": 404, "floor": false },
     { "initPos": { "x": 2563, "y": 199 }, "width": 337, "floor": false },
     { "initPos": { "x": 2931, "y": 354 }, "width": 317, "floor": false },
-    { "initPos": { "x": 3473, "y": 349 }, "width": -95, "floor": false },
+    { "initPos": { "x": 3473, "y": 349 }, "width": 95, "floor": false },
     { "initPos": { "x": 3539, "y": 216 }, "width": 379, "floor": false },
     { "initPos": { "x": 3905, "y": 419 }, "width": 100, "floor": false },
     { "initPos": { "x": 4018, "y": 322 }, "width": 490, "floor": false },
+    { "initPos": { "x": 5539, "y": 316 }, "width": 479, "floor": false },
+    { "initPos": { "x": 5905, "y": 419 }, "width": 200, "floor": false },
+    { "initPos": { "x": 5018, "y": 522 }, "width": 690, "floor": false },
     { "initPos": { "x": 4499, "y": 413 }, "width": 186, "floor": false },
     { "initPos": { "x": -106, "y": 650 }, "width": 1250, "floor": true },
     { "initPos": { "x": 1811, "y": 650 }, "width": 1300, "floor": true },

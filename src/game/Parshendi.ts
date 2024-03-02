@@ -2,6 +2,7 @@ import { Coor } from "./types";
 import { canvasHeight } from "../constants";
 import { eucDistance, playSoundEffect } from "./miscFunctions";
 import { Spear } from "./Spear";
+import { ParshendiDrawManager } from "./ParshendiDrawManager";
 import hitSFX from "../assets/sound/enemyDie.ogg"
 import spear1 from "../assets/sound/swish_2.wav";
 import spear2 from "../assets/sound/swish_3.wav";
@@ -26,7 +27,9 @@ export class Parshendi {
   time_since_throw = 2;
   init_pos: Coor;
   state: "alive" | "hit" = "alive";
-  
+  drawManager: ParshendiDrawManager = new ParshendiDrawManager();
+  type: "armored" | "fused" = Math.random() > 0.5 ? "armored" : "fused";
+
   get center(): Coor {
     return {
       x: this.pos.x + parshendiWidth / 2,
@@ -41,6 +44,7 @@ export class Parshendi {
   }
 
   update(deltaTime: number) {
+    this.drawManager.update(deltaTime);
     this.prevPos = { ...this.pos };
     // update y velocity + position
     this.pos.y += (this.y_vel * deltaTime) / 1000;
@@ -55,7 +59,7 @@ export class Parshendi {
     // Decide to jump
     if (this.time_since_jump + Math.random() * 2000 > 10000) {
       this.time_since_jump = 0;
-      const direction = window.gravity > 0 ? -1 : 1
+      const direction = window.gravity > 0 ? -1 : 1;
       this.y_vel = direction * 1500;
       this.pos.y += direction * 10;
     } else {
@@ -72,15 +76,16 @@ export class Parshendi {
   }
 
   draw(ctx: CanvasRenderingContext2D, offsetX: number) {
-    ctx.save();
-    ctx.fillStyle = "green";
-    ctx.translate(this.pos.x + offsetX, this.pos.y);
-    if (window.gravity < 0) {
-      ctx.scale(1, -1)
-      ctx.translate(0, -parshendiHeight);
-    }
-    ctx.fillRect(0, 0, parshendiWidth, parshendiHeight);
-    ctx.restore();
+    this.drawManager.draw(ctx, this, offsetX);
+    // ctx.save();
+    // ctx.fillStyle = "green";
+    // ctx.translate(this.pos.x + offsetX, this.pos.y);
+    // if (window.gravity < 0) {
+    //   ctx.scale(1, -1);
+    //   ctx.translate(0, -parshendiHeight);
+    // }
+    // ctx.fillRect(0, 0, parshendiWidth, parshendiHeight);
+    // ctx.restore();
   }
 
   setOnPlatform(y: number) {
@@ -90,8 +95,8 @@ export class Parshendi {
     }
     if (window.gravity > 0 && this.y_vel > 0) {
       this.pos.y = y - parshendiHeight;
-    } else if(this.y_vel < 0) {
-      this.pos.y = y
+    } else if (this.y_vel < 0) {
+      this.pos.y = y;
     }
     this.y_vel = 0;
   }
@@ -115,6 +120,10 @@ export class Parshendi {
         );
       }
     }
+  }
+
+  get facing() {
+    return this.x_direction === 1 ? "right" : "left";
   }
 
   hit() {

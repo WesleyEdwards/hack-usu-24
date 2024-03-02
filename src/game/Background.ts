@@ -39,7 +39,11 @@ export class Background {
     ctx.translate(offsetX, 0);
     ctx.scale(2, 2);
     for (let i = -1; i < 50; i++) {
-      ctx.drawImage(this.backgroundFront, i * this.backgroundFront.width, 0);
+      ctx.drawImage(
+        this.backgroundFront,
+        i * this.backgroundFront.width * 1.85,
+        0
+      );
     }
     ctx.restore();
     ctx.fillStyle = "#800000";
@@ -68,7 +72,7 @@ export class Background {
       ctx.fillText("- Nightblood", canvasWidth * 0.66, canvasHeight / 2 + 200);
     } else if (gameState === "lostLevel") {
       ctx.font = `100px Pirata One`;
-      ctx.fillText(`We need to try again`, canvasWidth / 2, canvasHeight / 2);
+      ctx.fillText(`We need to try again!`, canvasWidth / 2, canvasHeight / 2);
     } else if (gameState === "showControls") {
       const controlImage = new Image();
       controlImage.src = instruction_page;

@@ -4,6 +4,7 @@ import uplookIdle from "../assets/szeth_looking_up_(top).png";
 import runningBottom from "../assets/szeth_running_(bottom).png";
 import runningTop from "../assets/szeth_running_(top).png";
 import hittingSide from "../assets/szeth_attack_side.png";
+import jumpBottom from "../assets/szeth_jumping_bottom.png";
 import upHit from "../assets/szeth_attack_up.png";
 import { playerDistFromLeft, playerHeight, playerWidth } from "../constants";
 import { Player } from "./Player";
@@ -29,6 +30,7 @@ export class PlayerDrawManager {
   runningTop = new Image();
   hittingSide = new Image();
   upHit = new Image();
+  jumpBottom = new Image();
   runTimer = 1000;
   hitTimer = 1000;
 
@@ -39,6 +41,7 @@ export class PlayerDrawManager {
     this.runningBottom.src = runningBottom;
     this.runningTop.src = runningTop;
     this.hittingSide.src = hittingSide;
+    this.jumpBottom.src = jumpBottom;
     this.upHit.src = upHit;
   }
 
@@ -123,8 +126,13 @@ export class PlayerDrawManager {
 
   playerBottom(ctx: CanvasRenderingContext2D, player: Player) {
     const isRunning = player.vel.x !== 0;
+    const inAir = player.vel.y !== 0;
     if (!isRunning) this.runTimer = 0;
-    const image = isRunning ? this.runningBottom : this.bottomIdle;
+    const image = (() => {
+      if (inAir) return this.jumpBottom;
+      if (isRunning) return this.runningBottom;
+      return this.bottomIdle;
+    })();
     ctx.save();
     ctx.translate(playerDistFromLeft, player.pos.y);
     if (player.lookDirectionX === "left") {
@@ -132,12 +140,12 @@ export class PlayerDrawManager {
       ctx.translate(-playerWidth, 0);
     }
     if (window.gravity < 0) {
-      ctx.scale(1, -1)
+      ctx.scale(1, -1);
       ctx.translate(0, -playerHeight);
     }
     ctx.scale(scaleFactor, scaleFactor);
 
-    if (isRunning) {
+    if (isRunning && !inAir) {
       const spriteIndex =
         Math.floor(this.runTimer / runningSpriteFrequency) % runningSpriteCount;
       ctx.drawImage(
@@ -168,8 +176,8 @@ export class PlayerDrawManager {
   }
 
   draw(ctx: CanvasRenderingContext2D, player: Player) {
-    ctx.fillStyle = "red";
-    ctx.fillRect(playerDistFromLeft, player.pos.y, playerWidth, playerHeight);
+    // ctx.fillStyle = "red";
+    // ctx.fillRect(playerDistFromLeft, player.pos.y, playerWidth, playerHeight);
     this.playerBottom(ctx, player);
     this.playerTop(ctx, player);
   }
