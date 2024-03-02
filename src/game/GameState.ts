@@ -222,7 +222,7 @@ export class GameState {
   handleLoseLife(modifyUi: ModifyUI) {
     modifyUi.decrementLife();
     playSoundEffect(dieSFX);
-    this.bgm.pause;
+    this.bgm.pause();
     this.reset();
     this.gameState = "lostLevel";
     this.levelTimer = 0;
