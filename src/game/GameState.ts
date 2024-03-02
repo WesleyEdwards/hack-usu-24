@@ -177,22 +177,28 @@ export class GameState {
     if (!this.playerShoot?.live) {
       this.playerShoot = null;
     }
-    const toAdd: Coor[] = [];
+    const toAdd: (Coor & { player: boolean })[] = [];
     if (this.player.vel.x !== 0 || this.player.vel.y !== 0) {
       if (this.player.lookDirectionX === "right") {
         toAdd.push({
           x: this.player.pos.x,
           y: this.player.pos.y + playerWidth / 2,
+          player: true,
         });
       } else {
         toAdd.push({
           x: this.player.pos.x + playerWidth,
           y: this.player.pos.y + playerWidth / 2,
+          player: true,
         });
       }
     }
     if (this.playerShoot) {
-      toAdd.push(this.playerShoot.center);
+      toAdd.push({
+        x: this.playerShoot.center.x,
+        y: this.playerShoot.center.y,
+        player: false,
+      });
     }
 
     this.smoke.update(deltaTime, toAdd);

@@ -5,6 +5,7 @@ type SmokeParticle = {
   y: number;
   life: number;
   size: number;
+  black: boolean;
 };
 
 export class Smoke {
@@ -12,11 +13,12 @@ export class Smoke {
   private smokeTimer = 0;
   private smokeSpeed = 20;
 
-  update(deltaTime: number, coords: Coor[]) {
+  update(deltaTime: number, coords: (Coor & { player: boolean })[]) {
     const moreCoors = coords.reduce<Coor[]>((acc, c) => {
-      for (let i = 0; i < 5; i++) {
-        const x = c.x + Math.random() * 80 - 5;
-        const y = c.y + Math.random() * 80 - 5;
+      const howMany = c.player ? 5 : 40;
+      for (let i = 0; i < howMany; i++) {
+        const x = c.x + Math.random() * 40 - 5;
+        const y = c.y + Math.random() * 40 - 5;
         acc.push({ x, y });
       }
       return acc;
@@ -29,6 +31,7 @@ export class Smoke {
         y: c.y,
         life: this.smokeLife,
         size: Math.random() * 20 + 5,
+        black: Math.random() > 0.5,
       });
     });
     this.smoke = this.smoke.map((s) => {
@@ -46,29 +49,56 @@ export class Smoke {
     ctx.translate(offsetX, 0);
 
     this.smoke.forEach((s) => {
-      const centerX = s.x;
-      const centerY = s.y;
-      const radius = s.size;
+      if (s.black) {
+        ctx.save();
+        ctx.fillStyle = "#000000";
 
-      const gradient = ctx.createRadialGradient(
-        centerX,
-        centerY,
-        0,
-        centerX,
-        centerY,
-        radius
-      );
+        ctx.globalAlpha = 0.2;
 
-      gradient.addColorStop(0, "#b0000075");
-      gradient.addColorStop(0.2, "#46464675");
-      gradient.addColorStop(1, "#ffffff00");
+        // make a gradiant
 
-      ctx.fillStyle = gradient;
+        // Draw the circle
+        const gradiant = ctx.createRadialGradient(
+          s.x,
+          s.y,
+          0,
+          s.x,
+          s.y,
+          s.size
+        );
+        gradiant.addColorStop(0, "#000000");
+        gradiant.addColorStop(1, "#00000000");
+        ctx.fillStyle = gradiant;
 
-      // Draw the circle
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-      ctx.fill();
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      } else {
+        const centerX = s.x;
+        const centerY = s.y;
+        const radius = s.size;
+
+        const gradient = ctx.createRadialGradient(
+          centerX,
+          centerY,
+          0,
+          centerX,
+          centerY,
+          radius
+        );
+
+        gradient.addColorStop(0, "#b0000075");
+        gradient.addColorStop(0.2, "#46464675");
+        gradient.addColorStop(1, "#ffffff00");
+
+        ctx.fillStyle = gradient;
+
+        // Draw the circle
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
     });
     ctx.restore();
   }
