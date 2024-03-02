@@ -40,8 +40,10 @@ update(deltaTime: number) {
 
   draw(ctx: CanvasRenderingContext2D, offsetX: number) {
     ctx.save();
+    ctx.translate(this.center.x+offsetX, this.center.y)
+    ctx.rotate(Math.atan2(this.vel.y, this.vel.x))
     ctx.fillStyle = "yellow";
-    ctx.translate(this.pos.x + offsetX, this.pos.y);
+    // ctx.translate(this.pos.x + offsetX, this.pos.y);
     ctx.fillRect(0, 0, spearWidth, spearHeight);
     ctx.restore();
   }
