@@ -21,11 +21,13 @@ export class Background {
 
   constructor() {
     this.backgroundBack.src = backgroundBack;
+    // make the width and height of the image the same as the canvas
   }
   draw(ctx: CanvasRenderingContext2D, offsetX: number) {
     ctx.save();
 
     ctx.translate(offsetX, 0);
+    ctx.scale(2, 2);
     for (let i = -1; i < 10; i++) {
       ctx.drawImage(this.backgroundBack, i * this.backgroundBack.width, 0);
     }
