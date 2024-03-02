@@ -7,9 +7,15 @@ export class Background {
   constructor() {
     this.image.src = bricks;
   }
-  draw(ctx: CanvasRenderingContext2D) {
+  draw(ctx: CanvasRenderingContext2D, offsetX: number) {
     ctx.save();
-    ctx.drawImage(this.image, 0, 0, canvasWidth, canvasHeight);
+
+    ctx.translate(-offsetX, 0);
+    for (let i = 0; i < canvasWidth / this.image.width; i++) {
+      ctx.drawImage(this.image, i * this.image.width, 0);
+    }
+
+    // ctx.drawImage(this.image, 0, 0, canvasWidth, canvasHeight);
     ctx.restore();
   }
 }

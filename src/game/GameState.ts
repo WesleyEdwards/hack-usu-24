@@ -1,8 +1,4 @@
-import {
-  playerDistFromLeft,
-  playerHeight,
-  playerWidth,
-} from "../constants";
+import { playerDistFromLeft, playerHeight, playerWidth } from "../constants";
 import { Background } from "./Background";
 import { Fused } from "./Fused";
 import { Parshendi } from "./Parshendi";
@@ -11,13 +7,21 @@ import { Player } from "./Player";
 import { Keys, addEventListeners } from "./eventListeners";
 import { getLevelInfo } from "./levelInfo";
 
-function calculatePlayerPlatCollision(player: Player, plat: Platform[]) {
+function calculatePlayerPlatCollision(
+  player: Player,
+  plat: Platform[],
+  keyDown: boolean
+) {
   plat.forEach((p) => {
     const leftRight =
       player.pos.x < p.pos.x + p.width && player.pos.x + playerWidth > p.pos.x;
     const topBottom =
       player.pos.y + playerHeight >= p.pos.y &&
       player.prevPos.y + playerHeight <= p.pos.y;
+
+    if (!p.floor && keyDown) {
+      return false;
+    }
     if (leftRight && topBottom) {
       player.setOnPlatform(p.pos.y);
       return true;
@@ -53,11 +57,11 @@ export class GameState {
     this.player.update(deltaTime, this.keys);
     this.fused.forEach((f) => f.update(deltaTime));
     this.parshendi.forEach((p) => p.update(deltaTime));
-    calculatePlayerPlatCollision(this.player, this.platforms);
+    calculatePlayerPlatCollision(this.player, this.platforms, this.keys.down);
   }
 
   draw() {
-    this.background.draw(this.ctx);
+    this.background.draw(this.ctx, this.offsetX);
     this.platforms.forEach((p) => p.draw(this.ctx, this.offsetX));
 
     this.fused.forEach((f) => f.draw(this.ctx, this.offsetX));
