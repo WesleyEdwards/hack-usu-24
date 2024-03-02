@@ -4,6 +4,7 @@ import uplookIdle from "../assets/szeth_looking_up_(top).png";
 import runningBottom from "../assets/szeth_running_(bottom).png";
 import runningTop from "../assets/szeth_running_(top).png";
 import hittingSide from "../assets/szeth_attack_side.png";
+import upHit from "../assets/szeth_attack_up.png";
 import { playerDistFromLeft, playerHeight, playerWidth } from "../constants";
 import { Player } from "./Player";
 
@@ -27,6 +28,7 @@ export class PlayerDrawManager {
   runningBottom = new Image();
   runningTop = new Image();
   hittingSide = new Image();
+  upHit = new Image();
   runTimer = 1000;
   hitTimer = 1000;
 
@@ -37,6 +39,7 @@ export class PlayerDrawManager {
     this.runningBottom.src = runningBottom;
     this.runningTop.src = runningTop;
     this.hittingSide.src = hittingSide;
+    this.upHit.src = upHit;
   }
 
   update(deltaTime: number) {
@@ -49,6 +52,7 @@ export class PlayerDrawManager {
     const hitting = this.hitTimer < hitSpriteTimer;
     const image = (() => {
       const lookUp = player.lookDirectionY === "up";
+      if (hitting && lookUp) return this.upHit;
       if (lookUp) return this.uplookIdle;
       if (hitting) return this.hittingSide;
       if (isRunning) return this.runningTop;
