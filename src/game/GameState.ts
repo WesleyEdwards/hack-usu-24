@@ -125,7 +125,7 @@ export class GameState {
       deltaTime
     );
     if (hitPlayer) {
-      this.player.takeDamage("spear")
+      this.player.takeDamage("spear");
     }
 
     calculateFusedSpear(this.fused, this.player.center, this.spears, deltaTime);
@@ -138,7 +138,7 @@ export class GameState {
     );
 
     if (hit) {
-      this.player.takeDamage(hit)
+      this.player.takeDamage(hit);
     }
     this.playerShoot?.update(deltaTime, this.player.center);
     if (!this.playerShoot?.live) {

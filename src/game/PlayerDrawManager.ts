@@ -3,10 +3,12 @@ import bottomIdle from "../assets/szeth_idle_(bottom).png";
 import uplookIdle from "../assets/szeth_looking_up_(top).png";
 import runningBottom from "../assets/szeth_running_(bottom).png";
 import runningTop from "../assets/szeth_running_(top).png";
+import hittingSide from "../assets/szeth_attack_side.png";
 import { playerDistFromLeft, playerHeight, playerWidth } from "../constants";
 import { Player } from "./Player";
-import { debounceLog } from "./helpers";
 
+const hitSpriteTimer = 300;
+const hitSpriteCount = 4;
 const idleScales = {
   distFromRight: 20,
   distFromBottom: 265,
@@ -24,7 +26,9 @@ export class PlayerDrawManager {
   uplookIdle = new Image();
   runningBottom = new Image();
   runningTop = new Image();
-  runTimer = 0;
+  hittingSide = new Image();
+  runTimer = 1000;
+  hitTimer = 1000;
 
   constructor() {
     this.topIdle.src = topIdle;
@@ -32,37 +36,56 @@ export class PlayerDrawManager {
     this.uplookIdle.src = uplookIdle;
     this.runningBottom.src = runningBottom;
     this.runningTop.src = runningTop;
+    this.hittingSide.src = hittingSide;
   }
 
   update(deltaTime: number) {
     this.runTimer += deltaTime;
+    this.hitTimer += deltaTime;
   }
 
   playerTop(ctx: CanvasRenderingContext2D, player: Player) {
     const isRunning = player.vel.x !== 0;
+    const hitting = this.hitTimer < hitSpriteTimer;
     const image = (() => {
-      if (player.lookDirectionY === "up") return this.uplookIdle;
+      const lookUp = player.lookDirectionY === "up";
+      if (lookUp) return this.uplookIdle;
+      if (hitting) return this.hittingSide;
       if (isRunning) return this.runningTop;
       return this.topIdle;
     })();
     ctx.save();
     ctx.translate(playerDistFromLeft, player.pos.y);
     // Draw health bar
-    // debounceLog(player.life_opacity)
-    ctx.fillStyle = `rgba(40,40,40,${player.life_opacity})`
-    ctx.fillRect(0, -10, playerWidth, 10)
-    ctx.fillStyle = `rgba(0,255,0,${player.life_opacity})`
+    ctx.fillStyle = `rgba(40,40,40,${player.life_opacity})`;
+    ctx.fillRect(0, -10, playerWidth, 10);
+    ctx.fillStyle = `rgba(0,255,0,${player.life_opacity})`;
     // debounceLog(playerWidth-2 * player.health/100)
-    ctx.fillRect(1, -9, (playerWidth-2) * player.health/100, 8)
+    ctx.fillRect(1, -9, ((playerWidth - 2) * player.health) / 100, 8);
     if (player.lookDirectionX === "left") {
       ctx.scale(-1, 1);
       ctx.translate(-playerWidth, 0);
     }
     ctx.scale(scaleFactor, scaleFactor);
-    
-    if (isRunning && player.lookDirectionY !== "up") {
+
+    if (hitting) {
+      const spriteIndex = Math.floor(this.hitTimer / (hitSpriteTimer / 4));
+      ctx.drawImage(
+        image,
+        (spriteIndex * image.width) / hitSpriteCount,
+        0,
+        image.width / hitSpriteCount,
+        image.height,
+        -idleScales.distFromRight,
+        -idleScales.distFromBottom,
+        image.width / hitSpriteCount,
+        image.height
+      );
+      ctx.restore();
+      return;
+    } else if (isRunning && player.lookDirectionY !== "up") {
       const spriteIndex =
-      Math.floor(this.runTimer / runningSpriteFrequency) % runningSpriteCount;
+        Math.floor(this.runTimer / runningSpriteFrequency) % runningSpriteCount;
       ctx.drawImage(
         image,
         (spriteIndex * image.width) / runningSpriteCount,
@@ -73,7 +96,7 @@ export class PlayerDrawManager {
         -idleScales.distFromBottom,
         image.width / runningSpriteCount,
         image.height
-        );
+      );
     } else {
       ctx.drawImage(
         image,
@@ -85,8 +108,8 @@ export class PlayerDrawManager {
         -idleScales.distFromBottom,
         image.width,
         image.height
-        );
-      }
+      );
+    }
     ctx.restore();
   }
 
