@@ -21,6 +21,10 @@ export class Player {
   vel: Coor = { x: 0, y: 0 };
   canJump = true;
 
+  get center() {
+    return {x:this.pos.x+playerWidth/2, y:this.pos.y+playerHeight/2}
+  }
+
   constructor() {
     this.prevPos = { ...playerInitPos };
     this.pos = { ...playerInitPos };

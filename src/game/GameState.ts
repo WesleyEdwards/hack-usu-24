@@ -4,14 +4,17 @@ import { Fused } from "./Fused";
 import { Parshendi } from "./Parshendi";
 import { Platform } from "./Platform";
 import { Player } from "./Player";
+import { Spear } from "./Spear";
 import { Keys, addEventListeners } from "./eventListeners";
+import { debounceLog } from "./helpers";
 import { getLevelInfo } from "./levelInfo";
-import { calculateParshendiPlatCollision, calculatePlayerPlatCollision } from "./miscFunctions";
+import { calculateParshendiPlatCollision, calculateParshendiSpear, calculatePlayerPlatCollision } from "./miscFunctions";
 
 export class GameState {
   player = new Player();
   fused: Fused[];
   parshendi: Parshendi[];
+  spears: Spear[]=[];
   background = new Background();
   platforms: Platform[];
   keys: Keys;
@@ -46,6 +49,10 @@ export class GameState {
     this.player.update(deltaTime, this.keys);
     this.fused.forEach((f) => f.update(deltaTime));
     this.parshendi.forEach((p) => p.update(deltaTime));
+    this.spears.forEach((p) => p.update(deltaTime));
+    this.spears = this.spears.filter(function(spear) {
+      return spear.live === true;
+    });
     calculatePlayerPlatCollision(this.player, this.platforms, this.keys.down);
     if (this.player.pos.x > winXPos) {
       this.level++;
@@ -54,6 +61,7 @@ export class GameState {
       this.levelTimer = 0;
     }
     calculateParshendiPlatCollision(this.parshendi, this.platforms);
+    calculateParshendiSpear(this.parshendi, this.player.center, this.spears, deltaTime)
   }
 
   draw() {
@@ -66,6 +74,7 @@ export class GameState {
       this.fused.forEach((f) => f.draw(this.ctx, this.offsetX));
       this.parshendi.forEach((p) => p.draw(this.ctx, this.offsetX));
       this.player.draw(this.ctx);
+      this.spears.forEach((s) => s.draw(this.ctx, this.offsetX))
     }
   }
 

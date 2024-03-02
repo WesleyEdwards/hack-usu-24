@@ -1,6 +1,8 @@
 import { Coor } from "./types";
 import { canvasHeight, gravity } from "../constants";
 import { debounceLog } from "./helpers";
+import { eucDistance } from "./miscFunctions";
+import { Spear } from "./Spear";
 export const parshendiWidth = 100;
 export const parshendiHeight = 100;
 
@@ -16,7 +18,11 @@ export class Parshendi {
   x_speed = 100;
   time_since_turn = 0;
   time_since_jump = 0;
+  time_since_throw = 2;
 
+  get center():Coor{
+    return {x:this.pos.x+parshendiWidth/2, y:this.pos.y+parshendiWidth/2}
+  }
   constructor(props: ParshendiProps) {
     this.prevPos = { ...props.initPos };
     this.pos = { ...props.initPos };
@@ -68,6 +74,21 @@ export class Parshendi {
     if (this.y_vel > 0) {
       this.pos.y = y - parshendiHeight;
       this.y_vel = 0;
+    }
+  }
+
+  shouldThrow(playerPos:Coor, deltaTime:number, spears:Spear[]) {
+    // debounceLog("deciding to throw")
+    // debounceLog(eucDistance(playerPos, this.center))
+    if (eucDistance(playerPos, this.center) <= 700) {
+      this.time_since_throw += deltaTime/1000;
+      // debounceLog(this.time_since_throw)
+      if (this.time_since_throw > 5) {
+        console.log("throwing")
+        // time to throw
+        this.time_since_throw=0;
+        spears.push(new Spear({initPos:this.pos, dest:playerPos}))
+      }
     }
   }
 }

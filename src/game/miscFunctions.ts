@@ -2,6 +2,8 @@ import { playerHeight, playerWidth } from "../constants";
 import { Parshendi, parshendiHeight, parshendiWidth } from "./Parshendi";
 import { Platform } from "./Platform";
 import { Player } from "./Player";
+import { Spear } from "./Spear";
+import { Coor } from "./types";
 
 export function calculatePlayerPlatCollision(
   player: Player,
@@ -45,4 +47,31 @@ export function calculateParshendiPlatCollision(
         return false;
       });
     })
+}
+
+export function calculateParshendiSpear(parshendi:Parshendi[], player_pos:Coor, spears:Spear[], deltaTime:number){
+  parshendi.forEach((p) => {
+    p.shouldThrow(player_pos, deltaTime, spears)
+  })
+}
+
+export function eucDistance(p1:Coor, p2:Coor) {
+  return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2))
+}
+
+export function createVector(p1:Coor, p2:Coor):Coor {
+  return {x: p2.x - p1.x, y: p2.y - p1.y}
+}
+
+export function normalizeVector(v:Coor) {
+  const h = eucDistance(v, {x:0,y:0});
+  v.x = v.x/h;
+  v.y = v.y/h;
+  return v;
+}
+
+export function multiplyVectorConstant(v:Coor,c:number) {
+  v.x = v.x*c;
+  v.y = v.y*c;
+  return v;
 }
