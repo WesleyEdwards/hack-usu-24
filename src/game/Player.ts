@@ -58,7 +58,7 @@ export class Player {
 
     if (keys.jump && this.canJump) {
       this.canJump = false;
-      const direction = window.gravity > 0 ? -1 : 1
+      const direction = window.gravity > 0 ? -1 : 1;
       this.vel.y = direction * playerJumpSpeed;
       this.pos.y += direction;
     }
@@ -80,10 +80,8 @@ export class Player {
       this.vel.x = 0;
     }
 
-    if (this.pos.y + playerHeight > canvasHeight) {
-      this.pos.y = canvasHeight - playerHeight;
-      this.vel.y = 0;
-      this.canJump = true;
+    if (this.pos.y + playerHeight > canvasHeight + 1000) {
+      this.state = "dead";
     } else {
       if (this.vel.y === 0 && this.coyoteTime < maxCoyoteTime) {
         // debounceLog("asdf");
@@ -132,7 +130,7 @@ export class Player {
     if (window.gravity > 0) {
       this.pos.y = y - playerHeight;
     } else {
-      this.pos.y = y
+      this.pos.y = y;
     }
     this.vel.y = 0;
     this.canJump = true;
@@ -218,10 +216,9 @@ export class Player {
     }
   }
 
-  takeDamage(what:"spear"|"parshendi"|"fused"|"soulDrain") {
+  takeDamage(what: "spear" | "parshendi" | "fused" | "soulDrain") {
     if (this.invTime <= 0 || what == "soulDrain") {
-      switch(what) {
-
+      switch (what) {
         case "spear":
           this.health -= 10;
           break;
@@ -232,7 +229,7 @@ export class Player {
           this.health -= 20;
           break;
         case "soulDrain":
-          this.health -= 5
+          this.health -= 5;
           break;
       }
       this.invTime = 1;

@@ -24,5 +24,6 @@ export function getLevelInfo(level: LevelNumber) {
     4: nightLevel,
     5: flipGravity,
   };
-  return { ...(levelMap[level] ?? level1) };
+  if (level in levelMap) return levelMap[level];
+  return { ...level1 };
 }
