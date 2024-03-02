@@ -22,6 +22,7 @@ export class Parshendi {
   init_pos: Coor;
   state: "alive" | "hit" = "alive";
   drawManager: ParshendiDrawManager = new ParshendiDrawManager();
+  type: "armored" | "fused" = Math.random() > 0.5 ? "armored" : "fused";
 
   get center(): Coor {
     return {

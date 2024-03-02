@@ -68,7 +68,7 @@ export class Background {
       ctx.fillText("- Nightblood", canvasWidth * 0.66, canvasHeight / 2 + 200);
     } else if (gameState === "lostLevel") {
       ctx.font = `100px Pirata One`;
-      ctx.fillText(`We need to try again`, canvasWidth / 2, canvasHeight / 2);
+      ctx.fillText(`We need to try again!`, canvasWidth / 2, canvasHeight / 2);
     } else if (gameState === "showControls") {
       const controlImage = new Image();
       controlImage.src = instruction_page;
