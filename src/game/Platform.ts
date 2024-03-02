@@ -18,7 +18,7 @@ export class Platform {
   draw(ctx: CanvasRenderingContext2D, offsetX: number) {
     ctx.save();
     ctx.fillStyle = "black";
-    ctx.translate(this.pos.x + offsetX, this.pos.y);
+    ctx.translate(offsetX + this.pos.x, this.pos.y);
     ctx.fillRect(0, 0, this.width, platformHeight);
     ctx.restore();
   }
