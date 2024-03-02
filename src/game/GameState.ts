@@ -72,12 +72,12 @@ export class GameState {
   keys: Keys;
   gameState: StateOfGame = "showControls";
   levelTimer = 0;
-  level: LevelNumber = 0;
+  level: LevelNumber = 5;
   playerShoot: PlayerShoot | null = null;
   smoke: Smoke = new Smoke();
   bgm = new Audio(BGM);
   instructionTimer: number | null;
-  
+
   constructor(private ctx: CanvasRenderingContext2D) {
     this.keys = addEventListeners();
     const level = getLevelInfo(this.level);
@@ -252,12 +252,12 @@ export class GameState {
       window.shootTerminateDist *= 0.8;
     }
     if (mods.includes("spear+")) {
-      window.spearVelMultiplier *= 1.1;
+      window.spearVelMultiplier *= 1.4;
     }
     if (mods.includes("invertGravity")) {
       window.gravity = -window.gravity;
     }
-    if (mods.includes("timeSpeed+") && window.timeMultiplier < 3) {
+    if (mods.includes("timeSpeed+") && window.timeMultiplier < 2.3) {
       window.timeMultiplier += 0.2;
     }
     if (mods.includes("timeSpeed-") && window.timeMultiplier > 0.25) {
