@@ -58,8 +58,9 @@ export class Player {
 
     if (keys.jump && this.canJump) {
       this.canJump = false;
-      this.vel.y = -playerJumpSpeed;
-      this.pos.y -= 1;
+      const direction = window.gravity > 0 ? -1 : 1
+      this.vel.y = direction * playerJumpSpeed;
+      this.pos.y += direction;
     }
 
     if ((keys.left && keys.right) || (!keys.left && !keys.right)) {
@@ -111,7 +112,7 @@ export class Player {
 
     this.drawManager.update(deltaTime);
 
-    this.life_opacity -= (deltaTime / 1000) * 51;
+    this.life_opacity -= (deltaTime / 1000) * 0.33;
     if (this.life_opacity < 0) {
       this.life_opacity = 0;
     }
@@ -128,7 +129,11 @@ export class Player {
 
   setOnPlatform(y: number) {
     this.coyoteTime = 0;
-    this.pos.y = y - playerHeight;
+    if (window.gravity > 0) {
+      this.pos.y = y - playerHeight;
+    } else {
+      this.pos.y = y
+    }
     this.vel.y = 0;
     this.canJump = true;
   }
@@ -236,7 +241,7 @@ export class Player {
         this.health = 0;
       }
     }
-    this.life_opacity = 255;
+    this.life_opacity = 1;
   }
 
   respawn() {
