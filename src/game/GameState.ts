@@ -6,7 +6,7 @@ import { Platform } from "./Platform";
 import { Player } from "./Player";
 import { Keys, addEventListeners } from "./eventListeners";
 import { getLevelInfo } from "./levelInfo";
-import { calculatePlayerPlatCollision } from "./miscFunctions";
+import { calculateParshendiPlatCollision, calculatePlayerPlatCollision } from "./miscFunctions";
 
 export class GameState {
   player = new Player();
@@ -36,6 +36,7 @@ export class GameState {
     this.fused.forEach((f) => f.update(deltaTime));
     this.parshendi.forEach((p) => p.update(deltaTime));
     calculatePlayerPlatCollision(this.player, this.platforms, this.keys.down);
+    calculateParshendiPlatCollision(this.parshendi, this.platforms);
   }
 
   draw() {
