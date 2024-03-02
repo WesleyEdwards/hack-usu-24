@@ -87,7 +87,7 @@ export class Parshendi {
         console.log("throwing")
         // time to throw
         this.time_since_throw=0;
-        spears.push(new Spear({initPos:this.pos, dest:playerPos}))
+        spears.push(new Spear({initPos:this.center, dest:playerPos}))
       }
     }
   }

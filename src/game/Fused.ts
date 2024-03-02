@@ -1,3 +1,4 @@
+import { eucDistance } from "./miscFunctions";
 import { Coor } from "./types";
 const fusedWidth = 100;
 const fusedHeight = 100;
@@ -17,6 +18,10 @@ export class Fused {
   x_direction = 1;
   y_direction = 1;
   trackPos = { x: 0, y: 0 };
+
+  get center() {
+    return {x:this.pos.x+fusedWidth/2, y:this.pos.y+fusedHeight/2}
+  }
 
   constructor(props: FusedProps) {
     this.prevPos = { ...props.initPos };
@@ -87,5 +92,20 @@ export class Fused {
     ctx.translate(this.pos.x + offsetX, this.pos.y);
     ctx.fillRect(0, 0, fusedWidth, fusedHeight);
     ctx.restore();
+  }
+
+  shouldThrow(playerPos:Coor, deltaTime:number, spears:Spear[]) {
+    // debounceLog("deciding to throw")
+    // debounceLog(eucDistance(playerPos, this.center))
+    if (eucDistance(playerPos, this.center) <= 700) {
+      this.time_since_throw += deltaTime/1000;
+      // debounceLog(this.time_since_throw)
+      if (this.time_since_throw > 5) {
+        console.log("throwing")
+        // time to throw
+        this.time_since_throw=0;
+        spears.push(new Spear({initPos:this.pos, dest:playerPos}))
+      }
+    }
   }
 }
