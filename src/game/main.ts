@@ -18,7 +18,6 @@ export function enterGameLoop(modifyUi: ModifyUI) {
   }
 
   function gameLoop(timeStamp: number) {
-    if (window.stopGame) return;
     const deltaTime = timeStamp - lastTime;
     lastTime = timeStamp;
     update(deltaTime);
@@ -28,7 +27,7 @@ export function enterGameLoop(modifyUi: ModifyUI) {
       requestAnimationFrame(gameLoop);
     }
   }
-  
+
   gameState.reset();
 
   requestAnimationFrame(gameLoop);

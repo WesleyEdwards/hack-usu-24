@@ -19,5 +19,5 @@
     { "initPos": { "x": 1700, "y": 281 } },
     { "initPos": { "x": 1201, "y": 314 } }
   ],
-  "parshendiProps": [{ "initPos": { "x": 300, "y": 600 } }]
+  "parshendiProps": [{ "initPos": { "x": 800, "y": 600 } }]
 }
