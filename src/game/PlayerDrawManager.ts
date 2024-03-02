@@ -2,6 +2,7 @@ import topIdle from "../assets/szeth_idle_(top).png";
 import bottomIdle from "../assets/szeth_idle_(bottom).png";
 import uplookIdle from "../assets/szeth_looking_up_(top).png";
 import runningBottom from "../assets/szeth_running_(bottom).png";
+import runningTop from "../assets/szeth_running_(top).png";
 import { playerDistFromLeft, playerHeight, playerWidth } from "../constants";
 import { Player } from "./Player";
 import { debounceLog } from "./helpers";
@@ -13,7 +14,7 @@ const idleScales = {
 
 const scaleFactor = 0.65;
 
-const runningBottomSpriteCount = 6;
+const runningSpriteCount = 6;
 
 const runningSpriteFrequency = 100;
 
@@ -22,22 +23,28 @@ export class PlayerDrawManager {
   bottomIdle = new Image();
   uplookIdle = new Image();
   runningBottom = new Image();
-  bottomTimer = 0;
+  runningTop = new Image();
+  runTimer = 0;
 
   constructor() {
     this.topIdle.src = topIdle;
     this.bottomIdle.src = bottomIdle;
     this.uplookIdle.src = uplookIdle;
     this.runningBottom.src = runningBottom;
+    this.runningTop.src = runningTop;
   }
 
   update(deltaTime: number) {
-    this.bottomTimer += deltaTime;
+    this.runTimer += deltaTime;
   }
 
   playerTop(ctx: CanvasRenderingContext2D, player: Player) {
-    const image =
-      player.lookDirectionY === "up" ? this.uplookIdle : this.topIdle;
+    const isRunning = player.vel.x !== 0;
+    const image = (() => {
+      if (player.lookDirectionY === "up") return this.uplookIdle;
+      if (isRunning) return this.runningTop;
+      return this.topIdle;
+    })();
     ctx.save();
     ctx.translate(playerDistFromLeft, player.pos.y);
     if (player.lookDirectionX === "left") {
@@ -45,25 +52,41 @@ export class PlayerDrawManager {
       ctx.translate(-playerWidth, 0);
     }
     ctx.scale(scaleFactor, scaleFactor);
-    ctx.drawImage(
-      image,
-      0,
-      0,
-      image.width,
-      image.height,
-      -idleScales.distFromRight,
-      -idleScales.distFromBottom,
-      image.width,
-      image.height
-    );
+
+    if (isRunning && player.lookDirectionY !== "up") {
+      const spriteIndex =
+        Math.floor(this.runTimer / runningSpriteFrequency) % runningSpriteCount;
+      ctx.drawImage(
+        image,
+        (spriteIndex * image.width) / runningSpriteCount,
+        0,
+        image.width / runningSpriteCount,
+        image.height,
+        -idleScales.distFromRight,
+        -idleScales.distFromBottom,
+        image.width / runningSpriteCount,
+        image.height
+      );
+    } else {
+      ctx.drawImage(
+        image,
+        0,
+        0,
+        image.width,
+        image.height,
+        -idleScales.distFromRight,
+        -idleScales.distFromBottom,
+        image.width,
+        image.height
+      );
+    }
 
     ctx.restore();
   }
 
   playerBottom(ctx: CanvasRenderingContext2D, player: Player) {
-    // const image = this.bottomIdle;
-
     const isRunning = player.vel.x !== 0;
+    if (!isRunning) this.runTimer = 0;
     const image = isRunning ? this.runningBottom : this.bottomIdle;
     ctx.save();
     ctx.translate(playerDistFromLeft, player.pos.y);
@@ -75,18 +98,16 @@ export class PlayerDrawManager {
 
     if (isRunning) {
       const spriteIndex =
-        Math.floor(this.bottomTimer / runningSpriteFrequency) %
-        runningBottomSpriteCount;
-      debounceLog(spriteIndex);
+        Math.floor(this.runTimer / runningSpriteFrequency) % runningSpriteCount;
       ctx.drawImage(
         image,
-        (spriteIndex * image.width) / runningBottomSpriteCount,
+        (spriteIndex * image.width) / runningSpriteCount,
         0,
-        image.width / runningBottomSpriteCount,
+        image.width / runningSpriteCount,
         image.height,
         -idleScales.distFromRight,
         -idleScales.distFromBottom,
-        image.width / runningBottomSpriteCount,
+        image.width / runningSpriteCount,
         image.height
       );
     } else {
@@ -106,8 +127,6 @@ export class PlayerDrawManager {
   }
 
   draw(ctx: CanvasRenderingContext2D, player: Player) {
-    debounceLog(player.pos);
-
     ctx.fillStyle = "red";
     ctx.fillRect(playerDistFromLeft, player.pos.y, playerWidth, playerHeight);
 

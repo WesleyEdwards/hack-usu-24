@@ -34,7 +34,6 @@ export class Parshendi {
 
   update(deltaTime: number) {
     this.prevPos = { ...this.pos };
-    // debounceLog(this.pos)
     // update y velocity + position
     this.pos.y += (this.y_vel * deltaTime) / 1000;
     this.pos.x += (this.x_speed * this.x_direction * deltaTime) / 1000;
@@ -44,7 +43,6 @@ export class Parshendi {
     } else {
       this.y_vel += (gravity * deltaTime) / 1000;
     }
-    // debounceLog(this.y_vel)
 
     // Decide to jump
     if (this.time_since_jump + Math.random() * 2000 > 10000) {
