@@ -1,3 +1,4 @@
+import { playerDistFromLeft } from "../constants";
 import { Background } from "./Background";
 import { Fused } from "./Fused";
 import { Parshendi } from "./Parshendi";
@@ -5,8 +6,6 @@ import { Platform } from "./Platform";
 import { Player } from "./Player";
 import { Keys, addEventListeners } from "./eventListeners";
 import { getLevelInfo } from "./levelInfo";
-
-export const playerDistFromLeft = 200;
 
 export class GameState {
   player = new Player();

@@ -1,12 +1,16 @@
-import { canvasHeight, gravity } from "../constants";
-import { playerDistFromLeft } from "./GameState";
+import {
+  canvasHeight,
+  gravity,
+  playerDistFromLeft,
+  playerHeight,
+  playerJumpSpeed,
+  playerSpeedX,
+  playerWidth,
+} from "../constants";
 import { Keys } from "./eventListeners";
 import { Coor } from "./types";
 
-const playerWidth = 30;
-const playerHeight = 30;
-const playerSpeedX = 3;
-const playerJumpSpeed = 0.9;
+const timeToJumpPeak = playerJumpSpeed / gravity;
 
 const playerInitPos: Coor = {
   x: 200,
@@ -17,6 +21,7 @@ export class Player {
   pos: Coor;
   prevPos: Coor;
   vel: Coor = { x: 0, y: 0 };
+  jumpTimer = 0;
 
   constructor() {
     this.prevPos = { ...playerInitPos };
@@ -25,12 +30,16 @@ export class Player {
 
   update(deltaTime: number, keys: Keys) {
     this.prevPos = { ...this.pos };
+    this.jumpTimer += deltaTime;
     this.pos.x += this.vel.x * deltaTime;
     this.pos.y += this.vel.y * deltaTime;
 
     if (keys.jump || keys.jumpBuffer) {
-      this.vel.y = -playerJumpSpeed;
-      keys.jumpBuffer = false;
+      if (this.jumpTimer > timeToJumpPeak + 5 && this.vel.y === 0) {
+        this.vel.y = -playerJumpSpeed;
+        keys.jumpBuffer = false;
+        this.jumpTimer = 0;
+      }
     }
 
     if (keys.left) {
