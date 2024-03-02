@@ -1,5 +1,5 @@
 import { canvasHeight, canvasWidth, winXPos } from "../constants";
-import backgroundBack from "../assets/castle-back2-pixilart.png";
+import backgroundBack from "../assets/castle-back2-REVISED.png";
 import backgroundFront from "../assets/Castle_first_background.png";
 import instruction_page from "../assets/instructions-update3.png";
 import { StateOfGame } from "./GameState";
@@ -60,10 +60,15 @@ export class Background {
     }
     ctx.restore();
     // const;
-    ctx.fillStyle = "rgb(46,46,46)"
+    ctx.fillStyle = "rgb(46,46,46)";
     ctx.fillRect(offsetX + winXPos + 180, 0, 1000, canvasHeight);
     ctx.fillStyle = "#565656";
-    const gradient = ctx.createLinearGradient(offsetX+winXPos+180, 0, offsetX+winXPos+180+1000, 0);
+    const gradient = ctx.createLinearGradient(
+      offsetX + winXPos + 180,
+      0,
+      offsetX + winXPos + 180 + 1000,
+      0
+    );
 
     gradient.addColorStop(0, "#46464600");
     gradient.addColorStop(0.8, "black");
@@ -96,7 +101,7 @@ export class Background {
     if (gameState === "levelIntro") {
       let lines;
       if (level >= levelText.length) {
-        lines = ["You may have finished,","but I'm still hungry."]
+        lines = ["You may have finished,", "but I'm still hungry."];
       } else {
         lines = levelText[level];
       }
