@@ -39,6 +39,12 @@ export class FusedDrawManager {
       ctx.scale(-1, 1);
       ctx.translate(-100, 0);
     }
+
+    if (window.gravity < 0) {
+      ctx.scale(1, -1)
+      ctx.translate(0, -fusedHeight);
+    }
+
     const whichSprite = Math.floor(this.spriteTimer / 100) % idleSpriteCount;
     ctx.drawImage(
       this.idle,
