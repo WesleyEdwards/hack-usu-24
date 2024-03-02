@@ -27,7 +27,7 @@ export class Platform {
     let distance_covered = 0;
     let to_draw = this.img.width;
     while (distance_covered < this.width-1) {
-      console.log(distance_covered)
+      // console.log(distance_covered)
       if (distance_covered + this.img.width > this.width) {
         to_draw = this.width - distance_covered;
       }
