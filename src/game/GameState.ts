@@ -23,7 +23,12 @@ import {
 } from "./miscFunctions";
 import { Coor } from "./types";
 
-export type StateOfGame = "playing" | "levelIntro" | "lostLevel";
+export type StateOfGame =
+  | "playing"
+  | "levelIntro"
+  | "lostLevel"
+  | "lostGame"
+  | "wonGame";
 export type LevelMod = "gravity";
 
 type LevelNumber = 0 | 1 | 2 | 3;
@@ -70,6 +75,10 @@ export class GameState {
   }
 
   update(deltaTime: number, modifyUi: ModifyUI) {
+    if (window.stopGame === true || this.gameState === "lostGame") {
+      this.gameState = "lostGame";
+      return;
+    }
     this.levelTimer += deltaTime;
     if (this.levelTimer > levelTimerTime) {
       this.gameState = "playing";

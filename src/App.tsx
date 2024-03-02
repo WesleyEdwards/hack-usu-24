@@ -10,7 +10,7 @@ import {
   initialShootTerminateDist,
   shakeTime,
 } from "./constants";
-import heartSprite from "./assets/heart_animation_from_sketchy_website.gif"
+import heartSprite from "./assets/heart_animation_from_sketchy_website.gif";
 
 declare global {
   interface Window {
@@ -31,7 +31,9 @@ function App() {
 
   const [lives, setLives] = useState(initialLifeCount);
   const [shaking, setShaking] = useState(false);
-  const decrementLife = () => setLives((prev) => prev - 1);
+  const decrementLife = () => {
+    setLives((prev) => prev - 1);
+  };
 
   useEffect(() => {
     if (!shaking) return;
@@ -58,6 +60,13 @@ function App() {
     }, 300);
     return () => clearTimeout(cleanup);
   }, []);
+
+  useEffect(() => {
+    if (lives === 0) {
+      setPlaying(false);
+      window.stopGame = true;
+    }
+  }, [lives]);
 
   return (
     <CssVarsProvider

@@ -34,6 +34,7 @@ export class Player {
   hitTimer = 0;
   windowShakeDist = 0;
   coyoteTime = 0;
+  windowDarken = 0.99;
 
   constructor() {
     this.prevPos = { ...playerInitPos };
@@ -191,8 +192,10 @@ export class Player {
     this.hitTimer = 0;
     if (this.windowShakeDist < maxWindowShakeDist) {
       this.windowShakeDist += 1;
+      this.windowDarken -= 0.03;
       const rootStyle = document.documentElement.style;
       rootStyle.setProperty("--move-up-and-down", `${this.windowShakeDist}px`);
+      rootStyle.setProperty("--darken", `${this.windowDarken}`);
     }
   }
 }
