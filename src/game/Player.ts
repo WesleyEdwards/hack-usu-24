@@ -7,6 +7,7 @@ import {
   playerSpeedX,
   playerWidth,
 } from "../constants";
+import { Spear } from "./Spear";
 import { Keys } from "./eventListeners";
 import { debounceLog } from "./helpers";
 import { Coor } from "./types";
@@ -18,6 +19,7 @@ export class Player {
   prevPos: Coor;
   vel: Coor = { x: 0, y: 0 };
   canJump = true;
+  health = 100;
 
   get center() {
     return {x:this.pos.x+playerWidth/2, y:this.pos.y+playerHeight/2}
@@ -73,5 +75,16 @@ export class Player {
     this.pos.y = y - playerHeight;
     this.vel.y = 0;
     this.canJump = true;
+  }
+
+  checkCollideSpear(spear:Spear) {
+    if (
+      spear.center.x >= this.pos.x - 5 &&
+      spear.center.x <= this.pos.x + playerWidth + 5 &&
+      spear.center.y >= this.pos.y - 5 &&
+      spear.center.y <= this.pos.y + playerHeight + 5
+    ) {
+      // TODO: add function
+    }
   }
 }
