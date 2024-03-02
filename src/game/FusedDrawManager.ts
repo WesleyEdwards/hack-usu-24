@@ -1,6 +1,6 @@
 import fusedIdle from "../assets/fused_(idle).png";
 import throwing from "../assets/fused_throw.png";
-import { fusedHeight, fusedWidth } from "../constants";
+import { fusedHeight } from "../constants";
 import { Fused } from "./Fused";
 
 const idleScales = {

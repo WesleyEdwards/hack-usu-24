@@ -73,7 +73,7 @@ export class Smoke {
     ctx.restore();
   }
 
-  drawFront(ctx: CanvasRenderingContext2D, offsetX: number) {
+  drawFront() {
     // ctx.save();
     // ctx.translate(offsetX, 0);
     // ctx.fillStyle = "#61616146";

@@ -1,4 +1,4 @@
-import { fusedHeight, fusedWidth } from "../constants";
+import { fusedHeight } from "../constants";
 import armoredWalk from "../assets/Armored_parshendi_walk.png";
 import nonArmored from "../assets/Parshendi_walking.png";
 import { Parshendi } from "./Parshendi";

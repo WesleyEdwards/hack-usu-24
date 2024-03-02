@@ -1,5 +1,5 @@
 import "./App.css";
-import { Button, CssVarsProvider, Input, Stack } from "@mui/joy";
+import { Button, CssVarsProvider, Stack } from "@mui/joy";
 import { enterGameLoop } from "./game/main";
 import { useEffect, useState } from "react";
 import {

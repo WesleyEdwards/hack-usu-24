@@ -213,7 +213,7 @@ export class GameState {
       this.parshendi.forEach((p) => p.draw(this.ctx, this.offsetX));
       this.smoke.draw(this.ctx, this.offsetX);
       this.player.draw(this.ctx);
-      this.smoke.drawFront(this.ctx, this.offsetX);
+      // this.smoke.drawFront(this.ctx, this.offsetX);
       this.spears.forEach((s) => s.draw(this.ctx, this.offsetX));
       this.playerShoot?.draw(this.ctx, this.offsetX);
     }
