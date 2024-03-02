@@ -10,8 +10,8 @@ export class Background {
   draw(ctx: CanvasRenderingContext2D, offsetX: number) {
     ctx.save();
 
-    ctx.translate(-offsetX, 0);
-    for (let i = 0; i < canvasWidth / this.image.width; i++) {
+    ctx.translate(offsetX, 0);
+    for (let i = -1; i < 10; i++) {
       ctx.drawImage(this.image, i * this.image.width, 0);
     }
 

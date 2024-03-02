@@ -43,11 +43,13 @@ export class Player {
       }
     }
 
-    if (keys.left) {
+    if (keys.left && this.pos.x > 0) {
       this.vel.x = -playerSpeedX;
     } else if (keys.right) {
       this.vel.x = playerSpeedX;
-    } else this.vel.x = 0;
+    } else {
+      this.vel.x = 0;
+    }
 
     if (this.pos.y + playerHeight > canvasHeight) {
       this.pos.y = canvasHeight - playerHeight;
