@@ -1,6 +1,5 @@
 import { Coor } from "./types";
-import { canvasHeight, gravity } from "../constants";
-import { debounceLog } from "./helpers";
+import { canvasHeight } from "../constants";
 import { eucDistance } from "./miscFunctions";
 import { Spear } from "./Spear";
 export const parshendiWidth = 100;
@@ -43,7 +42,7 @@ export class Parshendi {
       this.pos.y = canvasHeight - parshendiHeight;
       this.y_vel = 0;
     } else {
-      this.y_vel += (gravity * deltaTime) / 1000;
+      this.y_vel += (window.gravity * deltaTime) / 1000;
     }
 
     // Decide to jump

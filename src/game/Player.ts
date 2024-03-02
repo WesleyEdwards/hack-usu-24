@@ -1,6 +1,5 @@
 import {
   canvasHeight,
-  gravity,
   maxCoyoteTime,
   maxWindowShakeDist,
   playerDistFromLeft,
@@ -84,7 +83,7 @@ export class Player {
       if (this.vel.y === 0 && this.coyoteTime < maxCoyoteTime) {
         // debounceLog("asdf");
       } else {
-        this.vel.y += (gravity * deltaTime) / 1000;
+        this.vel.y += (window.gravity * deltaTime) / 1000;
         this.canJump = false;
       }
     }

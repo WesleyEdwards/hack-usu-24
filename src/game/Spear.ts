@@ -1,5 +1,5 @@
 import { Coor } from "./types";
-import { canvasHeight, gravity } from "../constants";
+import { canvasHeight } from "../constants";
 import spearImage from "../assets/thrown_spear.png";
 import {
   createVector,
@@ -38,7 +38,7 @@ export class Spear {
   update(deltaTime: number) {
     this.prevPos = { ...this.pos };
     // handle gravity
-    this.vel.y += ((gravity / 10) * deltaTime) / 1000;
+    this.vel.y += ((window.gravity / 10) * deltaTime) / 1000;
     // debounceLog(this.pos)
     this.pos.y += (this.vel.y * deltaTime) / 1000;
     this.pos.x += (this.vel.x * deltaTime) / 1000;

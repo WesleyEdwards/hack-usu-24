@@ -5,7 +5,9 @@ import { useEffect, useState } from "react";
 import {
   canvasHeight,
   canvasWidth,
+  initialGravity,
   initialLifeCount,
+  initialShootTerminateDist,
   shakeTime,
 } from "./constants";
 
@@ -13,6 +15,8 @@ declare global {
   interface Window {
     stopGame: boolean;
     selectedWidth?: number;
+    gravity: number;
+    shootTerminateDist: number;
   }
 }
 
@@ -37,6 +41,8 @@ function App() {
   }, [shaking]);
 
   useEffect(() => {
+    window.gravity = initialGravity;
+    window.shootTerminateDist = initialShootTerminateDist;
     const canvas = document.getElementById("canvas") as HTMLCanvasElement;
     const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
     ctx.fillStyle = "black";

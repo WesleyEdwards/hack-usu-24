@@ -23,6 +23,16 @@ import {
 import { Coor } from "./types";
 
 export type StateOfGame = "playing" | "levelIntro" | "lostLevel";
+export type LevelMod = "gravity";
+
+type LevelNumber = 0 | 1 | 2 | 3;
+
+const levelMods: Record<LevelNumber, LevelMod[]> = {
+  0: ["gravity"],
+  1: ["gravity"],
+  2: ["gravity"],
+  3: ["gravity"],
+};
 
 export class GameState {
   player = new Player();
@@ -34,8 +44,9 @@ export class GameState {
   keys: Keys;
   gameState: StateOfGame = "levelIntro";
   levelTimer = 0;
-  level = 0;
+  level: LevelNumber = 0;
   playerShoot: PlayerShoot | null = null;
+  levelModification: LevelMod | null = "gravity";
 
   constructor(private ctx: CanvasRenderingContext2D) {
     this.keys = addEventListeners();
@@ -98,7 +109,11 @@ export class GameState {
 
     calculateFusedSpear(this.fused, this.player.center, this.spears, deltaTime);
     calculateFuseShootCollision(this.fused, this.playerShoot);
-    this.playerShoot?.update(deltaTime);
+    calculatePlayerEnemyCollision(this.player, this.fused, this.parshendi);
+    this.playerShoot?.update(deltaTime, this.player.center);
+    if (!this.playerShoot?.live) {
+      this.playerShoot = null;
+    }
   }
 
   draw() {

@@ -1,3 +1,4 @@
+import { eucDistance } from "./miscFunctions";
 import { Coor } from "./types";
 
 export type ShootProps = { initPos: Coor; vel: Coor };
@@ -14,7 +15,10 @@ export class PlayerShoot {
     this.vel = { ...props.vel };
   }
 
-  update(deltaTime: number) {
+  update(deltaTime: number, playerPos: Coor) {
+    if (eucDistance(this.pos, playerPos) > window.shootTerminateDist) {
+      this.live = false;
+    }
     this.prevPos = { ...this.pos };
     this.pos.y += (this.vel.y * deltaTime) / 1000;
     this.pos.x += (this.vel.x * deltaTime) / 1000;

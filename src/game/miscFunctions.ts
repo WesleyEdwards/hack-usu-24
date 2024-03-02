@@ -87,12 +87,39 @@ export function calculateFuseShootCollision(
 ) {
   if (!playerShoot) return;
   fused.forEach((f) => {
-    const hit = eucDistance(f.center, playerShoot.center) < 50;
+    const hit = eucDistance(f.center, playerShoot.center) < 100;
     if (hit) {
       f.hit();
       playerShoot.live = false;
     }
   });
+}
+
+export function calculatePlayerEnemyCollision(
+  player: Player,
+  fused: Fused[],
+  parshendi: Parshendi[]
+): "" {
+  const hitFused = fused.find((f) => {
+    const hit = eucDistance(f.center, player.center) < 100;
+    if (hit) {
+      f.hit();
+    }
+    return hit;
+  });
+  if (hitFused) {
+    modifyUi.decrementLife();
+  }
+  const hitParshendi = parshendi.find((p) => {
+    const hit = eucDistance(p.center, player.center) < 100;
+    if (hit) {
+      p.hit();
+    }
+    return hit;
+  });
+  if (hitParshendi) {
+    modifyUi.decrementLife();
+  }
 }
 
 export function eucDistance(p1: Coor, p2: Coor) {
