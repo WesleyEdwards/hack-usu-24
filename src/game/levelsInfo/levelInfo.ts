@@ -8,6 +8,7 @@ import level3 from "./level3.json";
 import level4 from "./level4.json";
 import nightLevel from "./nightLevel.json";
 import flipGravity from "./flipGravity.json";
+import slowTime from "./slowTime.json";
 
 export type Level = {
   platProps: PlatProps[];
@@ -23,6 +24,7 @@ export function getLevelInfo(level: LevelNumber) {
     3: level4,
     4: nightLevel,
     5: flipGravity,
+    6: slowTime,
   };
   if (level in levelMap) return levelMap[level];
   return { ...level1 };

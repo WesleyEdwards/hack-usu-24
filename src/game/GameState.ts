@@ -48,7 +48,7 @@ export type NightMod =
   | "timeSpeed-"
   | "soulDrain";
 
-export type LevelNumber = 0 | 1 | 2 | 3 | 4 | 5;
+export type LevelNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 const levelToNightMod: Record<LevelNumber, NightMod[]> = {
   0: ["spear+"],
@@ -57,6 +57,7 @@ const levelToNightMod: Record<LevelNumber, NightMod[]> = {
   3: ["invertGravity"],
   4: ["gravity-"],
   5: ["invertGravity"],
+  6: ["timeSpeed-"],
 };
 
 export class GameState {
