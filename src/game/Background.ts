@@ -28,7 +28,7 @@ export class Background {
   }
   draw(ctx: CanvasRenderingContext2D, offsetX: number) {
     ctx.save();
-    ctx.translate(offsetX, 0);
+    ctx.translate(offsetX * 0.8, 0);
     ctx.scale(2, 2);
     for (let i = -1; i < 10; i++) {
       ctx.drawImage(this.backgroundBack, i * this.backgroundBack.width, 0);
@@ -36,7 +36,7 @@ export class Background {
     ctx.restore();
 
     ctx.save();
-    ctx.translate(offsetX * 1.3, 0);
+    ctx.translate(offsetX, 0);
     ctx.scale(2, 2);
     for (let i = -1; i < 50; i++) {
       ctx.drawImage(this.backgroundFront, i * this.backgroundFront.width, 0);

@@ -82,7 +82,7 @@ export class Player {
 
     if (this.pos.y + playerHeight > canvasHeight + 1000) {
       this.state = "dead";
-    } else if (this.pos.y < -playerHeight - 100) {
+    } else if (this.pos.y < -playerHeight - 1000) {
       this.state = "dead";
     } else {
       if (this.vel.y === 0 && this.coyoteTime < maxCoyoteTime) {
