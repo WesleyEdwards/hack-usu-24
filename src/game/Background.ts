@@ -23,9 +23,10 @@ const levelText: string[][] = [
     ["...Then you will lose touch with reality"],
     ["Now,", "it bends to your will."],
     ["They will persecute you harder"],
-    ["Careful,","Or you'll become trapped in the moment"],
+    ["Careful,","or you'll become trapped in the moment"],
     ["But don't let the seconds", "slip through your fingers"],
-    ["Now your power consumes you"],
+    ["You've used me plenty","Don't let me lose my edge"],
+    ["I'm hungry","Maybe I'll feast upon you"],
   ];
 export class Background {
   private backgroundBack = new Image();

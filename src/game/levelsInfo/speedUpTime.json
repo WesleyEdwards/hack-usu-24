@@ -13,7 +13,7 @@
     { "initPos": { "x": 1336, "y": 650 }, "width": 100, "floor": true },
     { "initPos": { "x": 1581, "y": 650 }, "width": 880, "floor": true },
     { "initPos": { "x": 2731, "y": 650 }, "width": 1060, "floor": true },
-    { "initPos": { "x": 4116, "y": 650 }, "width": 930, "floor": true }
+    { "initPos": { "x": 4116, "y": 650 }, "width": 1930, "floor": true }
   ],
   "fusedProps": [
     { "initPos": { "x": 1185, "y": 338 } },
