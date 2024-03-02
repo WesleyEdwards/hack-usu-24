@@ -2,6 +2,7 @@
   "platProps": [
     { "initPos": { "x": 344, "y": 346 }, "width": 276, "floor": false },
     { "initPos": { "x": 359, "y": 185 }, "width": 303, "floor": false },
+    { "initPos": { "x": 1000, "y": 485 }, "width": 303, "floor": false },
     { "initPos": { "x": 672, "y": 435 }, "width": 190, "floor": false },
     { "initPos": { "x": 813, "y": 147 }, "width": 257, "floor": false },
     { "initPos": { "x": 1179, "y": 293 }, "width": 327, "floor": false },

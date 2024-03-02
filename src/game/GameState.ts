@@ -4,6 +4,7 @@ import {
   initialShootTerminateDist,
   levelQuoteTime,
   playerDistFromLeft,
+  playerWidth,
   showControlsTime,
   winXPos,
 } from "../constants";
@@ -68,7 +69,7 @@ export class GameState {
   keys: Keys;
   gameState: StateOfGame = "showControls";
   levelTimer = 0;
-  level: LevelNumber = 0;
+  level: LevelNumber = 3;
   playerShoot: PlayerShoot | null = null;
   smoke: Smoke = new Smoke();
   instructionTimer: number | null;
@@ -89,7 +90,6 @@ export class GameState {
     window.timeMultiplier = 1;
     this.levelTimer = 0;
     const level = getLevelInfo(this.level);
-    console.log(this.level, level);
     this.player = new Player();
     this.fused = level.fusedProps.map((props) => new Fused(props));
     this.parshendi = level.parshendiProps.map((props) => new Parshendi(props));
@@ -167,6 +167,25 @@ export class GameState {
     if (!this.playerShoot?.live) {
       this.playerShoot = null;
     }
+    const toAdd: Coor[] = [];
+    if (this.player.vel.x !== 0 || this.player.vel.y !== 0) {
+      if (this.player.lookDirectionX === "right") {
+        toAdd.push({
+          x: this.player.pos.x,
+          y: this.player.pos.y + playerWidth / 2,
+        });
+      } else {
+        toAdd.push({
+          x: this.player.pos.x + playerWidth,
+          y: this.player.pos.y + playerWidth / 2,
+        });
+      }
+    }
+    if (this.playerShoot) {
+      toAdd.push(this.playerShoot.center);
+    }
+
+    this.smoke.update(deltaTime, toAdd);
     if (this.player.state == "dead") {
       this.handleLoseLife(modifyUi);
       this.player.respawn();
@@ -183,7 +202,9 @@ export class GameState {
 
       this.fused.forEach((f) => f.draw(this.ctx, this.offsetX));
       this.parshendi.forEach((p) => p.draw(this.ctx, this.offsetX));
+      this.smoke.draw(this.ctx, this.offsetX);
       this.player.draw(this.ctx);
+      this.smoke.drawFront(this.ctx, this.offsetX);
       this.spears.forEach((s) => s.draw(this.ctx, this.offsetX));
       this.playerShoot?.draw(this.ctx, this.offsetX);
     }

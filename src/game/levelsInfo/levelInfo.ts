@@ -5,7 +5,6 @@ import { PlatProps } from "../Platform";
 import level1 from "./level1.json";
 import weakerGravity from "./weakerGravity.json";
 import fasterSpears from "./fasterSpears.json";
-import level4 from "./level4.json";
 import nightLevel from "./nightLevel.json";
 import flipGravity from "./flipGravity.json";
 import slowTime from "./slowTime.json";

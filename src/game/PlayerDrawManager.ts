@@ -168,8 +168,8 @@ export class PlayerDrawManager {
   }
 
   draw(ctx: CanvasRenderingContext2D, player: Player) {
-    ctx.fillStyle = "red";
-    ctx.fillRect(playerDistFromLeft, player.pos.y, playerWidth, playerHeight);
+    // ctx.fillStyle = "red";
+    // ctx.fillRect(playerDistFromLeft, player.pos.y, playerWidth, playerHeight);
     this.playerBottom(ctx, player);
     this.playerTop(ctx, player);
   }
