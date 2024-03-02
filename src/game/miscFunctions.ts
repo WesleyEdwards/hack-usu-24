@@ -35,7 +35,7 @@ export function calculateParshendiPlatCollision(
         const leftRight =
           par.pos.x < p.pos.x + p.width && par.pos.x + parshendiWidth > p.pos.x;
         const topBottom =
-          p.pos.y + playerHeight >= p.pos.y &&
+          par.pos.y + parshendiHeight >= p.pos.y &&
           par.prevPos.y + parshendiHeight <= p.pos.y;
     
         if (leftRight && topBottom) {

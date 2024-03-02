@@ -27,7 +27,7 @@ export class Player {
   }
 
   update(deltaTime: number, keys: Keys) {
-    debounceLog(this.vel)
+    // debounceLog(this.vel)
     this.prevPos = { ...this.pos };
     this.pos.x += this.vel.x * deltaTime/1000;
     this.pos.y += this.vel.y * deltaTime/1000;

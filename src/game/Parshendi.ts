@@ -27,19 +27,22 @@ export class Parshendi {
     this.prevPos = { ...this.pos };
     // debounceLog(this.pos)
     // update y velocity + position
+    this.pos.y += this.y_vel * deltaTime/1000;
+    this.pos.x += this.x_speed * this.x_direction * deltaTime/1000
     if (this.pos.y + parshendiHeight > canvasHeight) {
       this.pos.y = canvasHeight - parshendiHeight;
       this.y_vel = 0;
     } else {
-      this.y_vel += gravity*deltaTime;
+      this.y_vel += gravity*deltaTime/1000;
     }
     // debounceLog(this.y_vel)
-    this.pos.y += this.y_vel * deltaTime/1000;
 
     // Decide to jump
     if (this.time_since_jump + Math.random() * 2000 > 10000) {
+      console.log("jumping")
       this.time_since_jump = 0;
-      this.y_vel = -1000;
+      this.y_vel = -1500;
+      this.pos.y += -10;
     } else {
       this.time_since_jump += deltaTime;
     }
@@ -52,7 +55,6 @@ export class Parshendi {
       this.time_since_turn += deltaTime;
     }
 
-    this.pos.x += this.x_speed * this.x_direction * deltaTime/1000
 
   }
 
@@ -65,7 +67,9 @@ export class Parshendi {
   }
 
   setOnPlatform(y: number) {
-    this.pos.y = y - parshendiHeight;
-    this.y_vel = 0;
+    if (this.y_vel > 0) {
+      this.pos.y = y - parshendiHeight;
+      this.y_vel = 0;
+    }
   }
 }
