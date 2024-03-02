@@ -26,11 +26,11 @@ export class FusedDrawManager {
       y: fused.pos.y,
     };
 
-    ctx.save();
-    ctx.fillStyle = "red";
-    ctx.translate(pos.x, pos.y);
-    ctx.fillRect(0, 0, fusedWidth, fusedHeight);
-    ctx.restore();
+    // ctx.save();
+    // ctx.fillStyle = "red";
+    // ctx.translate(pos.x, pos.y);
+    // ctx.fillRect(0, 0, fusedWidth, fusedHeight);
+    // ctx.restore();
 
     ctx.save();
     ctx.translate(pos.x, pos.y);

@@ -4,20 +4,29 @@ import backgroundFront from "../assets/Castle_first_background.png";
 import instruction_page from "../assets/instructions-update3.png";
 import { StateOfGame } from "./GameState";
 
+// const levelText: string[][] = [
+//   ["I am a sword.", "Might as well stick to what you’re good at..."],
+//   ["Draw... me..."],
+//   ["You should attack", "You're good at that"],
+//   [
+//     "You didn’t use me much",
+//     "You could have used me.",
+//     "I’m better than a shirt.",
+//     "I’m a sword.",
+//   ],
+//   ["He’s evil"],
+//   ["You are afraid"],
+//   ["Just throw me in there", "If he’s evil, he’ll kill himself."],
+// ];
 const levelText: string[][] = [
-  ["I am a sword.", "Might as well stick to what you’re good at..."],
-  ["Draw... me..."],
-  ["You should attack", "You're good at that"],
-  [
-    "You didn’t use me much",
-    "You could have used me.",
-    "I’m better than a shirt.",
-    "I’m a sword.",
-  ],
-  ["He’s evil"],
-  ["You are afraid"],
-  ["Just throw me in there", "If he’s evil, he’ll kill himself."],
-];
+    ["You will feel the weight of your sins..."],
+    ["...Then you will lose touch with reality"],
+    ["Now,", "it bends to your will."],
+    ["They will persecute you harder"],
+    ["Careful,","Or you'll become trapped in the moment"],
+    ["But don't let the seconds", "slip through your fingers"],
+    ["Now your power consumes you"],
+  ];
 export class Background {
   private backgroundBack = new Image();
   private backgroundFront = new Image();
@@ -72,7 +81,7 @@ export class Background {
       ctx.fillText("- Nightblood", canvasWidth * 0.66, canvasHeight / 2 + 200);
     } else if (gameState === "lostLevel") {
       ctx.font = `100px Pirata One`;
-      ctx.fillText(`We need to try again!`, canvasWidth / 2, canvasHeight / 2);
+      ctx.fillText(`We need to try again.`, canvasWidth / 2, canvasHeight / 2);
     } else if (gameState === "showControls") {
       const controlImage = new Image();
       controlImage.src = instruction_page;
