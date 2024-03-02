@@ -11,7 +11,6 @@ import {
   addEventListeners,
 } from "./eventListeners";
 import { Level, getLevelInfo } from "./levelsInfo/levelInfo";
-import { debounceLog } from "./helpers";
 import {
   calculateParshendiPlatCollision,
   calculateParshendiSpear,
