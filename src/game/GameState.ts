@@ -52,7 +52,7 @@ const levelToNightMod: Record<LevelNumber, NightMod[]> = {
   0: ["spear+"],
   1: ["gravity-"],
   2: ["gravity-"],
-  3: ["spear+"], // correct
+  3: ["invertGravity"], // correct
 };
 
 export class GameState {
@@ -104,6 +104,8 @@ export class GameState {
     if (this.gameState !== "playing") {
       return;
     }
+
+    deltaTime *= window.timeMultiplier
 
     this.player.update(
       deltaTime,
@@ -238,10 +240,10 @@ export class GameState {
       window.gravity = -window.gravity;
     }
     if (mods.includes("timeSpeed+") && window.timeMultiplier < 3) {
-      window.timeMultiplier += 0.3;
+      window.timeMultiplier += 0.2;
     }
     if (mods.includes("timeSpeed-") && window.timeMultiplier > 0.25) {
-      window.timeMultiplier -= 0.5;
+      window.timeMultiplier -= 0.05;
     }
     if (mods.includes("soulDrain")) {
       this.player.takeDamage("soulDrain")
