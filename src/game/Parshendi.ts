@@ -69,6 +69,10 @@ export class Parshendi {
     ctx.save();
     ctx.fillStyle = "green";
     ctx.translate(this.pos.x + offsetX, this.pos.y);
+    if (window.gravity < 0) {
+      ctx.scale(1, -1)
+      ctx.translate(0, -parshendiHeight);
+    }
     ctx.fillRect(0, 0, parshendiWidth, parshendiHeight);
     ctx.restore();
   }
