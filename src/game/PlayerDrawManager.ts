@@ -6,120 +6,88 @@ import { playerDistFromLeft, playerHeight, playerWidth } from "../constants";
 import { Player } from "./Player";
 import { debounceLog } from "./helpers";
 
-// const idleRaw = {
-//   width: 400,
-//   height: 650,
-//   distFromLeft: 45,
-//   distFromTop: 300,
-// };
+const idleScales = {
+  width: 400,
+  height: 650,
+  distFromRight: 20,
+  distFromBottom: 265,
+};
 
 // idleScales keeps the ratio of width/height
 
-const idleScales = {
-  width: 200,
-  height: 325,
-  distFromLeft: 0,
-  distFromTop: 150,
-};
+// const idleScales = {
+//   width: 200,
+//   height: 325,
+//   distFromLeft: 33,
+//   distFromTop: 300,
+// };
 
 // 45, 400
+
+const scaleFactor = 0.65;
 export class PlayerDrawManager {
-  images = {
-    topIdle: new Image(idleScales.width, idleScales.height),
-    bottomIdle: new Image(idleScales.width, idleScales.height),
-    uplookIdle: new Image(idleScales.width, idleScales.height),
-    runningBottom: new Image(idleScales.width, idleScales.height),
-  } as const;
+  topIdle = new Image();
+  bottomIdle = new Image();
 
   constructor() {
-    this.images.topIdle.src = topIdle;
-    this.images.bottomIdle.src = bottomIdle;
-    this.images.uplookIdle.src = uplookIdle;
-    this.images.runningBottom.src = runningBottom;
+    this.topIdle.src = topIdle;
+    // this.scaleImageKeepAspectRatio(this.topIdle, 1.5);
+    this.bottomIdle.src = bottomIdle;
+    // this.scaleImageKeepAspectRatio(this.bottomIdle, 0.5);
   }
 
-  drawTop(ctx: CanvasRenderingContext2D, player: Player) {
-    const image =
-      player.lookDirectionY === "up"
-        ? this.images.uplookIdle
-        : this.images.topIdle;
-
+  playerBottom(ctx: CanvasRenderingContext2D, player: Player) {
     ctx.save();
-    ctx.translate(playerDistFromLeft, player.pos.y + 30);
+    ctx.translate(playerDistFromLeft, player.pos.y);
     if (player.lookDirectionX === "left") {
       ctx.scale(-1, 1);
       ctx.translate(-playerWidth, 0);
     }
+    ctx.scale(scaleFactor, scaleFactor);
     ctx.drawImage(
-      image,
-      -idleScales.distFromLeft,
-      -idleScales.distFromTop,
-      image.width,
-      image.height
+      this.bottomIdle,
+      0,
+      0,
+      this.bottomIdle.width,
+      this.bottomIdle.height,
+      -idleScales.distFromRight,
+      -idleScales.distFromBottom,
+      this.bottomIdle.width,
+      this.bottomIdle.height
     );
     ctx.restore();
   }
 
-  drawBottom(ctx: CanvasRenderingContext2D, player: Player) {
-    const isRunning = player.vel.x !== 0;
-    const image = isRunning
-      ? this.images.runningBottom
-      : this.images.bottomIdle;
-
+  playerTop(ctx: CanvasRenderingContext2D, player: Player) {
     ctx.save();
-    ctx.translate(playerDistFromLeft, player.pos.y + playerHeight / 2 - 10);
+    ctx.translate(playerDistFromLeft, player.pos.y);
     if (player.lookDirectionX === "left") {
       ctx.scale(-1, 1);
       ctx.translate(-playerWidth, 0);
     }
+    ctx.scale(scaleFactor, scaleFactor);
+    ctx.drawImage(
+      this.topIdle,
+      0,
+      0,
+      this.topIdle.width,
+      this.topIdle.height,
+      -idleScales.distFromRight,
+      -idleScales.distFromBottom,
+      this.topIdle.width,
+      this.topIdle.height
+    );
 
-    const runningSpriteCount = 6;
-    const whichSprite = 0;
-    if (isRunning) {
-      const dx = -idleScales.distFromLeft;
-      const dy = -idleScales.distFromTop;
-      const dWidth = idleScales.width;
-      const dHeight = idleScales.height;
-      const sx = whichSprite;
-      const sWidth = idleScales.width;
-      const sHeight = idleScales.height;
-      debounceLog(image.width);
-
-      ctx.drawImage(
-        image,
-        0, // which sprite x
-        0,
-        200,
-        325,
-        dx,
-        dy,
-        dWidth,
-        dHeight
-      );
-    } else {
-      ctx.drawImage(
-        image,
-        0, // sx
-        0, // sy
-        image.width, // sw
-        image.height, // sh
-        -idleScales.distFromLeft,
-        -idleScales.distFromTop,
-        image.width,
-        image.height
-      );
-    }
     ctx.restore();
   }
 
   draw(ctx: CanvasRenderingContext2D, player: Player) {
-    ctx.save();
-    ctx.fillStyle = "blue";
-    ctx.translate(playerDistFromLeft, player.pos.y);
-    ctx.fillRect(0, 0, playerHeight, playerWidth);
-    ctx.restore();
+    debounceLog(player.pos);
 
-    this.drawBottom(ctx, player);
-    this.drawTop(ctx, player);
+    ctx.fillStyle = "red";
+    ctx.fillRect(playerDistFromLeft, player.pos.y, playerWidth, playerHeight);
+
+    this.playerBottom(ctx, player);
+    this.playerTop(ctx, player);
   }
 }
