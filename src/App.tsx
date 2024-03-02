@@ -1,5 +1,5 @@
 import "./App.css";
-import { Button, Stack } from "@mui/joy";
+import { Button, Input, Stack } from "@mui/joy";
 import { enterGameLoop } from "./game/main";
 import { useState } from "react";
 import { canvasHeight, canvasWidth } from "./constants";
@@ -57,6 +57,13 @@ function App() {
             Stop
           </Button>
         </Stack>
+        <Input
+          sx={{ maxWidth: "400px" }}
+          type="number"
+          placeholder="Platform Width"
+          defaultValue={200}
+          onChange={(e) => (window.selectedWidth = +e.target.value)}
+        />
       </Stack>
     </>
   );

@@ -10,10 +10,11 @@ import {
   addDevClickListeners,
   addEventListeners,
 } from "./eventListeners";
+import { Level, getLevelInfo } from "./levelsInfo/levelInfo";
 import { debounceLog } from "./helpers";
-import { Level, getLevelInfo } from "./levelInfo";
 import {
-  calculateParshendiPlatCollision, calculateParshendiSpear,
+  calculateParshendiPlatCollision,
+  calculateParshendiSpear,
   calculatePlayerPlatCollision,
 } from "./miscFunctions";
 import { Coor } from "./types";
@@ -22,7 +23,7 @@ export class GameState {
   player = new Player();
   fused: Fused[];
   parshendi: Parshendi[];
-  spears: Spear[]=[];
+  spears: Spear[] = [];
   background = new Background();
   platforms: Platform[];
   keys: Keys;
@@ -62,7 +63,7 @@ export class GameState {
     this.fused.forEach((f) => f.update(deltaTime));
     this.parshendi.forEach((p) => p.update(deltaTime));
     this.spears.forEach((p) => p.update(deltaTime));
-    this.spears = this.spears.filter(function(spear) {
+    this.spears = this.spears.filter(function (spear) {
       return spear.live === true;
     });
     calculatePlayerPlatCollision(this.player, this.platforms, this.keys.down);
@@ -73,7 +74,12 @@ export class GameState {
       this.levelTimer = 0;
     }
     calculateParshendiPlatCollision(this.parshendi, this.platforms);
-    calculateParshendiSpear(this.parshendi, this.player.center, this.spears, deltaTime)
+    calculateParshendiSpear(
+      this.parshendi,
+      this.player.center,
+      this.spears,
+      deltaTime
+    );
   }
 
   draw() {
@@ -86,7 +92,7 @@ export class GameState {
       this.fused.forEach((f) => f.draw(this.ctx, this.offsetX));
       this.parshendi.forEach((p) => p.draw(this.ctx, this.offsetX));
       this.player.draw(this.ctx);
-      this.spears.forEach((s) => s.draw(this.ctx, this.offsetX))
+      this.spears.forEach((s) => s.draw(this.ctx, this.offsetX));
     }
   }
 
@@ -96,13 +102,16 @@ export class GameState {
 
   handleClick(e: MouseEvent) {
     const coors: Coor = { x: e.offsetX - this.offsetX, y: e.offsetY };
-    console.log(coors);
+    const makeFloor = e.shiftKey;
     if (e.ctrlKey) {
       this.platforms.push(
         new Platform({
-          initPos: coors,
+          initPos: {
+            x: +coors.x.toFixed(0),
+            y: makeFloor ? 670 : +coors.y.toFixed(0),
+          },
           width: window.selectedWidth ?? 200,
-          floor: e.shiftKey,
+          floor: makeFloor,
         })
       );
     }
