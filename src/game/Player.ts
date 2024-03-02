@@ -36,7 +36,7 @@ export class Player {
   coyoteTime = 0;
   windowDarken = 0.99;
   life_opacity = 0;
-  state:"live"|"dead" = "live";
+  state: "live" | "dead" = "live";
   invTime = 0;
 
   constructor() {
@@ -101,6 +101,7 @@ export class Player {
     }
     if (keys.hit && !isShooting) {
       shoot(this.shootProps);
+      this.drawManager.hitTimer = 0;
       keys.hit = false;
       this.handleShoot();
       modifyUi.setShaking(true);
@@ -110,7 +111,7 @@ export class Player {
 
     this.drawManager.update(deltaTime);
 
-    this.life_opacity -= deltaTime / 1000 * 51;
+    this.life_opacity -= (deltaTime / 1000) * 51;
     if (this.life_opacity < 0) {
       this.life_opacity = 0;
     }
@@ -215,14 +216,15 @@ export class Player {
   takeDamage(what:"spear"|"parshendi"|"fused"|"soulDrain") {
     if (this.invTime <= 0 || what == "soulDrain") {
       switch(what) {
+
         case "spear":
-          this.health -= 10
+          this.health -= 10;
           break;
         case "parshendi":
-          this.health -= 30
+          this.health -= 30;
           break;
         case "fused":
-          this.health -= 20
+          this.health -= 20;
           break;
         case "soulDrain":
           this.health -= 5
@@ -230,10 +232,10 @@ export class Player {
       }
       this.invTime = 1;
       if (this.health <= 0) {
-          this.state = "dead";
-          this.health = 0;
-        }
+        this.state = "dead";
+        this.health = 0;
       }
+    }
     this.life_opacity = 255;
   }
 
