@@ -72,7 +72,7 @@ export class GameState {
   keys: Keys;
   gameState: StateOfGame = "showControls";
   levelTimer = 0;
-  level: LevelNumber = 7;
+  level: LevelNumber = 0;
   playerShoot: PlayerShoot | null = null;
   smoke: Smoke = new Smoke();
   bgm = new Audio(BGM);
