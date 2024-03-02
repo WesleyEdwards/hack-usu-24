@@ -1,6 +1,7 @@
 import { Background } from "./Background";
 import { Fused } from "./Fused";
 import { Parshendi } from "./Parshendi";
+import { Platform } from "./Platform";
 import { Player } from "./Player";
 
 export const playerDistFromLeft = 200;
@@ -13,6 +14,7 @@ export class GameState {
   ];
   parshendi: Parshendi[] = [new Parshendi({ x: 300, y: 400 })];
   background = new Background();
+  platforms: Platform[] = [];
 
   constructor(private ctx: CanvasRenderingContext2D) {}
 
