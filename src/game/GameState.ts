@@ -51,7 +51,7 @@ export class GameState {
     this.parshendi = level.parshendiProps.map((props) => new Parshendi(props));
   }
 
-  update(deltaTime: number) {
+  update(deltaTime: number, decrementLives: () => void) {
     this.levelTimer += deltaTime;
     if (this.levelTimer > levelTimerTime) {
       this.gameState = "playing";
@@ -80,12 +80,7 @@ export class GameState {
       this.spears,
       deltaTime
     );
-    calculateFusedSpear(
-      this.fused,
-      this.player.center,
-      this.spears,
-      deltaTime
-    )
+    calculateFusedSpear(this.fused, this.player.center, this.spears, deltaTime);
   }
 
   draw() {

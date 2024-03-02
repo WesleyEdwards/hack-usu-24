@@ -1,6 +1,10 @@
 import { GameState } from "./GameState";
 
-export function enterGameLoop() {
+export function enterGameLoop({
+  decrementLives,
+}: {
+  decrementLives: () => void;
+}) {
   const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 
   const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
@@ -9,7 +13,7 @@ export function enterGameLoop() {
 
   let lastTime = 0;
   function update(deltaTime: number) {
-    gameState.update(deltaTime);
+    gameState.update(deltaTime, decrementLives);
   }
 
   function draw() {
