@@ -2,6 +2,7 @@ import "./App.css";
 import { Button, CssVarsProvider, Stack } from "@mui/joy";
 import { enterGameLoop } from "./game/main";
 import { useEffect, useState } from "react";
+import swordImage from "./assets/nightblood_redcrystal.png";
 import {
   canvasHeight,
   canvasWidth,
@@ -119,6 +120,8 @@ function App() {
                 "&:hover": {
                   backgroundColor: "#360f0f",
                 },
+                margin: 0,
+                padding: 0,
               }}
               onClick={(e) => {
                 enterGameLoop({
@@ -129,6 +132,17 @@ function App() {
                 window.stopGame = false;
                 e.stopPropagation();
               }}
+              endDecorator={
+                <img
+                  style={{
+                    padding: 0,
+                    margin: 0,
+                    width: "100px",
+                    height: "50px",
+                  }}
+                  src={swordImage}
+                ></img>
+              }
               disabled={playing}
             >
               Play
