@@ -24,7 +24,7 @@ export const initialLifeCount = 5;
 export const fusedWidth = 100;
 export const fusedHeight = 100;
 
-export const maxWindowShakeDist = 10;
+export const maxWindowShakeDist = 15;
 export const shakeTime = 300;
 
 export const showControlsTime = 5000;
