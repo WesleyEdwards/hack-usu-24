@@ -49,8 +49,9 @@ export class Parshendi {
     // Decide to jump
     if (this.time_since_jump + Math.random() * 2000 > 10000) {
       this.time_since_jump = 0;
-      this.y_vel = -1500;
-      this.pos.y += -10;
+      const direction = window.gravity > 0 ? -1 : 1
+      this.y_vel = direction * 1500;
+      this.pos.y += direction * 10;
     } else {
       this.time_since_jump += deltaTime;
     }
@@ -77,6 +78,12 @@ export class Parshendi {
       this.pos.y = y - parshendiHeight;
       this.y_vel = 0;
     }
+    if (window.gravity > 0 && this.y_vel > 0) {
+      this.pos.y = y - parshendiHeight;
+    } else if(this.y_vel < 0) {
+      this.pos.y = y
+    }
+    this.y_vel = 0;
   }
 
   shouldThrow(playerPos: Coor, deltaTime: number, spears: Spear[]) {

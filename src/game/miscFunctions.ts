@@ -1,4 +1,4 @@
-import { playerHeight, playerWidth } from "../constants";
+import { platformHeight, playerHeight, playerWidth } from "../constants";
 import { Fused } from "./Fused";
 import { Parshendi, parshendiHeight, parshendiWidth } from "./Parshendi";
 import { Platform } from "./Platform";
@@ -12,6 +12,7 @@ export function calculatePlayerPlatCollision(
   plat: Platform[],
   keyDown: boolean
 ) {
+
   plat.forEach((p) => {
     const leftRight =
       player.pos.x < p.pos.x + p.width && player.pos.x + playerWidth > p.pos.x;
@@ -23,7 +24,13 @@ export function calculatePlayerPlatCollision(
       return false;
     }
     if (leftRight && topBottom) {
-      player.setOnPlatform(p.pos.y);
+      if (window.gravity > 0) {
+        player.setOnPlatform(p.pos.y);
+      } else if(!p.floor) {
+        player.setOnPlatform(p.pos.y+platformHeight)
+      } else {
+        return false
+      }
       return true;
     }
     return false;
@@ -43,7 +50,13 @@ export function calculateParshendiPlatCollision(
         par.prevPos.y + parshendiHeight <= p.pos.y;
 
       if (leftRight && topBottom) {
-        par.setOnPlatform(p.pos.y);
+        if (window.gravity > 0) {
+          par.setOnPlatform(p.pos.y);
+        } else if(!p.floor) {
+          par.setOnPlatform(p.pos.y+platformHeight)
+        } else {
+          return false
+        }
         return true;
       }
       return false;
