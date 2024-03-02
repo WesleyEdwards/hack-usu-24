@@ -51,11 +51,21 @@ function convertMateToNight(mateLevelInfo: MateLevelInfo): NightLevelInfo {
     width: p.width,
     floor: false,
   }));
+
+  const morePlatProps = mateLevelInfo.floors.map((f) => ({
+    initPos: { x: f.x, y: 650 },
+    width: f.width,
+    floor: true,
+  }));
   const fusedProps = mateLevelInfo.packages.map((p) => ({
     initPos: { x: p.x, y: p.y },
   }));
   const parshendiProps = mateLevelInfo.opponents.grog.map((g) => ({
     initPos: g.initPos,
   }));
-  return { platProps, fusedProps, parshendiProps };
+  return {
+    platProps: [...platProps, ...morePlatProps],
+    fusedProps,
+    parshendiProps,
+  };
 }

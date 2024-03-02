@@ -67,7 +67,7 @@ export class GameState {
   keys: Keys;
   gameState: StateOfGame = "levelIntro";
   levelTimer = 0;
-  level: LevelNumber = 3;
+  level: LevelNumber = 4;
   playerShoot: PlayerShoot | null = null;
 
   constructor(private ctx: CanvasRenderingContext2D) {

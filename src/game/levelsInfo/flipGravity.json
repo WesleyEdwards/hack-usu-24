@@ -1,0 +1,34 @@
+{
+  "platProps": [
+    { "initPos": { "x": -92, "y": 42 }, "width": 1868, "floor": false },
+    { "initPos": { "x": 1999, "y": 40 }, "width": 1235, "floor": false },
+    { "initPos": { "x": 2510, "y": 250 }, "width": 100, "floor": false },
+    { "initPos": { "x": 3407, "y": 39 }, "width": 593, "floor": false },
+    { "initPos": { "x": 4143, "y": 40 }, "width": 448, "floor": false },
+    { "initPos": { "x": -107, "y": 650 }, "width": 950, "floor": true },
+    { "initPos": { "x": 1470, "y": 650 }, "width": 800, "floor": true },
+    { "initPos": { "x": 2843, "y": 650 }, "width": 930, "floor": true },
+    { "initPos": { "x": 4409, "y": 650 }, "width": 1070, "floor": true }
+  ],
+  "fusedProps": [
+    { "initPos": { "x": 837, "y": 269 } },
+    { "initPos": { "x": 851, "y": 483 } },
+    { "initPos": { "x": 1310, "y": 367 } },
+    { "initPos": { "x": 1506, "y": 482 } },
+    { "initPos": { "x": 2446, "y": 161 } },
+    { "initPos": { "x": 2471, "y": 451 } },
+    { "initPos": { "x": 2792, "y": 169 } },
+    { "initPos": { "x": 2821, "y": 396 } },
+    { "initPos": { "x": 2955, "y": 492 } },
+    { "initPos": { "x": 2962, "y": 219 } },
+    { "initPos": { "x": 3982, "y": 406 } },
+    { "initPos": { "x": 4060, "y": 155 } },
+    { "initPos": { "x": 4338, "y": 201 } }
+  ],
+  "parshendiProps": [
+    { "initPos": { "x": 686, "y": 485 } },
+    { "initPos": { "x": 2288, "y": 472 } },
+    { "initPos": { "x": 3131, "y": 477 } },
+    { "initPos": { "x": 3676, "y": 476 } }
+  ]
+}

@@ -151,3 +151,16 @@ function App() {
 }
 
 export default App;
+
+// const fontLink = document.querySelector("#font-link") as HTMLLinkElement;
+// fontLink.addEventListener("onload", () => {
+//   console.log("loaded");
+//   const canvas = document.getElementById("canvas") as HTMLCanvasElement;
+//   const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+//   ctx.fillStyle = "black";
+//   ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+//   ctx.font = "50px Pirata One";
+//   ctx.fillStyle = "#800000";
+//   ctx.textAlign = "center";
+//   ctx.fillText("Nightblood", canvasWidth / 2, canvasHeight / 2);
+// });
