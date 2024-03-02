@@ -3,6 +3,7 @@ import backgroundBack from "../assets/castle-back2-pixilart.png";
 import backgroundFront from "../assets/Castle_first_background.png";
 import instruction_page from "../assets/instructions-update3.png";
 import { StateOfGame } from "./GameState";
+import endGate from "../assets/end_gate.png";
 
 // const levelText: string[][] = [
 //   ["I am a sword.", "Might as well stick to what you’re good at..."],
@@ -19,22 +20,24 @@ import { StateOfGame } from "./GameState";
 //   ["Just throw me in there", "If he’s evil, he’ll kill himself."],
 // ];
 const levelText: string[][] = [
-    ["You will feel the weight of your sins..."],
-    ["...Then you will lose touch with reality"],
-    ["Now,", "it bends to your will."],
-    ["They will persecute you harder"],
-    ["Careful,","or you'll become trapped in the moment"],
-    ["But don't let the seconds", "slip through your fingers"],
-    ["You've used me plenty","Don't let me lose my edge"],
-    ["I'm hungry","Maybe I'll feast upon you"],
-  ];
+  ["You will feel the weight of your sins..."],
+  ["...Then you will lose touch with reality"],
+  ["Now,", "it bends to your will."],
+  ["They will persecute you harder"],
+  ["Careful,", "or you'll become trapped in the moment"],
+  ["But don't let the seconds", "slip through your fingers"],
+  ["You've used me plenty", "Don't let me lose my edge"],
+  ["I'm hungry", "Maybe I'll feast upon you"],
+];
 export class Background {
   private backgroundBack = new Image();
   private backgroundFront = new Image();
+  private endGate = new Image();
 
   constructor() {
     this.backgroundBack.src = backgroundBack;
     this.backgroundFront.src = backgroundFront;
+    this.endGate.src = endGate;
   }
   draw(ctx: CanvasRenderingContext2D, offsetX: number) {
     ctx.save();
@@ -56,8 +59,26 @@ export class Background {
       );
     }
     ctx.restore();
-    ctx.fillStyle = "#800000";
-    ctx.fillRect(offsetX + winXPos, 0, 4000, canvasHeight);
+    // const;
+
+    // ctx.fillStyle = "#464646";
+    const gradient = ctx.createLinearGradient(0, 0, 700, canvasHeight);
+
+    gradient.addColorStop(0, "#46464600");
+    gradient.addColorStop(0.5, "black");
+    // gradient.addColorStop(0, "#464646");
+
+    ctx.fillStyle = gradient;
+
+    ctx.fillRect(offsetX + winXPos + 180, 0, 600, canvasHeight);
+
+    ctx.save();
+    ctx.translate(offsetX + winXPos, 0);
+    ctx.scale(2.52, 2.52);
+    ctx.drawImage(this.endGate, 0, 0);
+    ctx.restore();
+
+    // Add the endgate image
   }
 
   dispLevelInfo(
