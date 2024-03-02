@@ -19,7 +19,8 @@ export class Parshendi {
   time_since_jump = 0;
   time_since_throw = 2;
   init_pos: Coor;
-
+  state: "alive" | "hit" = "alive";
+  
   get center(): Coor {
     return {
       x: this.pos.x + parshendiWidth / 2,
@@ -96,5 +97,9 @@ export class Parshendi {
         );
       }
     }
+  }
+
+  hit() {
+    this.state = "hit";
   }
 }
