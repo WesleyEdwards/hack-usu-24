@@ -5,7 +5,6 @@ import runningBottom from "../assets/szeth_running_(bottom).png";
 import runningTop from "../assets/szeth_running_(top).png";
 import { playerDistFromLeft, playerHeight, playerWidth } from "../constants";
 import { Player } from "./Player";
-import { debounceLog } from "./helpers";
 
 const idleScales = {
   distFromRight: 20,

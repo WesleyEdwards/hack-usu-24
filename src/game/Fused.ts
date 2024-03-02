@@ -1,14 +1,16 @@
+import { fusedHeight, fusedWidth } from "../constants";
+import { FusedDrawManager } from "./FusedDrawManager";
 import { Spear } from "./Spear";
 import { eucDistance } from "./miscFunctions";
 import { Coor } from "./types";
-const fusedWidth = 100;
-const fusedHeight = 100;
+
 const y_range = fusedHeight * 2;
 const x_range = fusedWidth / 2;
 const max_speed = 150;
 
 export type FusedProps = {
   initPos: Coor;
+  facing?: "left" | "right";
 };
 
 export class Fused {
@@ -20,12 +22,15 @@ export class Fused {
   y_direction = 1;
   trackPos = { x: 0, y: 0 };
   time_since_throw = 2;
+  drawManager = new FusedDrawManager();
+  facing: "left" | "right";
 
   get center() {
     return { x: this.pos.x + fusedWidth / 2, y: this.pos.y + fusedHeight / 2 };
   }
 
   constructor(props: FusedProps) {
+    this.facing = props.facing ?? "left";
     this.prevPos = { ...props.initPos };
     this.pos = { ...props.initPos };
 
@@ -86,14 +91,12 @@ export class Fused {
     // cap slowdown
     this.x_speed = this.x_speed > 15 ? this.x_speed : 15;
     this.y_speed = this.y_speed > 15 ? this.y_speed : 15;
+
+    this.drawManager.update(deltaTime);
   }
 
   draw(ctx: CanvasRenderingContext2D, offsetX: number) {
-    ctx.save();
-    ctx.fillStyle = "red";
-    ctx.translate(this.pos.x + offsetX, this.pos.y);
-    ctx.fillRect(0, 0, fusedWidth, fusedHeight);
-    ctx.restore();
+    this.drawManager.draw(ctx, this, offsetX);
   }
 
   shouldThrow(playerPos: Coor, deltaTime: number, spears: Spear[]) {

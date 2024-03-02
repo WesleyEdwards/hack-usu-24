@@ -3,6 +3,7 @@ export type Keys = {
   left: boolean;
   right: boolean;
   up: boolean;
+  hit: boolean;
   jump: boolean;
   jumpBuffer: boolean;
 };
@@ -13,6 +14,7 @@ export const addEventListeners = () => {
     left: false,
     right: false,
     up: false,
+    hit: false,
     jump: false,
     jumpBuffer: false,
   };
@@ -21,6 +23,7 @@ export const addEventListeners = () => {
     if (e.key === "a") keys.left = true;
     if (e.key === "d") keys.right = true;
     if (e.key === "w") keys.up = true;
+    if (e.key === "k") keys.hit = true;
     if (e.key === " ") {
       keys.jump = true;
       keys.jumpBuffer = true;

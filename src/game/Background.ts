@@ -23,7 +23,7 @@ export class Background {
   dispLevelInfo(ctx: CanvasRenderingContext2D, level: number) {
     const levelInfo = levelText.at(level) ?? levelText[0];
     const levelInfoSize = 90;
-    const levelInfoFont = "Caveat";
+    const levelInfoFont = "Pirata One";
     const levelInfoX = canvasWidth / 2 - levelInfoSize * 2;
     const levelInfoY = canvasHeight / 2 - levelInfoSize * 2;
 

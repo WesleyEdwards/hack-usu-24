@@ -14,11 +14,6 @@ declare global {
 function App() {
   const [playing, setPlaying] = useState(false);
 
-  // const { mode, setMode } = useColorScheme();
-  // useEffect(() => {
-  //   setMode("dark");
-  // }, []);
-
   const [lives, setLives] = useState(initialLifeCount);
   const decrementLives = () => setLives((prev) => prev - 1);
 
@@ -47,7 +42,7 @@ function App() {
           >
             <Button
               sx={{
-                fontFamily: "Caveat",
+                fontFamily: "Pirata One",
                 fontSize: "1.5rem",
               }}
               onClick={(e) => {
@@ -62,9 +57,9 @@ function App() {
             >
               Play
             </Button>
-            <Button
+            {/* <Button
               sx={{
-                fontFamily: "Caveat",
+                fontFamily: "Pirata One",
                 fontSize: "1.5rem",
               }}
               onClick={(e) => {
@@ -75,7 +70,7 @@ function App() {
               disabled={!playing}
             >
               Stop
-            </Button>
+            </Button> */}
           </Stack>
           <Stack direction="row" gap="1rem">
             {Array.from({ length: lives }).map((_, i) => (

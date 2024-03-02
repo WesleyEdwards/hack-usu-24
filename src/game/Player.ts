@@ -1,9 +1,12 @@
 import {
   canvasHeight,
   gravity,
+  hitCooldown,
   playerDistFromLeft,
   playerHeight,
   playerJumpSpeed,
+  playerShootDistFromPlayer,
+  playerShootSpeed,
   playerSpeedX,
   playerWidth,
 } from "../constants";
@@ -11,6 +14,7 @@ import { Spear } from "./Spear";
 import { PlayerDrawManager } from "./PlayerDrawManager";
 import { Keys } from "./eventListeners";
 import { Coor } from "./types";
+import { ShootProps } from "./PlayerShoot";
 
 const playerInitPos: Coor = { x: playerDistFromLeft, y: 200 };
 
@@ -26,13 +30,14 @@ export class Player {
   drawManager = new PlayerDrawManager();
   lookDirectionX: DirectionX = "right";
   lookDirectionY: DirectionY = "straight";
+  hitTimer = 0;
 
   constructor() {
     this.prevPos = { ...playerInitPos };
     this.pos = { ...playerInitPos };
   }
 
-  update(deltaTime: number, keys: Keys) {
+  update(deltaTime: number, keys: Keys, shoot: (props: ShootProps) => void) {
     // debounceLog(this.vel)
     this.prevPos = { ...this.pos };
     this.pos.x += (this.vel.x * deltaTime) / 1000;
@@ -73,6 +78,13 @@ export class Player {
     } else {
       this.lookDirectionY = "straight";
     }
+    if (keys.hit && this.hitTimer > hitCooldown) {
+      shoot(this.shootProps);
+      this.hitTimer = 0;
+      keys.hit = false;
+    } else {
+      this.hitTimer += deltaTime / 1000;
+    }
 
     this.drawManager.update(deltaTime);
   }
@@ -102,6 +114,57 @@ export class Player {
     return {
       x: this.pos.x + playerWidth / 2,
       y: this.pos.y + playerHeight / 2,
+    };
+  }
+
+  get hitting() {
+    return this.hitTimer < 0.2;
+  }
+
+  get shootProps(): ShootProps {
+    return {
+      initPos: (() => {
+        if (this.lookDirectionY === "up") {
+          return {
+            x: this.center.x,
+            y: this.pos.y - playerShootDistFromPlayer,
+          };
+        }
+        if (this.lookDirectionY === "down") {
+          return {
+            x: this.center.x,
+            y: this.pos.y + playerHeight + playerShootDistFromPlayer,
+          };
+        }
+        if (this.lookDirectionX === "left") {
+          return {
+            x: this.pos.x - playerShootDistFromPlayer,
+            y: this.center.y,
+          };
+        }
+        if (this.lookDirectionX === "right") {
+          return {
+            x: this.pos.x + playerWidth + playerShootDistFromPlayer,
+            y: this.center.y,
+          };
+        }
+        return { x: 0, y: 0 };
+      })(),
+      vel: (() => {
+        if (this.lookDirectionY === "up") {
+          return { x: 0, y: -playerShootSpeed };
+        }
+        if (this.lookDirectionY === "down") {
+          return { x: 0, y: playerShootSpeed };
+        }
+        if (this.lookDirectionX === "left") {
+          return { x: -playerShootSpeed, y: 0 };
+        }
+        if (this.lookDirectionX === "right") {
+          return { x: playerShootSpeed, y: 0 };
+        }
+        return { x: 0, y: 0 };
+      })(),
     };
   }
 }

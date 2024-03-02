@@ -4,6 +4,7 @@ import { Fused } from "./Fused";
 import { Parshendi } from "./Parshendi";
 import { Platform } from "./Platform";
 import { Player } from "./Player";
+import { PlayerShoot, ShootProps } from "./PlayerShoot";
 import { Spear } from "./Spear";
 import {
   Keys,
@@ -30,6 +31,7 @@ export class GameState {
   gameState: "playing" | "levelIntro" = "levelIntro";
   levelTimer = 0;
   level = 0;
+  playerShoot: PlayerShoot[] = [];
 
   constructor(private ctx: CanvasRenderingContext2D) {
     this.keys = addEventListeners();
@@ -59,13 +61,12 @@ export class GameState {
     if (this.gameState === "levelIntro") {
       return;
     }
-    this.player.update(deltaTime, this.keys);
+
+    this.player.update(deltaTime, this.keys, this.handleShoot.bind(this));
     this.fused.forEach((f) => f.update(deltaTime));
     this.parshendi.forEach((p) => p.update(deltaTime));
-    this.spears.forEach((p) => p.update(deltaTime));
-    this.spears = this.spears.filter(function (spear) {
-      return spear.live === true;
-    });
+    this.spears.forEach((s) => s.update(deltaTime));
+    this.spears = this.spears.filter((s) => s.live);
     calculatePlayerPlatCollision(this.player, this.platforms, this.keys.down);
     if (this.player.pos.x > winXPos) {
       this.level++;
@@ -81,6 +82,7 @@ export class GameState {
       deltaTime
     );
     calculateFusedSpear(this.fused, this.player.center, this.spears, deltaTime);
+    this.playerShoot.forEach((s) => s.update(deltaTime));
   }
 
   draw() {
@@ -88,17 +90,23 @@ export class GameState {
       this.background.dispLevelInfo(this.ctx, this.level);
     } else {
       this.background.draw(this.ctx, this.offsetX);
+
       this.platforms.forEach((p) => p.draw(this.ctx, this.offsetX));
 
       this.fused.forEach((f) => f.draw(this.ctx, this.offsetX));
       this.parshendi.forEach((p) => p.draw(this.ctx, this.offsetX));
       this.player.draw(this.ctx);
       this.spears.forEach((s) => s.draw(this.ctx, this.offsetX));
+      this.playerShoot.forEach((s) => s.draw(this.ctx, this.offsetX));
     }
   }
 
   get offsetX() {
     return playerDistFromLeft - this.player.pos.x;
+  }
+
+  handleShoot(props: ShootProps) {
+    this.playerShoot.push(new PlayerShoot(props));
   }
 
   handleClick(e: MouseEvent) {
