@@ -38,4 +38,8 @@ export class PlayerShoot {
 
     ctx.restore();
   }
+
+  get center() {
+    return { x: this.pos.x, y: this.pos.y };
+  }
 }

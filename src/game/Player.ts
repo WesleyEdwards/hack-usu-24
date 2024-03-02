@@ -1,7 +1,6 @@
 import {
   canvasHeight,
   gravity,
-  hitCooldown,
   maxCoyoteTime,
   maxWindowShakeDist,
   playerDistFromLeft,
@@ -46,7 +45,8 @@ export class Player {
     deltaTime: number,
     keys: Keys,
     shoot: (props: ShootProps) => void,
-    modifyUi: ModifyUI
+    modifyUi: ModifyUI,
+    isShooting: boolean
   ) {
     this.prevPos = { ...this.pos };
     this.pos.x += (this.vel.x * deltaTime) / 1000;
@@ -96,7 +96,7 @@ export class Player {
     } else {
       this.lookDirectionY = "straight";
     }
-    if (keys.hit && this.hitTimer > hitCooldown) {
+    if (keys.hit && !isShooting) {
       shoot(this.shootProps);
       keys.hit = false;
       this.handleShoot();
