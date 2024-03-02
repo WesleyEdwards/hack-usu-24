@@ -16,8 +16,8 @@
     { "initPos": { "x": 1003, "y": 578 }, "width": 100, "floor": false }
   ],
   "fusedProps": [
-    { "initPos": { "x": 1700, "y": 581 } },
-    { "initPos": { "x": 1201, "y": 514 } }
+    { "initPos": { "x": 1700, "y": 281 } },
+    { "initPos": { "x": 1201, "y": 314 } }
   ],
-  "parshendiProps": [{ "initPos": { "x": -288.16999999999894, "y": 600 } }]
+  "parshendiProps": [{ "initPos": { "x": 300, "y": 600 } }]
 }

@@ -24,12 +24,14 @@ export class Fused {
   time_since_throw = 2;
   drawManager = new FusedDrawManager();
   facing: "left" | "right";
+  init_pos: Coor;
 
   get center() {
     return { x: this.pos.x + fusedWidth / 2, y: this.pos.y + fusedHeight / 2 };
   }
 
   constructor(props: FusedProps) {
+    this.init_pos = { ...props.initPos };
     this.facing = props.facing ?? "left";
     this.prevPos = { ...props.initPos };
     this.pos = { ...props.initPos };

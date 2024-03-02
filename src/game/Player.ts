@@ -2,6 +2,7 @@ import {
   canvasHeight,
   gravity,
   hitCooldown,
+  maxCoyoteTime,
   maxWindowShakeDist,
   playerDistFromLeft,
   playerHeight,
@@ -34,6 +35,7 @@ export class Player {
   lookDirectionY: DirectionY = "straight";
   hitTimer = 0;
   windowShakeDist = 0;
+  coyoteTime = 0;
 
   constructor() {
     this.prevPos = { ...playerInitPos };
@@ -49,6 +51,7 @@ export class Player {
     this.prevPos = { ...this.pos };
     this.pos.x += (this.vel.x * deltaTime) / 1000;
     this.pos.y += (this.vel.y * deltaTime) / 1000;
+    this.coyoteTime += deltaTime;
 
     if (keys.jump && this.canJump) {
       this.canJump = false;
@@ -78,8 +81,12 @@ export class Player {
       this.vel.y = 0;
       this.canJump = true;
     } else {
-      this.vel.y += (gravity * deltaTime) / 1000;
-      this.canJump = false;
+      if (this.vel.y === 0 && this.coyoteTime < maxCoyoteTime) {
+        // debounceLog("asdf");
+      } else {
+        this.vel.y += (gravity * deltaTime) / 1000;
+        this.canJump = false;
+      }
     }
 
     if (keys.up) {
@@ -106,6 +113,7 @@ export class Player {
   }
 
   setOnPlatform(y: number) {
+    this.coyoteTime = 0;
     this.pos.y = y - playerHeight;
     this.vel.y = 0;
     this.canJump = true;

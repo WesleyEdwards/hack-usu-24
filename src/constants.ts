@@ -11,6 +11,7 @@ export const playerSpeedX = 900;
 export const playerJumpSpeed = 1500;
 export const playerShootSpeed = 2000;
 export const playerShootDistFromPlayer = 10;
+export const maxCoyoteTime = 120;
 
 export const platformHeight = 30;
 
