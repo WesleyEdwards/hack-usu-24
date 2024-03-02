@@ -27,19 +27,19 @@ export class Parshendi {
     this.prevPos = { ...this.pos };
     // debounceLog(this.pos)
     // update y velocity + position
-    this.pos.y += this.y_vel * deltaTime/1000;
-    this.pos.x += this.x_speed * this.x_direction * deltaTime/1000
+    this.pos.y += (this.y_vel * deltaTime) / 1000;
+    this.pos.x += (this.x_speed * this.x_direction * deltaTime) / 1000;
     if (this.pos.y + parshendiHeight > canvasHeight) {
       this.pos.y = canvasHeight - parshendiHeight;
       this.y_vel = 0;
     } else {
-      this.y_vel += gravity*deltaTime/1000;
+      this.y_vel += (gravity * deltaTime) / 1000;
     }
     // debounceLog(this.y_vel)
 
     // Decide to jump
     if (this.time_since_jump + Math.random() * 2000 > 10000) {
-      console.log("jumping")
+      console.log("jumping");
       this.time_since_jump = 0;
       this.y_vel = -1500;
       this.pos.y += -10;
@@ -50,12 +50,10 @@ export class Parshendi {
     // update x velocity + position
     if (this.time_since_turn + Math.random() * 2000 > 5000) {
       this.time_since_turn = 0;
-      this.x_direction = - this.x_direction;
+      this.x_direction = -this.x_direction;
     } else {
       this.time_since_turn += deltaTime;
     }
-
-
   }
 
   draw(ctx: CanvasRenderingContext2D, offsetX: number) {

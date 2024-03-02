@@ -29,14 +29,13 @@ export class Player {
   update(deltaTime: number, keys: Keys) {
     // debounceLog(this.vel)
     this.prevPos = { ...this.pos };
-    this.pos.x += this.vel.x * deltaTime/1000;
-    this.pos.y += this.vel.y * deltaTime/1000;
+    this.pos.x += (this.vel.x * deltaTime) / 1000;
+    this.pos.y += (this.vel.y * deltaTime) / 1000;
 
     if (keys.jump && this.canJump) {
-      console.log("jumping")
-      this.canJump = false
-      this.vel.y = -1500;
-      this.pos.y += -10;
+      this.canJump = false;
+      this.vel.y = -playerJumpSpeed;
+      this.pos.y -= 1;
     }
 
     if (keys.left && this.pos.x > 0) {
@@ -52,7 +51,7 @@ export class Player {
       this.vel.y = 0;
       this.canJump = true;
     } else {
-      this.vel.y += gravity * deltaTime/1000;
+      this.vel.y += (gravity * deltaTime) / 1000;
       this.canJump = false;
     }
   }

@@ -27,6 +27,10 @@ function App() {
         />
         <Stack direction="row" justifyContent="center" gap="1rem" margin="1rem">
           <Button
+            sx={{
+              fontFamily: "Caveat",
+              fontSize: "1.5rem",
+            }}
             onClick={(e) => {
               enterGameLoop();
               setPlaying(true);
@@ -38,6 +42,10 @@ function App() {
             Play
           </Button>
           <Button
+            sx={{
+              fontFamily: "Caveat",
+              fontSize: "1.5rem",
+            }}
             onClick={(e) => {
               setPlaying(false);
               window.stopGame = true;
