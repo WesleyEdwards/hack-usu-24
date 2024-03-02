@@ -70,6 +70,10 @@ export class PlayerDrawManager {
       ctx.scale(-1, 1);
       ctx.translate(-playerWidth, 0);
     }
+    if (window.gravity < 0) {
+      ctx.scale(1, -1);
+      ctx.translate(0, -playerHeight);
+    }
     ctx.scale(scaleFactor, scaleFactor);
 
     if (hitting) {
@@ -127,6 +131,10 @@ export class PlayerDrawManager {
       ctx.scale(-1, 1);
       ctx.translate(-playerWidth, 0);
     }
+    if (window.gravity < 0) {
+      ctx.scale(1, -1)
+      ctx.translate(0, -playerHeight);
+    }
     ctx.scale(scaleFactor, scaleFactor);
 
     if (isRunning) {
@@ -162,7 +170,6 @@ export class PlayerDrawManager {
   draw(ctx: CanvasRenderingContext2D, player: Player) {
     ctx.fillStyle = "red";
     ctx.fillRect(playerDistFromLeft, player.pos.y, playerWidth, playerHeight);
-
     this.playerBottom(ctx, player);
     this.playerTop(ctx, player);
   }
