@@ -48,14 +48,14 @@ export type NightMod =
 export type LevelNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 const levelToNightMod: Record<LevelNumber, NightMod[]> = {
-  0: ["spear+"],
+  0: ["gravity+"],
   1: ["gravity-"],
-  2: ["gravity-"],
-  3: ["invertGravity"],
-  4: ["gravity-"],
-  5: ["invertGravity"],
-  6: ["timeSpeed-"],
-  7: ["timeSpeed+"],
+  2: ["invertGravity"],
+  3: ["spear+"],
+  4: ["timeSpeed-"],
+  5: ["timeSpeed+"],
+  6: ["shootTermDist-"],
+  7: ["soulDrain"],
   8: [],
 };
 
@@ -69,7 +69,7 @@ export class GameState {
   keys: Keys;
   gameState: StateOfGame = "showControls";
   levelTimer = 0;
-  level: LevelNumber = 5;
+  level: LevelNumber = 1;
   playerShoot: PlayerShoot | null = null;
   smoke: Smoke = new Smoke();
   instructionTimer: number | null;
