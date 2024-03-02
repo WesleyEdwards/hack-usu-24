@@ -65,8 +65,11 @@ function App() {
             id="canvas"
             width={canvasWidth}
             height={canvasHeight}
-            className={shaking ? "move-up-and-down-rapidly" : ""}
+            className={
+              shaking ? "move-up-and-down-rapidly fade-in-shadow-box" : ""
+            }
             style={{
+              // boxShadow: shaking ? "0 0 10px 3px #800000" : "none",
               border: "2px solid black",
               borderRadius: "10px",
             }}
@@ -84,6 +87,7 @@ function App() {
                 minWidth: "200px",
                 background: "#800000",
                 color: "black",
+
                 "&:hover": {
                   backgroundColor: "#360f0f",
                 },

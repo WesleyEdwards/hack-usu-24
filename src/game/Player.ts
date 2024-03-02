@@ -46,7 +46,6 @@ export class Player {
     shoot: (props: ShootProps) => void,
     modifyUi: ModifyUI
   ) {
-    // debounceLog(this.vel)
     this.prevPos = { ...this.pos };
     this.pos.x += (this.vel.x * deltaTime) / 1000;
     this.pos.y += (this.vel.y * deltaTime) / 1000;
@@ -60,7 +59,7 @@ export class Player {
     if ((keys.left && keys.right) || (!keys.left && !keys.right)) {
       this.vel.x = 0;
     } else {
-      if (keys.left && this.pos.x > 0) {
+      if (keys.left) {
         this.vel.x = -playerSpeedX;
         this.lookDirectionX = "left";
       }
@@ -68,6 +67,10 @@ export class Player {
         this.vel.x = playerSpeedX;
         this.lookDirectionX = "right";
       }
+    }
+
+    if (this.vel.x < 0 && this.pos.x < 0) {
+      this.vel.x = 0;
     }
 
     if (this.pos.y + playerHeight > canvasHeight) {

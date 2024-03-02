@@ -1,4 +1,4 @@
-import { canvasHeight, canvasWidth } from "../constants";
+import { canvasHeight, canvasWidth, winXPos } from "../constants";
 import bricks from "../assets/grey-wall.jpg";
 
 const levelText: string[][] = [
@@ -31,13 +31,11 @@ export class Background {
 
     // ctx.drawImage(this.image, 0, 0, canvasWidth, canvasHeight);
     ctx.restore();
+    ctx.fillStyle = "#800000";
+    ctx.fillRect(offsetX + winXPos, 0, 4000, canvasHeight);
   }
 
   dispLevelInfo(ctx: CanvasRenderingContext2D, level: number) {
-    const levelInfo = levelText.at(level) ?? levelText[0];
-    const levelInfoX = canvasWidth / 2;
-    const levelInfoY = canvasHeight / 2;
-
     ctx.save();
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
@@ -46,7 +44,7 @@ export class Background {
     ctx.font = `50px Pirata One`;
     const lines = levelText[level];
     lines.forEach((line, i) => {
-      ctx.fillText(line, levelInfoX, levelInfoY + i * 50);
+      ctx.fillText(line, canvasWidth / 2, canvasHeight / 2 + i * 50);
     });
     ctx.restore();
   }

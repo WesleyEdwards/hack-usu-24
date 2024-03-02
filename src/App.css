@@ -47,6 +47,12 @@
   animation: move-up-and-down-rapidly 0.1s infinite;
 }
 
+
+
+.fade-in-shadow-box {
+  box-shadow: 0 0 20px 3px #800000;
+}
+
 .red {
   color: #800000;
 }

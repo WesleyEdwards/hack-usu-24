@@ -9,15 +9,15 @@ export const playerWidth = 85;
 export const playerHeight = 85;
 export const playerSpeedX = 900;
 export const playerJumpSpeed = 1500;
-export const playerShootSpeed = 1000;
+export const playerShootSpeed = 2000;
 export const playerShootDistFromPlayer = 10;
 
 export const platformHeight = 30;
 
 export const winXPos = 6000;
 
-// export const levelTimerTime = 1000;
-export const levelTimerTime = 3000;
+export const levelTimerTime = 1000;
+// export const levelTimerTime = 3000;
 
 export const initialLifeCount = 5;
 

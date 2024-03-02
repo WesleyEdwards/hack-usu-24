@@ -139,8 +139,8 @@ export class GameState {
         width: p.width,
         floor: p.floor,
       })),
-      fusedProps: this.fused.map((f) => ({ initPos: f.pos })),
-      parshendiProps: this.parshendi.map((p) => ({ initPos: p.pos })),
+      fusedProps: this.fused.map((f) => ({ initPos: f.initPos })),
+      parshendiProps: this.parshendi.map((p) => ({ initPos: p.init_pos })),
     };
     console.log(level);
   }

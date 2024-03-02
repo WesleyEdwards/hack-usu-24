@@ -19,6 +19,7 @@ export class Parshendi {
   time_since_turn = 0;
   time_since_jump = 0;
   time_since_throw = 2;
+  init_pos: Coor;
 
   get center(): Coor {
     return {
@@ -27,6 +28,7 @@ export class Parshendi {
     };
   }
   constructor(props: ParshendiProps) {
+    this.init_pos = { ...props.initPos };
     this.prevPos = { ...props.initPos };
     this.pos = { ...props.initPos };
     this.x_direction = Math.random() > 0.5 ? 1 : -1;
