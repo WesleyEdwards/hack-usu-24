@@ -39,7 +39,11 @@ export class Background {
     ctx.translate(offsetX, 0);
     ctx.scale(2, 2);
     for (let i = -1; i < 50; i++) {
-      ctx.drawImage(this.backgroundFront, i * this.backgroundFront.width, 0);
+      ctx.drawImage(
+        this.backgroundFront,
+        i * this.backgroundFront.width * 1.85,
+        0
+      );
     }
     ctx.restore();
     ctx.fillStyle = "#800000";

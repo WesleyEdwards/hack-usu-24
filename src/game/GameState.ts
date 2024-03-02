@@ -70,7 +70,7 @@ export class GameState {
   keys: Keys;
   gameState: StateOfGame = "showControls";
   levelTimer = 0;
-  level: LevelNumber = 3;
+  level: LevelNumber = 4;
   playerShoot: PlayerShoot | null = null;
   smoke: Smoke = new Smoke();
   instructionTimer: number | null;
