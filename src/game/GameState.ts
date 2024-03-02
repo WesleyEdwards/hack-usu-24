@@ -86,7 +86,7 @@ export class GameState {
   }
 
   handleClick(e: MouseEvent) {
-    const coors: Coor = { x: e.clientX, y: e.clientY };
+    const coors: Coor = { x: e.clientX - this.offsetX, y: e.clientY };
     if (e.ctrlKey) {
       this.platforms.push(
         new Platform({
