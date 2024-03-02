@@ -10,7 +10,6 @@ const max_speed = 150;
 
 export type FusedProps = {
   initPos: Coor;
-  facing?: "left" | "right";
 };
 
 export class Fused {
@@ -23,7 +22,7 @@ export class Fused {
   trackPos = { x: 0, y: 0 };
   time_since_throw = 2;
   drawManager = new FusedDrawManager();
-  facing: "left" | "right";
+  facing: "left" | "right" = "left";
   init_pos: Coor;
   state: "alive" | "hit" = "alive";
 
@@ -33,7 +32,6 @@ export class Fused {
 
   constructor(props: FusedProps) {
     this.init_pos = { ...props.initPos };
-    this.facing = props.facing ?? "left";
     this.prevPos = { ...props.initPos };
     this.pos = { ...props.initPos };
 

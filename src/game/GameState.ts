@@ -37,22 +37,24 @@ export type StateOfGame =
   | "lostGame"
   | "wonGame";
 
-export type NightMod = "gravity-" | 
-  "gravity+" | 
-  "shootTermDist-" | 
-  "spear+" |
-  "invertGravity" |
-  "timeSpeed+" |
-  "timeSpeed-" |
-  "soulDrain";
+export type NightMod =
+  | "gravity-"
+  | "gravity+"
+  | "shootTermDist-"
+  | "spear+"
+  | "invertGravity"
+  | "timeSpeed+"
+  | "timeSpeed-"
+  | "soulDrain";
 
-type LevelNumber = 0 | 1 | 2 | 3;
+export type LevelNumber = 0 | 1 | 2 | 3 | 4;
 
 const levelToNightMod: Record<LevelNumber, NightMod[]> = {
   0: ["spear+"],
   1: ["gravity-"],
   2: ["gravity-"],
-  3: ["invertGravity"], // correct
+  3: ["invertGravity"],
+  4: ["gravity-"],
 };
 
 export class GameState {
@@ -105,7 +107,7 @@ export class GameState {
       return;
     }
 
-    deltaTime *= window.timeMultiplier
+    deltaTime *= window.timeMultiplier;
 
     this.player.update(
       deltaTime,
@@ -246,7 +248,7 @@ export class GameState {
       window.timeMultiplier -= 0.05;
     }
     if (mods.includes("soulDrain")) {
-      this.player.takeDamage("soulDrain")
+      this.player.takeDamage("soulDrain");
     }
   }
 }

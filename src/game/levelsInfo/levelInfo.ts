@@ -1,10 +1,12 @@
 import { FusedProps } from "../Fused";
+import { LevelNumber } from "../GameState";
 import { ParshendiProps } from "../Parshendi";
 import { PlatProps } from "../Platform";
 import level1 from "./level1.json";
 import level2 from "./level2.json";
 import level3 from "./level3.json";
 import level4 from "./level4.json";
+import nightLevel from "./nightLevel.json";
 
 export type Level = {
   platProps: PlatProps[];
@@ -12,16 +14,13 @@ export type Level = {
   parshendiProps: ParshendiProps[];
 };
 
-export function getLevelInfo(level: number) {
-  console.log(level);
-  if (level === 0) {
-    return { ...level1 };
-  }
-  if (level === 1) {
-    return { ...level2 };
-  }
-  if (level === 2) {
-    return { ...level3 };
-  }
-  return { ...level4 };
+export function getLevelInfo(level: LevelNumber) {
+  const levelMap: Record<LevelNumber, Level> = {
+    0: level1,
+    1: level2,
+    2: level3,
+    3: level4,
+    4: nightLevel,
+  };
+  return { ...(levelMap[level] ?? level1) };
 }
