@@ -38,6 +38,6 @@ export const addDevClickListeners = (
 ) => {
   window.addEventListener("mousedown", click);
   window.addEventListener("keydown", (e) => {
-    if (e.key === "p") consoleLog();
+    if (e.key === "Enter") consoleLog();
   });
 };

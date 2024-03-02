@@ -11,8 +11,6 @@ import { Keys } from "./eventListeners";
 import { debounceLog } from "./helpers";
 import { Coor } from "./types";
 
-const timeToJumpPeak = playerJumpSpeed / gravity;
-
 const playerInitPos: Coor = { x: playerDistFromLeft, y: 200 };
 
 export class Player {
@@ -38,12 +36,15 @@ export class Player {
       this.pos.y -= 1;
     }
 
-    if (keys.left && this.pos.x > 0) {
-      this.vel.x = -playerSpeedX;
-    } else if (keys.right) {
-      this.vel.x = playerSpeedX;
-    } else {
+    if ((keys.left && keys.right) || (!keys.left && !keys.right)) {
       this.vel.x = 0;
+    } else {
+      if (keys.left && this.pos.x > 0) {
+        this.vel.x = -playerSpeedX;
+      }
+      if (keys.right) {
+        this.vel.x = playerSpeedX;
+      }
     }
 
     if (this.pos.y + playerHeight > canvasHeight) {
