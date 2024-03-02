@@ -13,7 +13,7 @@ import { Coor } from "./types";
 
 const timeToJumpPeak = playerJumpSpeed / gravity;
 
-const playerInitPos: Coor = { x: 200, y: 200 };
+const playerInitPos: Coor = { x: playerDistFromLeft, y: 200 };
 
 export class Player {
   pos: Coor;
