@@ -14,12 +14,15 @@ import {
 } from "./eventListeners";
 import { Level, getLevelInfo } from "./levelsInfo/levelInfo";
 import {
+  calculateFuseShootCollision,
   calculateFusedSpear,
   calculateParshendiPlatCollision,
   calculateParshendiSpear,
   calculatePlayerPlatCollision,
 } from "./miscFunctions";
 import { Coor } from "./types";
+
+export type StateOfGame = "playing" | "levelIntro" | "lostLevel";
 
 export class GameState {
   player = new Player();
@@ -29,10 +32,10 @@ export class GameState {
   background = new Background();
   platforms: Platform[];
   keys: Keys;
-  gameState: "playing" | "levelIntro" = "levelIntro";
+  gameState: StateOfGame = "levelIntro";
   levelTimer = 0;
-  level = 3;
-  playerShoot: PlayerShoot[] = [];
+  level = 0;
+  playerShoot: PlayerShoot | null = null;
 
   constructor(private ctx: CanvasRenderingContext2D) {
     this.keys = addEventListeners();
@@ -59,7 +62,7 @@ export class GameState {
     if (this.levelTimer > levelTimerTime) {
       this.gameState = "playing";
     }
-    if (this.gameState === "levelIntro") {
+    if (this.gameState !== "playing") {
       return;
     }
 
@@ -67,9 +70,11 @@ export class GameState {
       deltaTime,
       this.keys,
       this.handleShoot.bind(this),
-      modifyUi
+      modifyUi,
+      !!this.playerShoot
     );
     this.fused.forEach((f) => f.update(deltaTime, this.player.pos.x));
+    this.fused = this.fused.filter((f) => f.state !== "hit");
     this.parshendi.forEach((p) => p.update(deltaTime));
     this.spears.forEach((s) => s.update(deltaTime));
     this.spears = this.spears.filter((s) => s.live);
@@ -81,19 +86,24 @@ export class GameState {
       this.levelTimer = 0;
     }
     calculateParshendiPlatCollision(this.parshendi, this.platforms);
-    calculateParshendiSpear(
+    const hitPlayer = calculateParshendiSpear(
       this.parshendi,
       this.player.center,
       this.spears,
       deltaTime
     );
+    if (hitPlayer) {
+      this.handleLoseLife(modifyUi);
+    }
+
     calculateFusedSpear(this.fused, this.player.center, this.spears, deltaTime);
-    this.playerShoot.forEach((s) => s.update(deltaTime));
+    calculateFuseShootCollision(this.fused, this.playerShoot);
+    this.playerShoot?.update(deltaTime);
   }
 
   draw() {
-    if (this.gameState === "levelIntro") {
-      this.background.dispLevelInfo(this.ctx, this.level);
+    if (this.gameState !== "playing") {
+      this.background.dispLevelInfo(this.ctx, this.level, this.gameState);
     } else {
       this.background.draw(this.ctx, this.offsetX);
 
@@ -103,8 +113,15 @@ export class GameState {
       this.parshendi.forEach((p) => p.draw(this.ctx, this.offsetX));
       this.player.draw(this.ctx);
       this.spears.forEach((s) => s.draw(this.ctx, this.offsetX));
-      this.playerShoot.forEach((s) => s.draw(this.ctx, this.offsetX));
+      this.playerShoot?.draw(this.ctx, this.offsetX);
     }
+  }
+
+  handleLoseLife(modifyUi: ModifyUI) {
+    modifyUi.decrementLife();
+    this.reset();
+    this.gameState = "lostLevel";
+    this.levelTimer = 0;
   }
 
   get offsetX() {
@@ -112,7 +129,7 @@ export class GameState {
   }
 
   handleShoot(props: ShootProps) {
-    this.playerShoot.push(new PlayerShoot(props));
+    this.playerShoot = new PlayerShoot(props);
   }
 
   handleClick(e: MouseEvent) {

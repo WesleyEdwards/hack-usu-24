@@ -1,6 +1,6 @@
 import { Coor } from "./types";
 import { canvasHeight, gravity } from "../constants";
-import { debounceLog } from "./helpers";
+import spearImage from "../assets/thrown_spear.png";
 import {
   createVector,
   multiplyVectorConstant,
@@ -20,6 +20,7 @@ export class Spear {
   prevPos: Coor;
   vel: Coor;
   live = true;
+  img = new Image();
 
   get center(): Coor {
     return { x: this.pos.x + spearWidth / 2, y: this.pos.y + spearWidth / 2 };
@@ -31,6 +32,7 @@ export class Spear {
       normalizeVector(createVector(this.pos, props.dest)),
       spearSpeed
     );
+    this.img.src = spearImage;
   }
 
   update(deltaTime: number) {
@@ -52,9 +54,16 @@ export class Spear {
     ctx.save();
     ctx.translate(this.center.x + offsetX, this.center.y);
     ctx.rotate(Math.atan2(this.vel.y, this.vel.x));
-    ctx.fillStyle = "yellow";
-    // ctx.translate(this.pos.x + offsetX, this.pos.y);
-    ctx.fillRect(0, 0, spearWidth, spearHeight);
+    // ctx.fillStyle = "yellow";
+    // ctx.fillRect(0, 0, spearWidth, spearHeight);
+    ctx.scale(4, 4);
+    ctx.drawImage(
+      this.img,
+      -spearWidth / 2,
+      -spearHeight / 2,
+      spearWidth,
+      spearHeight
+    );
     ctx.restore();
   }
 }

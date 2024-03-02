@@ -1,5 +1,6 @@
 import { canvasHeight, canvasWidth, winXPos } from "../constants";
 import bricks from "../assets/grey-wall.jpg";
+import { StateOfGame } from "./GameState";
 
 const levelText: string[][] = [
   ["I am a sword.", "Might as well stick to what you’re good at..."],
@@ -35,17 +36,30 @@ export class Background {
     ctx.fillRect(offsetX + winXPos, 0, 4000, canvasHeight);
   }
 
-  dispLevelInfo(ctx: CanvasRenderingContext2D, level: number) {
+  dispLevelInfo(
+    ctx: CanvasRenderingContext2D,
+    level: number,
+    gameState: StateOfGame
+  ) {
     ctx.save();
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
     ctx.textAlign = "center";
     ctx.fillStyle = "#800000";
     ctx.font = `50px Pirata One`;
-    const lines = levelText[level];
-    lines.forEach((line, i) => {
-      ctx.fillText(line, canvasWidth / 2, canvasHeight / 2 + i * 50);
-    });
+    if (gameState === "levelIntro") {
+      const lines = levelText[level];
+      lines.forEach((line, i) => {
+        ctx.fillText(line, canvasWidth / 2, canvasHeight / 2 + i * 50);
+      });
+
+      ctx.font = `30px Pirata One`;
+      ctx.textAlign;
+      ctx.fillText("- Nightblood", canvasWidth * 0.66, canvasHeight / 2 + 200);
+    } else {
+      ctx.font = `100px Pirata One`;
+      ctx.fillText(`We need to try again`, canvasWidth / 2, canvasHeight / 2);
+    }
     ctx.restore();
   }
 }

@@ -25,6 +25,7 @@ export class Fused {
   drawManager = new FusedDrawManager();
   facing: "left" | "right";
   init_pos: Coor;
+  state: "alive" | "hit" = "alive";
 
   get center() {
     return { x: this.pos.x + fusedWidth / 2, y: this.pos.y + fusedHeight / 2 };
@@ -116,5 +117,9 @@ export class Fused {
         spears.push(new Spear({ initPos: this.center, dest: playerPos }));
       }
     }
+  }
+
+  hit() {
+    this.state = "hit";
   }
 }
