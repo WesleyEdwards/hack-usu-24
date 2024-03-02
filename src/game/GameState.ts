@@ -28,7 +28,7 @@ import {
   calculatePlayerPlatCollision,
   playSoundEffect,
 } from "./miscFunctions";
-import nextLevelSFX from "../assets/sound/nextLevel.ogg"
+import nextLevelSFX from "../assets/sound/nextLevel.ogg";
 export type StateOfGame =
   | "showControls"
   | "playing"
@@ -70,7 +70,7 @@ export class GameState {
   keys: Keys;
   gameState: StateOfGame = "showControls";
   levelTimer = 0;
-  level: LevelNumber = 4;
+  level: LevelNumber = 0;
   playerShoot: PlayerShoot | null = null;
   smoke: Smoke = new Smoke();
   instructionTimer: number | null;
