@@ -1,4 +1,4 @@
-import { canvasHeight, canvasWidth } from "../App";
+import { canvasHeight, canvasWidth } from "../constants";
 
 export class Background {
   draw(ctx: CanvasRenderingContext2D) {

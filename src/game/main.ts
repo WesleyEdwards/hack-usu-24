@@ -1,8 +1,6 @@
 import { GameState } from "./GameState";
 
 export function enterGameLoop() {
-  console.log("enterGameLoop");
-
   const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 
   const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
@@ -15,11 +13,11 @@ export function enterGameLoop() {
   }
 
   function draw() {
-    console.log("draw");
     gameState.draw();
   }
 
   function gameLoop(timeStamp: number) {
+    if (window.stopGame) return;
     const deltaTime = timeStamp - lastTime;
     lastTime = timeStamp;
     update(deltaTime);
