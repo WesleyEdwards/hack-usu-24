@@ -94,7 +94,12 @@ export class Background {
     ctx.fillStyle = "#800000";
     ctx.font = `50px Pirata One`;
     if (gameState === "levelIntro") {
-      const lines = levelText[level];
+      let lines;
+      if (level >= levelText.length) {
+        lines = ["You may have finished,","but I'm still hungry."]
+      } else {
+        lines = levelText[level];
+      }
       lines.forEach((line, i) => {
         ctx.fillText(line, canvasWidth / 2, canvasHeight / 2 + i * 50);
       });

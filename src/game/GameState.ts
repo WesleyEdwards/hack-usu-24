@@ -72,7 +72,7 @@ export class GameState {
   keys: Keys;
   gameState: StateOfGame = "showControls";
   levelTimer = 0;
-  level: LevelNumber = 0;
+  level: LevelNumber = 7;
   playerShoot: PlayerShoot | null = null;
   smoke: Smoke = new Smoke();
   bgm = new Audio(BGM);
@@ -118,7 +118,9 @@ export class GameState {
       this.gameState = "lostGame";
       return;
     }
-    this.levelTimer += deltaTime;
+    if (this.level < 8) {
+      this.levelTimer += deltaTime;
+    }
     if (this.levelTimer > levelQuoteTime) {
       this.gameState = "playing";
       this.bgm.play();
