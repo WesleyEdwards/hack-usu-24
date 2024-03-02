@@ -38,13 +38,3 @@ export const addEventListeners = () => {
   });
   return keys;
 };
-
-export const addDevClickListeners = (
-  click: (coors: MouseEvent) => void,
-  consoleLog: () => void
-) => {
-  window.addEventListener("mousedown", click);
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") consoleLog();
-  });
-};

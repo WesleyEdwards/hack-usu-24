@@ -88,7 +88,6 @@ function App() {
               shaking ? "move-up-and-down-rapidly fade-in-shadow-box" : ""
             }
             style={{
-              // boxShadow: shaking ? "0 0 10px 3px #800000" : "none",
               border: "2px solid black",
               borderRadius: "10px",
             }}
@@ -137,13 +136,6 @@ function App() {
             <div style={{ width: "24rem" }}></div>
           </Stack>
           <Stack direction="row" gap="1rem"></Stack>
-          <Input
-            sx={{ maxWidth: "400px" }}
-            type="number"
-            placeholder="Platform Width"
-            defaultValue={200}
-            onChange={(e) => (window.selectedWidth = +e.target.value)}
-          />
         </Stack>
       </>
     </CssVarsProvider>
@@ -151,16 +143,3 @@ function App() {
 }
 
 export default App;
-
-// const fontLink = document.querySelector("#font-link") as HTMLLinkElement;
-// fontLink.addEventListener("onload", () => {
-//   console.log("loaded");
-//   const canvas = document.getElementById("canvas") as HTMLCanvasElement;
-//   const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-//   ctx.fillStyle = "black";
-//   ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-//   ctx.font = "50px Pirata One";
-//   ctx.fillStyle = "#800000";
-//   ctx.textAlign = "center";
-//   ctx.fillText("Nightblood", canvasWidth / 2, canvasHeight / 2);
-// });

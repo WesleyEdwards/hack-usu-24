@@ -27,6 +27,7 @@ export const fusedHeight = 100;
 export const maxWindowShakeDist = 10;
 export const shakeTime = 300;
 
+export const showControlsTime = 600000;
 
 // To be restored
 export const initialGravity = 5000;

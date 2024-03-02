@@ -4,6 +4,7 @@ import {
   initialShootTerminateDist,
   levelTimerTime,
   playerDistFromLeft,
+  showControlsTime,
   winXPos,
 } from "../constants";
 import { Background } from "./Background";
@@ -14,12 +15,8 @@ import { Player } from "./Player";
 import { PlayerShoot, ShootProps } from "./PlayerShoot";
 import { Smoke } from "./Smoke";
 import { Spear } from "./Spear";
-import {
-  Keys,
-  addDevClickListeners,
-  addEventListeners,
-} from "./eventListeners";
-import { Level, getLevelInfo } from "./levelsInfo/levelInfo";
+import { Keys, addEventListeners } from "./eventListeners";
+import { getLevelInfo } from "./levelsInfo/levelInfo";
 import {
   calculateFuseShootCollision,
   calculateFusedSpear,
@@ -29,9 +26,9 @@ import {
   calculatePlayerEnemyCollision,
   calculatePlayerPlatCollision,
 } from "./miscFunctions";
-import { Coor } from "./types";
 
 export type StateOfGame =
+  | "showControls"
   | "playing"
   | "levelIntro"
   | "lostLevel"
@@ -70,11 +67,12 @@ export class GameState {
   background = new Background();
   platforms: Platform[];
   keys: Keys;
-  gameState: StateOfGame = "levelIntro";
+  gameState: StateOfGame = "showControls";
   levelTimer = 0;
   level: LevelNumber = 5;
   playerShoot: PlayerShoot | null = null;
   smoke: Smoke = new Smoke();
+  instructionTimer: number | null;
 
   constructor(private ctx: CanvasRenderingContext2D) {
     this.keys = addEventListeners();
@@ -82,10 +80,7 @@ export class GameState {
     this.platforms = level.platProps.map((props) => new Platform(props));
     this.fused = level.fusedProps.map((props) => new Fused(props));
     this.parshendi = level.parshendiProps.map((props) => new Parshendi(props));
-    addDevClickListeners(
-      this.handleClick.bind(this),
-      this.consoleLogLevel.bind(this)
-    );
+    this.instructionTimer = 0;
   }
 
   reset() {
@@ -101,6 +96,15 @@ export class GameState {
   }
 
   update(deltaTime: number, modifyUi: ModifyUI) {
+    if (this.instructionTimer !== null) {
+      this.gameState = "showControls";
+      this.instructionTimer += deltaTime;
+      if (this.instructionTimer > showControlsTime) {
+        this.gameState = "playing";
+        this.instructionTimer = null;
+      }
+      return;
+    }
     if (window.stopGame === true || this.gameState === "lostGame") {
       this.gameState = "lostGame";
       return;
@@ -198,36 +202,6 @@ export class GameState {
   handleShoot(props: ShootProps) {
     this.playerShoot = new PlayerShoot(props);
     this.handleNightMod();
-  }
-
-  handleClick(e: MouseEvent) {
-    const coors: Coor = { x: e.offsetX - this.offsetX, y: e.offsetY };
-    const makeFloor = e.shiftKey;
-    if (e.ctrlKey) {
-      this.platforms.push(
-        new Platform({
-          initPos: {
-            x: +coors.x.toFixed(0),
-            y: makeFloor ? 650 : +coors.y.toFixed(0),
-          },
-          width: window.selectedWidth ?? 200,
-          floor: makeFloor,
-        })
-      );
-    }
-  }
-
-  consoleLogLevel() {
-    const level: Level = {
-      platProps: this.platforms.map((p) => ({
-        initPos: p.pos,
-        width: p.width,
-        floor: p.floor,
-      })),
-      fusedProps: this.fused.map((f) => ({ initPos: f.init_pos })),
-      parshendiProps: this.parshendi.map((p) => ({ initPos: p.init_pos })),
-    };
-    console.log(level);
   }
 
   handleNightMod() {
