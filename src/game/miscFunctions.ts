@@ -99,27 +99,14 @@ export function calculatePlayerEnemyCollision(
   player: Player,
   fused: Fused[],
   parshendi: Parshendi[]
-): "" {
-  const hitFused = fused.find((f) => {
-    const hit = eucDistance(f.center, player.center) < 100;
-    if (hit) {
-      f.hit();
-    }
-    return hit;
-  });
-  if (hitFused) {
-    modifyUi.decrementLife();
-  }
-  const hitParshendi = parshendi.find((p) => {
-    const hit = eucDistance(p.center, player.center) < 100;
-    if (hit) {
-      p.hit();
-    }
-    return hit;
-  });
-  if (hitParshendi) {
-    modifyUi.decrementLife();
-  }
+): boolean {
+  const hitFused = fused.find(
+    (f) => eucDistance(f.center, player.center) < 100
+  );
+  const hitParshendi = parshendi.find(
+    (p) => eucDistance(p.center, player.center) < 100
+  );
+  return !!hitFused || !!hitParshendi;
 }
 
 export function eucDistance(p1: Coor, p2: Coor) {

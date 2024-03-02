@@ -18,6 +18,7 @@ import {
   calculateFusedSpear,
   calculateParshendiPlatCollision,
   calculateParshendiSpear,
+  calculatePlayerEnemyCollision,
   calculatePlayerPlatCollision,
 } from "./miscFunctions";
 import { Coor } from "./types";
@@ -109,7 +110,15 @@ export class GameState {
 
     calculateFusedSpear(this.fused, this.player.center, this.spears, deltaTime);
     calculateFuseShootCollision(this.fused, this.playerShoot);
-    calculatePlayerEnemyCollision(this.player, this.fused, this.parshendi);
+    const hit = calculatePlayerEnemyCollision(
+      this.player,
+      this.fused,
+      this.parshendi
+    );
+
+    if (hit) {
+      this.handleLoseLife(modifyUi);
+    }
     this.playerShoot?.update(deltaTime, this.player.center);
     if (!this.playerShoot?.live) {
       this.playerShoot = null;
