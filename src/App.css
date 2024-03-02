@@ -18,21 +18,6 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
 .card {
   padding: 2em;
 }
@@ -43,4 +28,21 @@
 
 .trash {
   color: #515151
+}
+
+
+@keyframes move-up-and-down-rapidly {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(var(--move-up-and-down));
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.move-up-and-down-rapidly {
+  animation: move-up-and-down-rapidly 0.1s infinite;
 }

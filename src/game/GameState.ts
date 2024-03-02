@@ -1,3 +1,4 @@
+import { ModifyUI } from "../App";
 import { levelTimerTime, playerDistFromLeft, winXPos } from "../constants";
 import { Background } from "./Background";
 import { Fused } from "./Fused";
@@ -53,7 +54,7 @@ export class GameState {
     this.parshendi = level.parshendiProps.map((props) => new Parshendi(props));
   }
 
-  update(deltaTime: number, decrementLives: () => void) {
+  update(deltaTime: number, modifyUi: ModifyUI) {
     this.levelTimer += deltaTime;
     if (this.levelTimer > levelTimerTime) {
       this.gameState = "playing";
@@ -62,7 +63,12 @@ export class GameState {
       return;
     }
 
-    this.player.update(deltaTime, this.keys, this.handleShoot.bind(this));
+    this.player.update(
+      deltaTime,
+      this.keys,
+      this.handleShoot.bind(this),
+      modifyUi
+    );
     this.fused.forEach((f) => f.update(deltaTime));
     this.parshendi.forEach((p) => p.update(deltaTime));
     this.spears.forEach((s) => s.update(deltaTime));

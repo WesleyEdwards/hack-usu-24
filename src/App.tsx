@@ -1,8 +1,13 @@
 import "./App.css";
 import { Button, CssVarsProvider, Input, Stack } from "@mui/joy";
 import { enterGameLoop } from "./game/main";
-import { useState } from "react";
-import { canvasHeight, canvasWidth, initialLifeCount } from "./constants";
+import { useEffect, useState } from "react";
+import {
+  canvasHeight,
+  canvasWidth,
+  initialLifeCount,
+  shakeTime,
+} from "./constants";
 
 declare global {
   interface Window {
@@ -11,11 +16,25 @@ declare global {
   }
 }
 
+export type ModifyUI = {
+  setShaking: (shaking: boolean) => void;
+  decrementLife: () => void;
+};
+
 function App() {
   const [playing, setPlaying] = useState(false);
 
   const [lives, setLives] = useState(initialLifeCount);
-  const decrementLives = () => setLives((prev) => prev - 1);
+  const [shaking, setShaking] = useState(false);
+  const decrementLife = () => setLives((prev) => prev - 1);
+
+  useEffect(() => {
+    if (!shaking) return;
+    const cleanup = setTimeout(() => {
+      setShaking(false);
+    }, shakeTime);
+    return () => clearTimeout(cleanup);
+  }, [shaking]);
 
   return (
     <CssVarsProvider
@@ -29,6 +48,7 @@ function App() {
             id="canvas"
             width={canvasWidth}
             height={canvasHeight}
+            className={shaking ? "move-up-and-down-rapidly" : ""}
             style={{
               border: "2px solid black",
               borderRadius: "10px",
@@ -47,7 +67,8 @@ function App() {
               }}
               onClick={(e) => {
                 enterGameLoop({
-                  decrementLives,
+                  decrementLife,
+                  setShaking,
                 });
                 setPlaying(true);
                 window.stopGame = false;

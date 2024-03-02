@@ -1,10 +1,7 @@
+import { ModifyUI } from "../App";
 import { GameState } from "./GameState";
 
-export function enterGameLoop({
-  decrementLives,
-}: {
-  decrementLives: () => void;
-}) {
+export function enterGameLoop(modifyUi: ModifyUI) {
   const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 
   const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
@@ -13,7 +10,7 @@ export function enterGameLoop({
 
   let lastTime = 0;
   function update(deltaTime: number) {
-    gameState.update(deltaTime, decrementLives);
+    gameState.update(deltaTime, modifyUi);
   }
 
   function draw() {

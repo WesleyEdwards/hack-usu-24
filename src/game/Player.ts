@@ -2,6 +2,7 @@ import {
   canvasHeight,
   gravity,
   hitCooldown,
+  maxWindowShakeDist,
   playerDistFromLeft,
   playerHeight,
   playerJumpSpeed,
@@ -15,6 +16,7 @@ import { PlayerDrawManager } from "./PlayerDrawManager";
 import { Keys } from "./eventListeners";
 import { Coor } from "./types";
 import { ShootProps } from "./PlayerShoot";
+import { ModifyUI } from "../App";
 
 const playerInitPos: Coor = { x: playerDistFromLeft, y: 200 };
 
@@ -31,13 +33,19 @@ export class Player {
   lookDirectionX: DirectionX = "right";
   lookDirectionY: DirectionY = "straight";
   hitTimer = 0;
+  windowShakeDist = 0;
 
   constructor() {
     this.prevPos = { ...playerInitPos };
     this.pos = { ...playerInitPos };
   }
 
-  update(deltaTime: number, keys: Keys, shoot: (props: ShootProps) => void) {
+  update(
+    deltaTime: number,
+    keys: Keys,
+    shoot: (props: ShootProps) => void,
+    modifyUi: ModifyUI
+  ) {
     // debounceLog(this.vel)
     this.prevPos = { ...this.pos };
     this.pos.x += (this.vel.x * deltaTime) / 1000;
@@ -80,8 +88,9 @@ export class Player {
     }
     if (keys.hit && this.hitTimer > hitCooldown) {
       shoot(this.shootProps);
-      this.hitTimer = 0;
       keys.hit = false;
+      this.handleShoot();
+      modifyUi.setShaking(true);
     } else {
       this.hitTimer += deltaTime / 1000;
     }
@@ -166,5 +175,14 @@ export class Player {
         return { x: 0, y: 0 };
       })(),
     };
+  }
+
+  handleShoot() {
+    this.hitTimer = 0;
+    if (this.windowShakeDist < maxWindowShakeDist) {
+      this.windowShakeDist += 1;
+      const rootStyle = document.documentElement.style;
+      rootStyle.setProperty("--move-up-and-down", `${this.windowShakeDist}px`);
+    }
   }
 }
