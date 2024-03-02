@@ -1,4 +1,4 @@
-import { playerDistFromLeft, playerHeight, playerWidth } from "../constants";
+import { playerDistFromLeft } from "../constants";
 import { Background } from "./Background";
 import { Fused } from "./Fused";
 import { Parshendi } from "./Parshendi";
@@ -6,29 +6,7 @@ import { Platform } from "./Platform";
 import { Player } from "./Player";
 import { Keys, addEventListeners } from "./eventListeners";
 import { getLevelInfo } from "./levelInfo";
-
-function calculatePlayerPlatCollision(
-  player: Player,
-  plat: Platform[],
-  keyDown: boolean
-) {
-  plat.forEach((p) => {
-    const leftRight =
-      player.pos.x < p.pos.x + p.width && player.pos.x + playerWidth > p.pos.x;
-    const topBottom =
-      player.pos.y + playerHeight >= p.pos.y &&
-      player.prevPos.y + playerHeight <= p.pos.y;
-
-    if (!p.floor && keyDown) {
-      return false;
-    }
-    if (leftRight && topBottom) {
-      player.setOnPlatform(p.pos.y);
-      return true;
-    }
-    return false;
-  });
-}
+import { calculatePlayerPlatCollision } from "./miscFunctions";
 
 export class GameState {
   player = new Player();
