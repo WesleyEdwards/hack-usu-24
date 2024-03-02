@@ -5,6 +5,7 @@ import runningBottom from "../assets/szeth_running_(bottom).png";
 import runningTop from "../assets/szeth_running_(top).png";
 import { playerDistFromLeft, playerHeight, playerWidth } from "../constants";
 import { Player } from "./Player";
+import { debounceLog } from "./helpers";
 
 const idleScales = {
   distFromRight: 20,
@@ -46,15 +47,22 @@ export class PlayerDrawManager {
     })();
     ctx.save();
     ctx.translate(playerDistFromLeft, player.pos.y);
+    // Draw health bar
+    // debounceLog(player.life_opacity)
+    ctx.fillStyle = `rgba(40,40,40,${player.life_opacity})`
+    ctx.fillRect(0, -10, playerWidth, 10)
+    ctx.fillStyle = `rgba(0,255,0,${player.life_opacity})`
+    // debounceLog(playerWidth-2 * player.health/100)
+    ctx.fillRect(1, -9, (playerWidth-2) * player.health/100, 8)
     if (player.lookDirectionX === "left") {
       ctx.scale(-1, 1);
       ctx.translate(-playerWidth, 0);
     }
     ctx.scale(scaleFactor, scaleFactor);
-
+    
     if (isRunning && player.lookDirectionY !== "up") {
       const spriteIndex =
-        Math.floor(this.runTimer / runningSpriteFrequency) % runningSpriteCount;
+      Math.floor(this.runTimer / runningSpriteFrequency) % runningSpriteCount;
       ctx.drawImage(
         image,
         (spriteIndex * image.width) / runningSpriteCount,
@@ -65,7 +73,7 @@ export class PlayerDrawManager {
         -idleScales.distFromBottom,
         image.width / runningSpriteCount,
         image.height
-      );
+        );
     } else {
       ctx.drawImage(
         image,
@@ -77,9 +85,8 @@ export class PlayerDrawManager {
         -idleScales.distFromBottom,
         image.width,
         image.height
-      );
-    }
-
+        );
+      }
     ctx.restore();
   }
 
