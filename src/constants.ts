@@ -16,7 +16,7 @@ export const platformHeight = 50;
 
 export const winXPos = 6000;
 
-export const levelTimerTime = 1000;
+export const levelQuoteTime = 4000;
 // export const levelTimerTime = 4000;
 
 export const initialLifeCount = 5;

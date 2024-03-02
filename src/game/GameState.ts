@@ -2,7 +2,7 @@ import { ModifyUI } from "../App";
 import {
   initialGravity,
   initialShootTerminateDist,
-  levelTimerTime,
+  levelQuoteTime,
   playerDistFromLeft,
   showControlsTime,
   winXPos,
@@ -45,7 +45,7 @@ export type NightMod =
   | "timeSpeed-"
   | "soulDrain";
 
-export type LevelNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+export type LevelNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 const levelToNightMod: Record<LevelNumber, NightMod[]> = {
   0: ["gravity+"],
@@ -56,7 +56,6 @@ const levelToNightMod: Record<LevelNumber, NightMod[]> = {
   5: ["timeSpeed+"],
   6: ["shootTermDist-"],
   7: ["soulDrain"],
-  8: [],
 };
 
 export class GameState {
@@ -112,7 +111,7 @@ export class GameState {
       return;
     }
     this.levelTimer += deltaTime;
-    if (this.levelTimer > levelTimerTime) {
+    if (this.levelTimer > levelQuoteTime) {
       this.gameState = "playing";
     }
     if (this.gameState !== "playing") {
