@@ -8,6 +8,7 @@ import {
   initialLifeCount,
   shakeTime,
 } from "./constants";
+import heartSprite from "./assets/heart_animation_from_sketchy_website.gif"
 
 declare global {
   interface Window {
@@ -85,8 +86,8 @@ function App() {
                   <img
                     key={i}
                     alt="heart"
-                    src="https://emojicdn.elk.sh/❤️"
-                    style={{ height: "30px", width: "30px" }}
+                    src={heartSprite}
+                    style={{ height: "50px", width: "50px" }}
                   />
                 ))}
             </Stack>
