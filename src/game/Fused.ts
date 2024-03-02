@@ -70,7 +70,7 @@ export class Fused {
     const y_percent = Math.abs(this.trackPos.y - y_range/2) / (y_range/2);
     const x_lerp_percent = x_percent > 0.75 ? (x_percent - 0.75) * 4 : 0
     const y_lerp_percent = y_percent > 0.75 ? (y_percent - 0.75) * 4 : 0
-    console.log(y_lerp_percent)
+
     this.x_speed = max_speed/2 * (1-x_lerp_percent); 
     this.y_speed = max_speed * (1-y_lerp_percent);
     // cap slowdown
@@ -81,7 +81,7 @@ export class Fused {
   draw(ctx: CanvasRenderingContext2D, offsetX:number) {
     ctx.save();
     ctx.fillStyle = "red";
-    ctx.translate(this.pos.x-offsetX, this.pos.y);
+    ctx.translate(this.pos.x+offsetX, this.pos.y);
     ctx.fillRect(0, 0, fusedWidth, fusedHeight);
     ctx.restore();
   }
