@@ -1,7 +1,7 @@
 import { canvasHeight, canvasWidth, winXPos } from "../constants";
 import backgroundBack from "../assets/castle-back2-pixilart.png";
 import backgroundFront from "../assets/Castle_first_background.png";
-import instruction_page from "../assets/instruction_page.png";
+import instruction_page from "../assets/instructions-second.png";
 import { StateOfGame } from "./GameState";
 
 const levelText: string[][] = [
@@ -72,7 +72,7 @@ export class Background {
     } else if (gameState === "showControls") {
       const controlImage = new Image();
       controlImage.src = instruction_page;
-      ctx.drawImage(controlImage, 0, 0, canvasWidth, canvasHeight);
+      ctx.drawImage(controlImage, 30, 30, canvasWidth - 30, canvasHeight - 30);
     } else {
       ctx.font = `100px Pirata One`;
       ctx.fillText(`You lost`, canvasWidth / 2, canvasHeight / 2);
