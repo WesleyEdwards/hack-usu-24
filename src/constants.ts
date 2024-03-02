@@ -1,8 +1,6 @@
 export const canvasWidth = 1245;
 export const canvasHeight = 700;
 
-export const initialGravity = 5000;
-
 export const playerDistFromLeft = 300;
 
 export const playerWidth = 85;
@@ -28,4 +26,3 @@ export const fusedHeight = 100;
 
 export const maxWindowShakeDist = 10;
 export const shakeTime = 300;
-

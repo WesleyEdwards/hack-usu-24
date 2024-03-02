@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import {
   canvasHeight,
   canvasWidth,
-  initialGravity,
   initialLifeCount,
   initialShootTerminateDist,
   shakeTime,
@@ -44,7 +43,8 @@ function App() {
   }, [shaking]);
 
   useEffect(() => {
-    window.gravity = initialGravity;
+    // Initial values
+    window.gravity = 5000;
     window.shootTerminateDist = initialShootTerminateDist;
     const canvas = document.getElementById("canvas") as HTMLCanvasElement;
     const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;

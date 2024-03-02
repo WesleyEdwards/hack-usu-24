@@ -29,15 +29,15 @@ export type StateOfGame =
   | "lostLevel"
   | "lostGame"
   | "wonGame";
-export type LevelMod = "gravity";
+export type NightMod = "gravity-";
 
 type LevelNumber = 0 | 1 | 2 | 3;
 
-const levelMods: Record<LevelNumber, LevelMod[]> = {
-  0: ["gravity"],
-  1: ["gravity"],
-  2: ["gravity"],
-  3: ["gravity"],
+const levelToNightMod: Record<LevelNumber, NightMod[]> = {
+  0: ["gravity-"],
+  1: ["gravity-"],
+  2: ["gravity-"],
+  3: ["gravity-"],
 };
 
 export class GameState {
@@ -52,7 +52,6 @@ export class GameState {
   levelTimer = 0;
   level: LevelNumber = 0;
   playerShoot: PlayerShoot | null = null;
-  levelModification: LevelMod | null = "gravity";
 
   constructor(private ctx: CanvasRenderingContext2D) {
     this.keys = addEventListeners();
@@ -163,6 +162,7 @@ export class GameState {
 
   handleShoot(props: ShootProps) {
     this.playerShoot = new PlayerShoot(props);
+    this.handleNightMod();
   }
 
   handleClick(e: MouseEvent) {
@@ -193,5 +193,15 @@ export class GameState {
       parshendiProps: this.parshendi.map((p) => ({ initPos: p.init_pos })),
     };
     console.log(level);
+  }
+
+  handleNightMod() {
+    console.log("handling night mod");
+    const mods = levelToNightMod[this.level];
+    if (mods.includes("gravity-")) {
+      if (window.gravity > 0.7) {
+        window.gravity *= 0.98;
+      }
+    }
   }
 }
