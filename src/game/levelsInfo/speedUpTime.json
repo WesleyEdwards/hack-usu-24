@@ -1,0 +1,32 @@
+{
+  "platProps": [
+    { "initPos": { "x": 1776, "y": 268 }, "width": 463, "floor": false },
+    { "initPos": { "x": 1950, "y": 402 }, "width": 207, "floor": false },
+    { "initPos": { "x": 2430, "y": 340 }, "width": 325, "floor": false },
+    { "initPos": { "x": 2937, "y": 203 }, "width": 519, "floor": false },
+    { "initPos": { "x": 2951, "y": 415 }, "width": 563, "floor": false },
+    { "initPos": { "x": 3642, "y": 291 }, "width": 411, "floor": false },
+    { "initPos": { "x": 3904, "y": 119 }, "width": 399, "floor": false },
+    { "initPos": { "x": -130, "y": 650 }, "width": 800, "floor": true },
+    { "initPos": { "x": 833, "y": 650 }, "width": 100, "floor": true },
+    { "initPos": { "x": 1077, "y": 650 }, "width": 100, "floor": true },
+    { "initPos": { "x": 1336, "y": 650 }, "width": 100, "floor": true },
+    { "initPos": { "x": 1581, "y": 650 }, "width": 880, "floor": true },
+    { "initPos": { "x": 2731, "y": 650 }, "width": 1060, "floor": true },
+    { "initPos": { "x": 4116, "y": 650 }, "width": 930, "floor": true }
+  ],
+  "fusedProps": [
+    { "initPos": { "x": 1185, "y": 338 } },
+    { "initPos": { "x": 1749, "y": 469 } },
+    { "initPos": { "x": 1898, "y": 188 } },
+    { "initPos": { "x": 3047, "y": 461 } },
+    { "initPos": { "x": 3745, "y": 270 } }
+  ],
+  "parshendiProps": [
+    { "initPos": { "x": 889, "y": 485 } },
+    { "initPos": { "x": 2125, "y": 224 } },
+    { "initPos": { "x": 2200, "y": 485 } },
+    { "initPos": { "x": 3626, "y": 480 } },
+    { "initPos": { "x": 4195, "y": 75 } }
+  ]
+}

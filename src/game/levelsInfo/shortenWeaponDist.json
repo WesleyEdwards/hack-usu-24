@@ -1,0 +1,42 @@
+{
+  "platProps": [
+    { "initPos": { "x": 362, "y": 344 }, "width": 199, "floor": false },
+    { "initPos": { "x": 675, "y": 188 }, "width": 497, "floor": false },
+    { "initPos": { "x": 982, "y": 327 }, "width": 100, "floor": false },
+    { "initPos": { "x": 1271, "y": 393 }, "width": 445, "floor": false },
+    { "initPos": { "x": 1402, "y": 144 }, "width": 171, "floor": false },
+    { "initPos": { "x": 1526, "y": 243 }, "width": 261, "floor": false },
+    { "initPos": { "x": 1884, "y": 135 }, "width": 378, "floor": false },
+    { "initPos": { "x": 2441, "y": 210 }, "width": 405, "floor": false },
+    { "initPos": { "x": 2475, "y": 392 }, "width": 100, "floor": false },
+    { "initPos": { "x": 2735, "y": 364 }, "width": 352, "floor": false },
+    { "initPos": { "x": 3334, "y": 232 }, "width": 352, "floor": false },
+    { "initPos": { "x": 3760, "y": 375 }, "width": 274, "floor": false },
+    { "initPos": { "x": 4056, "y": 228 }, "width": 289, "floor": false },
+    { "initPos": { "x": 4329, "y": 121 }, "width": 265, "floor": false },
+    { "initPos": { "x": 4590, "y": 208 }, "width": 306, "floor": false },
+    { "initPos": { "x": -117, "y": 650 }, "width": 690, "floor": true },
+    { "initPos": { "x": 840, "y": 650 }, "width": 740, "floor": true },
+    { "initPos": { "x": 2123, "y": 650 }, "width": 980, "floor": true },
+    { "initPos": { "x": 3316, "y": 650 }, "width": 860, "floor": true },
+    { "initPos": { "x": 4763, "y": 650 }, "width": 910, "floor": true }
+  ],
+  "fusedProps": [
+    { "initPos": { "x": 695, "y": 251 } },
+    { "initPos": { "x": 1169, "y": 162 } },
+    { "initPos": { "x": 1325, "y": 313 } },
+    { "initPos": { "x": 2247, "y": 276 } },
+    { "initPos": { "x": 2317, "y": 458 } },
+    { "initPos": { "x": 3553, "y": 360 } },
+    { "initPos": { "x": 3989, "y": 298 } },
+    { "initPos": { "x": 4212, "y": 455 } }
+  ],
+  "parshendiProps": [
+    { "initPos": { "x": 942, "y": 483 } },
+    { "initPos": { "x": 1314, "y": 480 } },
+    { "initPos": { "x": 1433, "y": 99 } },
+    { "initPos": { "x": 2607, "y": 166 } },
+    { "initPos": { "x": 2814, "y": 320 } },
+    { "initPos": { "x": 4094, "y": 340 } }
+  ]
+}
