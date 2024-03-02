@@ -9,3 +9,6 @@ export const playerWidth = 30;
 export const playerHeight = 30;
 export const playerSpeedX = 1.3;
 export const playerJumpSpeed = 1.1;
+
+
+export const platformHeight = 30;
