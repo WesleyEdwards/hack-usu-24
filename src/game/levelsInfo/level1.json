@@ -1,0 +1,118 @@
+{
+  "platProps": [
+    { "initPos": { "x": 100, "y": 670 }, "width": 200, "floor": true },
+    { "initPos": { "x": 400, "y": 670 }, "width": 500, "floor": true },
+    { "initPos": { "x": 100, "y": 600 }, "width": 200, "floor": false },
+    { "initPos": { "x": 500, "y": 600 }, "width": 300, "floor": false },
+    { "initPos": { "x": 100, "y": 500 }, "width": 200, "floor": false },
+    { "initPos": { "x": 150, "y": 400 }, "width": 200, "floor": false },
+    { "initPos": { "x": 200, "y": 300 }, "width": 300, "floor": false },
+    { "initPos": { "x": 400, "y": 200 }, "width": 100, "floor": false },
+    { "initPos": { "x": 922, "y": 495 }, "width": 200, "floor": false },
+    {
+      "initPos": { "x": 1436, "y": 589 },
+      "width": 200,
+      "floor": false
+    },
+    {
+      "initPos": { "x": 1814, "y": 670 },
+      "width": 200,
+      "floor": true
+    },
+    {
+      "initPos": { "x": 2675, "y": 670 },
+      "width": 400,
+      "floor": true
+    },
+    {
+      "initPos": { "x": 3067, "y": 519 },
+      "width": 0,
+      "floor": false
+    },
+    {
+      "initPos": { "x": 3220, "y": 414 },
+      "width": 400,
+      "floor": false
+    },
+    {
+      "initPos": { "x": 2875, "y": 413 },
+      "width": 400,
+      "floor": false
+    },
+    {
+      "initPos": { "x": 2891, "y": 570 },
+      "width": 400,
+      "floor": false
+    },
+    {
+      "initPos": { "x": 3830, "y": 603 },
+      "width": 400,
+      "floor": false
+    },
+    {
+      "initPos": { "x": 3870, "y": 408 },
+      "width": 400,
+      "floor": false
+    },
+    {
+      "initPos": { "x": 3381, "y": 670 },
+      "width": 400,
+      "floor": true
+    },
+    {
+      "initPos": { "x": 4117, "y": 557 },
+      "width": 1000,
+      "floor": false
+    },
+    {
+      "initPos": { "x": 4118, "y": 670 },
+      "width": 1000,
+      "floor": true
+    },
+    {
+      "initPos": { "x": 5545, "y": 670 },
+      "width": 1000,
+      "floor": true
+    },
+    {
+      "initPos": { "x": 1156.569999999996, "y": 670 },
+      "width": 1000,
+      "floor": true
+    },
+    {
+      "initPos": { "x": 2317.6999999999994, "y": 670 },
+      "width": 1000,
+      "floor": true
+    },
+    {
+      "initPos": { "x": 4502.839999999998, "y": 274 },
+      "width": 400,
+      "floor": false
+    },
+    {
+      "initPos": { "x": 4473.839999999998, "y": 405 },
+      "width": 400,
+      "floor": false
+    },
+    {
+      "initPos": { "x": 5169.729999999996, "y": 502 },
+      "width": 400,
+      "floor": false
+    },
+    {
+      "initPos": { "x": 5169.729999999996, "y": 288 },
+      "width": 400,
+      "floor": false
+    },
+    {
+      "initPos": { "x": 5772.119999999986, "y": 408 },
+      "width": 400,
+      "floor": false
+    }
+  ],
+  "fusedProps": [
+    { "initPos": { "x": 100, "y": 389.5892268998677 } },
+    { "initPos": { "x": 201.03228226462736, "y": 322.7460968542838 } }
+  ],
+  "parshendiProps": [{ "initPos": { "x": 263, "y": 570 } }]
+}

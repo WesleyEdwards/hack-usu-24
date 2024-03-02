@@ -9,7 +9,7 @@ import {
   addDevClickListeners,
   addEventListeners,
 } from "./eventListeners";
-import { Level, getLevelInfo } from "./levelInfo";
+import { Level, getLevelInfo } from "./levelsInfo/levelInfo";
 import {
   calculateParshendiPlatCollision,
   calculatePlayerPlatCollision,
@@ -87,13 +87,16 @@ export class GameState {
 
   handleClick(e: MouseEvent) {
     const coors: Coor = { x: e.offsetX - this.offsetX, y: e.offsetY };
-    console.log(coors);
+    const makeFloor = e.shiftKey;
     if (e.ctrlKey) {
       this.platforms.push(
         new Platform({
-          initPos: coors,
+          initPos: {
+            x: +coors.x.toFixed(0),
+            y: makeFloor ? 670 : +coors.y.toFixed(0),
+          },
           width: window.selectedWidth ?? 200,
-          floor: e.shiftKey,
+          floor: makeFloor,
         })
       );
     }
