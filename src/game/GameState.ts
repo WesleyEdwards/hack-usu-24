@@ -1,5 +1,11 @@
 import { ModifyUI } from "../App";
-import { levelTimerTime, playerDistFromLeft, winXPos } from "../constants";
+import {
+  initialGravity,
+  initialShootTerminateDist,
+  levelTimerTime,
+  playerDistFromLeft,
+  winXPos,
+} from "../constants";
 import { Background } from "./Background";
 import { Fused } from "./Fused";
 import { Parshendi } from "./Parshendi";
@@ -30,15 +36,16 @@ export type StateOfGame =
   | "lostLevel"
   | "lostGame"
   | "wonGame";
-export type NightMod = "gravity-";
+
+export type NightMod = "gravity-" | "gravity+" | "shootTermDist-" | "spear+";
 
 type LevelNumber = 0 | 1 | 2 | 3;
 
 const levelToNightMod: Record<LevelNumber, NightMod[]> = {
-  0: ["gravity-"],
+  0: ["spear+"],
   1: ["gravity-"],
   2: ["gravity-"],
-  3: ["gravity-"],
+  3: ["spear+"], // correct
 };
 
 export class GameState {
@@ -51,7 +58,7 @@ export class GameState {
   keys: Keys;
   gameState: StateOfGame = "levelIntro";
   levelTimer = 0;
-  level: LevelNumber = 0;
+  level: LevelNumber = 3;
   playerShoot: PlayerShoot | null = null;
 
   constructor(private ctx: CanvasRenderingContext2D) {
@@ -67,6 +74,9 @@ export class GameState {
   }
 
   reset() {
+    window.gravity = initialGravity;
+    window.shootTerminateDist = initialShootTerminateDist;
+    window.spearVelMultiplier = 1;
     this.levelTimer = 0;
     const level = getLevelInfo(this.level);
     this.player = new Player();
@@ -199,12 +209,18 @@ export class GameState {
   }
 
   handleNightMod() {
-    console.log("handling night mod");
     const mods = levelToNightMod[this.level];
-    if (mods.includes("gravity-")) {
-      if (window.gravity > 0.7) {
-        window.gravity *= 0.98;
-      }
+    if (mods.includes("gravity-") && window.gravity > 0.5) {
+      window.gravity *= 0.95;
+    }
+    if (mods.includes("gravity+") && window.gravity < 9000) {
+      window.gravity *= 1.08;
+    }
+    if (mods.includes("shootTermDist-") && window.shootTerminateDist > 100) {
+      window.shootTerminateDist *= 0.8;
+    }
+    if (mods.includes("spear+")) {
+      window.spearVelMultiplier *= 1.1;
     }
   }
 }

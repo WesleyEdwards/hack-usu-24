@@ -32,6 +32,8 @@ export class Spear {
       normalizeVector(createVector(this.pos, props.dest)),
       spearSpeed
     );
+    this.vel.y *= window.spearVelMultiplier;
+    this.vel.x *= window.spearVelMultiplier;
     this.img.src = spearImage;
   }
 
