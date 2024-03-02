@@ -3,13 +3,17 @@ import { Coor } from "./types";
 const parshendiWidth = 100;
 const parshendiHeight = 100;
 
+export type ParshendiProps = {
+  initPos: Coor;
+};
+
 export class Parshendi {
   pos: Coor;
   prevPos: Coor;
 
-  constructor(initPos: Coor) {
-    this.prevPos = initPos;
-    this.pos = initPos;
+  constructor(props: ParshendiProps) {
+    this.prevPos = { ...props.initPos };
+    this.pos = { ...props.initPos };
   }
 
   update(deltaTime: number) {
@@ -21,7 +25,7 @@ export class Parshendi {
   draw(ctx: CanvasRenderingContext2D, offsetX: number) {
     ctx.save();
     ctx.fillStyle = "green";
-    ctx.translate(this.pos.x+offsetX, this.pos.y);
+    ctx.translate(this.pos.x + offsetX, this.pos.y);
     ctx.fillRect(0, 0, parshendiWidth, parshendiHeight);
     ctx.restore();
   }

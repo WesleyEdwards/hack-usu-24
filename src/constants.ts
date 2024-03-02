@@ -7,7 +7,7 @@ export const playerDistFromLeft = 300;
 
 export const playerWidth = 30;
 export const playerHeight = 30;
-export const playerSpeedX = 1.3;
+export const playerSpeedX = 0.9;
 export const playerJumpSpeed = 1.1;
 
 

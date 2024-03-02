@@ -1,5 +1,4 @@
 import {
-  platformHeight,
   playerDistFromLeft,
   playerHeight,
   playerWidth,
@@ -15,13 +14,12 @@ import { getLevelInfo } from "./levelInfo";
 function calculatePlayerPlatCollision(player: Player, plat: Platform[]) {
   plat.forEach((p) => {
     const leftRight =
-      player.pos.x + playerWidth > p.pos.x && player.pos.x < p.pos.x + p.width;
+      player.pos.x < p.pos.x + p.width && player.pos.x + playerWidth > p.pos.x;
     const topBottom =
-      player.pos.y + playerHeight > p.pos.y &&
-      player.prevPos.y < p.pos.y + platformHeight;
+      player.pos.y + playerHeight >= p.pos.y &&
+      player.prevPos.y + playerHeight <= p.pos.y;
     if (leftRight && topBottom) {
-      player.pos.y = p.pos.y - playerHeight;
-      player.vel.y = 0;
+      player.setOnPlatform(p.pos.y);
       return true;
     }
     return false;
@@ -39,7 +37,7 @@ export class GameState {
   constructor(private ctx: CanvasRenderingContext2D) {
     this.keys = addEventListeners();
     const level = getLevelInfo(0);
-    this.platforms = level.blockProps.map((props) => new Platform(props));
+    this.platforms = level.platProps.map((props) => new Platform(props));
     this.fused = level.fusedProps.map((props) => new Fused(props));
     this.parshendi = level.parshendiProps.map((props) => new Parshendi(props));
   }
@@ -55,6 +53,7 @@ export class GameState {
     this.player.update(deltaTime, this.keys);
     this.fused.forEach((f) => f.update(deltaTime));
     this.parshendi.forEach((p) => p.update(deltaTime));
+    calculatePlayerPlatCollision(this.player, this.platforms);
   }
 
   draw() {

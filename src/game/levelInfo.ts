@@ -1,24 +1,26 @@
+import { FusedProps } from "./Fused";
+import { ParshendiProps } from "./Parshendi";
+import { PlatProps } from "./Platform";
+
 type Level = {
-  blockProps: { x: number; y: number; width: number; height: number }[];
-  fusedProps: { x: number; y: number }[];
-  parshendiProps: { x: number; y: number }[];
+  platProps: PlatProps[];
+  fusedProps: FusedProps[];
+  parshendiProps: ParshendiProps[];
 };
 
 const level1: Level = {
-  blockProps: [
-    { x: 0, y: 600, width: 1245, height: 100 },
-    { x: 0, y: 400, width: 100, height: 200 },
-    { x: 1145, y: 400, width: 100, height: 200 },
-    { x: 200, y: 300, width: 100, height: 100 },
-    { x: 200, y: 500, width: 100, height: 100 },
-    { x: 945, y: 300, width: 100, height: 100 },
-    { x: 945, y: 500, width: 100, height: 100 },
+  platProps: [
+    { initPos: { x: 100, y: 500 }, width: 200, floor: true },
+    { initPos: { x: 100, y: 600 }, width: 200, floor: true },
+    { initPos: { x: 150, y: 400 }, width: 200, floor: false },
+    { initPos: { x: 200, y: 300 }, width: 300, floor: false },
+    { initPos: { x: 400, y: 200 }, width: 100, floor: false },
   ],
   fusedProps: [
-    { x: 200, y: 200 },
-    { x: 200, y: 300 },
+    { initPos: { x: 100, y: 200 } },
+    { initPos: { x: 200, y: 300 } },
   ],
-  parshendiProps: [{ x: 300, y: 400 }],
+  parshendiProps: [{ initPos: { x: 300, y: 400 } }],
 };
 
 export function getLevelInfo(level: number) {

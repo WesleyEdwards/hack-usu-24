@@ -64,4 +64,9 @@ export class Player {
     ctx.fillRect(0, 0, playerWidth, playerHeight);
     ctx.restore();
   }
+
+  setOnPlatform(y: number) {
+    this.pos.y = y - playerHeight;
+    this.vel.y = 0;
+  }
 }
