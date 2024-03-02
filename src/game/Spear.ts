@@ -27,7 +27,7 @@ export class Spear {
 }
 
 update(deltaTime: number) {
-    debounceLog(this.pos);
+    // debounceLog(this.pos);
     this.prevPos = { ...this.pos };
     // debounceLog(this.pos)
     this.pos.y += (this.vel.y * deltaTime) / 1000;
