@@ -15,6 +15,9 @@ import { Coor } from "./types";
 
 const playerInitPos: Coor = { x: playerDistFromLeft, y: 200 };
 
+export type DirectionX = "left" | "right";
+export type DirectionY = "up" | "down" | "straight";
+
 export class Player {
   pos: Coor;
   prevPos: Coor;
@@ -22,6 +25,8 @@ export class Player {
   canJump = true;
   health = 100;
   drawManager = new PlayerDrawManager();
+  lookDirectionX: DirectionX = "right";
+  lookDirectionY: DirectionY = "straight";
 
   get center() {
     return {
@@ -52,9 +57,11 @@ export class Player {
     } else {
       if (keys.left && this.pos.x > 0) {
         this.vel.x = -playerSpeedX;
+        this.lookDirectionX = "left";
       }
       if (keys.right) {
         this.vel.x = playerSpeedX;
+        this.lookDirectionX = "right";
       }
     }
 
@@ -66,14 +73,17 @@ export class Player {
       this.vel.y += (gravity * deltaTime) / 1000;
       this.canJump = false;
     }
+
+    if (keys.up) {
+      this.lookDirectionY = "up";
+    } else if (keys.down) {
+      this.lookDirectionY = "down";
+    } else {
+      this.lookDirectionY = "straight";
+    }
   }
 
   draw(ctx: CanvasRenderingContext2D) {
-    // ctx.save();
-    // ctx.fillStyle = "blue";
-    // ctx.translate(playerDistFromLeft, this.pos.y);
-    // ctx.fillRect(0, 0, playerWidth, playerHeight);
-    // ctx.restore();
     this.drawManager.draw(ctx, this);
   }
 
@@ -83,7 +93,7 @@ export class Player {
     this.canJump = true;
   }
 
-  checkCollideSpear(spear:Spear) {
+  checkCollideSpear(spear: Spear) {
     if (
       spear.center.x >= this.pos.x - 5 &&
       spear.center.x <= this.pos.x + playerWidth + 5 &&
