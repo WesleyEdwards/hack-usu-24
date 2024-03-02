@@ -8,6 +8,7 @@ import {
   playerWidth,
 } from "../constants";
 import { Spear } from "./Spear";
+import { PlayerDrawManager } from "./PlayerDrawManager";
 import { Keys } from "./eventListeners";
 import { debounceLog } from "./helpers";
 import { Coor } from "./types";
@@ -20,9 +21,13 @@ export class Player {
   vel: Coor = { x: 0, y: 0 };
   canJump = true;
   health = 100;
+  drawManager = new PlayerDrawManager();
 
   get center() {
-    return {x:this.pos.x+playerWidth/2, y:this.pos.y+playerHeight/2}
+    return {
+      x: this.pos.x + playerWidth / 2,
+      y: this.pos.y + playerHeight / 2,
+    };
   }
 
   constructor() {
@@ -64,11 +69,12 @@ export class Player {
   }
 
   draw(ctx: CanvasRenderingContext2D) {
-    ctx.save();
-    ctx.fillStyle = "blue";
-    ctx.translate(playerDistFromLeft, this.pos.y);
-    ctx.fillRect(0, 0, playerWidth, playerHeight);
-    ctx.restore();
+    // ctx.save();
+    // ctx.fillStyle = "blue";
+    // ctx.translate(playerDistFromLeft, this.pos.y);
+    // ctx.fillRect(0, 0, playerWidth, playerHeight);
+    // ctx.restore();
+    this.drawManager.draw(ctx, this);
   }
 
   setOnPlatform(y: number) {

@@ -2,7 +2,7 @@ import "./App.css";
 import { Button, CssVarsProvider, Input, Stack } from "@mui/joy";
 import { enterGameLoop } from "./game/main";
 import { useState } from "react";
-import { canvasHeight, canvasWidth } from "./constants";
+import { canvasHeight, canvasWidth, initialLifeCount } from "./constants";
 
 declare global {
   interface Window {
@@ -19,6 +19,9 @@ function App() {
   //   setMode("dark");
   //   console.log(mode);
   // }, []);
+
+  const [lives, setLives] = useState(initialLifeCount);
+  const decrementLives = () => setLives((prev) => prev - 1);
 
   return (
     <CssVarsProvider
@@ -49,7 +52,9 @@ function App() {
                 fontSize: "1.5rem",
               }}
               onClick={(e) => {
-                enterGameLoop();
+                enterGameLoop({
+                  decrementLives,
+                });
                 setPlaying(true);
                 window.stopGame = false;
                 e.stopPropagation();
@@ -72,6 +77,19 @@ function App() {
             >
               Stop
             </Button>
+          </Stack>
+          <Stack direction="row" gap="1rem">
+            {Array.from({ length: lives }).map((_, i) => (
+              <img
+                key={i}
+                alt="heart"
+                src="https://emojicdn.elk.sh/❤️"
+                style={{
+                  height: "30px",
+                  width: "30px",
+                }}
+              />
+            ))}
           </Stack>
           <Input
             sx={{ maxWidth: "400px" }}
