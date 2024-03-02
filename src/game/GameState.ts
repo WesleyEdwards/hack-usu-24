@@ -4,38 +4,31 @@ import { Parshendi } from "./Parshendi";
 import { Platform } from "./Platform";
 import { Player } from "./Player";
 import { Keys, addEventListeners } from "./eventListeners";
+import { getLevelInfo } from "./levelInfo";
 
 export const playerDistFromLeft = 200;
 
-const initialFusedProps = [
-  { x: 200, y: 200 },
-  { x: 200, y: 300 },
-];
-
-const initialParshendiProps = [{ x: 300, y: 400 }];
-
-const initialBlockProps = [
-  { x: 0, y: 600, width: 1245, height: 100 },
-  { x: 0, y: 400, width: 100, height: 200 },
-  { x: 1145, y: 400, width: 100, height: 200 },
-  { x: 200, y: 300, width: 100, height: 100 },
-  { x: 200, y: 500, width: 100, height: 100 },
-  { x: 945, y: 300, width: 100, height: 100 },
-  { x: 945, y: 500, width: 100, height: 100 },
-];
-
 export class GameState {
   player = new Player();
-  fused: Fused[] = initialFusedProps.map((props) => new Fused(props));
-  parshendi: Parshendi[] = initialParshendiProps.map(
-    (props) => new Parshendi(props)
-  );
+  fused: Fused[];
+  parshendi: Parshendi[];
   background = new Background();
-  platforms: Platform[] = initialBlockProps.map((props) => new Platform(props));
+  platforms: Platform[];
   keys: Keys;
 
   constructor(private ctx: CanvasRenderingContext2D) {
     this.keys = addEventListeners();
+    const level = getLevelInfo(0);
+    this.platforms = level.blockProps.map((props) => new Platform(props));
+    this.fused = level.fusedProps.map((props) => new Fused(props));
+    this.parshendi = level.parshendiProps.map((props) => new Parshendi(props));
+  }
+
+  reset() {
+    const level = getLevelInfo(0);
+    this.player = new Player();
+    this.fused = level.fusedProps.map((props) => new Fused(props));
+    this.parshendi = level.parshendiProps.map((props) => new Parshendi(props));
   }
 
   update(deltaTime: number) {
