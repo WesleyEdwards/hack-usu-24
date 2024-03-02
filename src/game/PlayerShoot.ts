@@ -1,11 +1,4 @@
 import { Coor } from "./types";
-import { canvasHeight, gravity } from "../constants";
-import { debounceLog } from "./helpers";
-import {
-  createVector,
-  multiplyVectorConstant,
-  normalizeVector,
-} from "./miscFunctions";
 
 export type ShootProps = { initPos: Coor; vel: Coor };
 
@@ -33,7 +26,7 @@ export class PlayerShoot {
     ctx.fillStyle = "black";
     // ctx.fillRect(0, 0, 30, 30);
     // Draw a circle that fades out towards the edges
-    const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, 30);
+    const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, 50);
     // 0 makes it fully transparent, 1 makes it fully opaque
     gradient.addColorStop(0.5, "rgba(0, 0, 0, 1)");
 

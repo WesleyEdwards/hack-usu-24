@@ -36,6 +36,23 @@ function App() {
     return () => clearTimeout(cleanup);
   }, [shaking]);
 
+  useEffect(() => {
+    const canvas = document.getElementById("canvas") as HTMLCanvasElement;
+
+    const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+    // draw title
+
+    // background
+    ctx.fillStyle = "black";
+
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+    ctx.font = "50px Pirata One";
+    ctx.fillStyle = "#800000";
+    ctx.textAlign = "center";
+    ctx.fillText("Nightblood", canvasWidth / 2, canvasHeight / 2);
+  }, []);
+
   return (
     <CssVarsProvider
       defaultMode="dark"
@@ -64,6 +81,12 @@ function App() {
               sx={{
                 fontFamily: "Pirata One",
                 fontSize: "1.5rem",
+                minWidth: "200px",
+                background: "#800000",
+                color: "black",
+                "&:hover": {
+                  backgroundColor: "#360f0f",
+                },
               }}
               onClick={(e) => {
                 enterGameLoop({
@@ -78,20 +101,6 @@ function App() {
             >
               Play
             </Button>
-            {/* <Button
-              sx={{
-                fontFamily: "Pirata One",
-                fontSize: "1.5rem",
-              }}
-              onClick={(e) => {
-                setPlaying(false);
-                window.stopGame = true;
-                e.stopPropagation();
-              }}
-              disabled={!playing}
-            >
-              Stop
-            </Button> */}
           </Stack>
           <Stack direction="row" gap="1rem">
             {Array.from({ length: lives }).map((_, i) => (

@@ -46,3 +46,7 @@
 .move-up-and-down-rapidly {
   animation: move-up-and-down-rapidly 0.1s infinite;
 }
+
+.red {
+  color: #800000;
+}

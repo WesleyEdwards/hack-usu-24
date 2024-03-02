@@ -33,12 +33,6 @@ export class FusedDrawManager {
     ctx.restore();
 
     ctx.save();
-    ctx.fillStyle = "red";
-    ctx.translate(pos.x + offsetX, pos.y);
-    ctx.fillRect(0, 0, fusedWidth, fusedHeight);
-    ctx.restore();
-
-    ctx.save();
     ctx.translate(pos.x, pos.y);
     // ctx.scale(0.5, 0.5);
     if (fused.facing === "left") {

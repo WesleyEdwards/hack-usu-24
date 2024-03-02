@@ -28,6 +28,8 @@ export function enterGameLoop(modifyUi: ModifyUI) {
       requestAnimationFrame(gameLoop);
     }
   }
+  
+  gameState.reset();
 
   requestAnimationFrame(gameLoop);
 }

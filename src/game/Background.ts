@@ -1,7 +1,20 @@
 import { canvasHeight, canvasWidth } from "../constants";
 import bricks from "../assets/grey-wall.jpg";
 
-const levelText = ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5"];
+const levelText: string[][] = [
+  ["I am a sword.", "Might as well stick to what you’re good at..."],
+  ["Draw... me..."],
+  ["You should attack", "You're good at that"],
+  [
+    "You didn’t use me much",
+    "You could have used me.",
+    "I’m better than a shirt.",
+    "I’m a sword.",
+  ],
+  ["He’s evil"],
+  ["You are afraid"],
+  ["Just throw me in there", "If he’s evil, he’ll kill himself."],
+];
 export class Background {
   private image = new Image();
 
@@ -22,17 +35,19 @@ export class Background {
 
   dispLevelInfo(ctx: CanvasRenderingContext2D, level: number) {
     const levelInfo = levelText.at(level) ?? levelText[0];
-    const levelInfoSize = 90;
-    const levelInfoFont = "Pirata One";
-    const levelInfoX = canvasWidth / 2 - levelInfoSize * 2;
-    const levelInfoY = canvasHeight / 2 - levelInfoSize * 2;
+    const levelInfoX = canvasWidth / 2;
+    const levelInfoY = canvasHeight / 2;
 
     ctx.save();
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-    ctx.fillStyle = "grey";
-    ctx.font = `${levelInfoSize}px ${levelInfoFont}`;
-    ctx.fillText(levelInfo, levelInfoX, levelInfoY);
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#800000";
+    ctx.font = `50px Pirata One`;
+    const lines = levelText[level];
+    lines.forEach((line, i) => {
+      ctx.fillText(line, levelInfoX, levelInfoY + i * 50);
+    });
     ctx.restore();
   }
 }
