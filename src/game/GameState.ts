@@ -121,6 +121,7 @@ export class GameState {
     this.levelTimer += deltaTime;
     if (this.levelTimer > levelQuoteTime) {
       this.gameState = "playing";
+      this.bgm.play();
     }
     if (this.gameState !== "playing") {
       return;
