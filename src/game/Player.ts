@@ -10,7 +10,6 @@ import {
 import { Spear } from "./Spear";
 import { PlayerDrawManager } from "./PlayerDrawManager";
 import { Keys } from "./eventListeners";
-import { debounceLog } from "./helpers";
 import { Coor } from "./types";
 
 const playerInitPos: Coor = { x: playerDistFromLeft, y: 200 };
@@ -27,13 +26,6 @@ export class Player {
   drawManager = new PlayerDrawManager();
   lookDirectionX: DirectionX = "right";
   lookDirectionY: DirectionY = "straight";
-
-  get center() {
-    return {
-      x: this.pos.x + playerWidth / 2,
-      y: this.pos.y + playerHeight / 2,
-    };
-  }
 
   constructor() {
     this.prevPos = { ...playerInitPos };
@@ -81,6 +73,8 @@ export class Player {
     } else {
       this.lookDirectionY = "straight";
     }
+
+    this.drawManager.update(deltaTime);
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -102,5 +96,12 @@ export class Player {
     ) {
       // TODO: add function
     }
+  }
+
+  get center() {
+    return {
+      x: this.pos.x + playerWidth / 2,
+      y: this.pos.y + playerHeight / 2,
+    };
   }
 }

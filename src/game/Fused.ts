@@ -22,7 +22,7 @@ export class Fused {
   time_since_throw = 2;
 
   get center() {
-    return {x:this.pos.x+fusedWidth/2, y:this.pos.y+fusedHeight/2}
+    return { x: this.pos.x + fusedWidth / 2, y: this.pos.y + fusedHeight / 2 };
   }
 
   constructor(props: FusedProps) {
@@ -96,17 +96,13 @@ export class Fused {
     ctx.restore();
   }
 
-  shouldThrow(playerPos:Coor, deltaTime:number, spears:Spear[]) {
-    // debounceLog("deciding to throw")
-    // debounceLog(eucDistance(playerPos, this.center))
+  shouldThrow(playerPos: Coor, deltaTime: number, spears: Spear[]) {
     if (eucDistance(playerPos, this.center) <= 700) {
-      this.time_since_throw += deltaTime/1000;
-      // debounceLog(this.time_since_throw)
+      this.time_since_throw += deltaTime / 1000;
       if (this.time_since_throw > 3) {
-        console.log("throwing")
         // time to throw
-        this.time_since_throw=0;
-        spears.push(new Spear({initPos:this.center, dest:playerPos}))
+        this.time_since_throw = 0;
+        spears.push(new Spear({ initPos: this.center, dest: playerPos }));
       }
     }
   }

@@ -10,6 +10,5 @@ export type Level = {
 };
 
 export function getLevelInfo(level: number) {
-  console.log(level1);
   return { ...level1 };
 }

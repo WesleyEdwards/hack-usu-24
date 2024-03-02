@@ -20,8 +20,11 @@ export class Parshendi {
   time_since_jump = 0;
   time_since_throw = 2;
 
-  get center():Coor{
-    return {x:this.pos.x+parshendiWidth/2, y:this.pos.y+parshendiWidth/2}
+  get center(): Coor {
+    return {
+      x: this.pos.x + parshendiWidth / 2,
+      y: this.pos.y + parshendiWidth / 2,
+    };
   }
   constructor(props: ParshendiProps) {
     this.prevPos = { ...props.initPos };
@@ -45,7 +48,6 @@ export class Parshendi {
 
     // Decide to jump
     if (this.time_since_jump + Math.random() * 2000 > 10000) {
-      console.log("jumping");
       this.time_since_jump = 0;
       this.y_vel = -1500;
       this.pos.y += -10;
@@ -77,18 +79,22 @@ export class Parshendi {
     }
   }
 
-  shouldThrow(playerPos:Coor, deltaTime:number, spears:Spear[]) {
+  shouldThrow(playerPos: Coor, deltaTime: number, spears: Spear[]) {
     // debounceLog("deciding to throw")
     // debounceLog(eucDistance(playerPos, this.center))
     if (eucDistance(playerPos, this.center) <= 700) {
-      this.time_since_throw += deltaTime/1000;
+      this.time_since_throw += deltaTime / 1000;
       // debounceLog(this.time_since_throw)
       if (this.time_since_throw > 5) {
-        console.log("throwing")
         // time to throw
-        this.time_since_throw=0;
-        const distance = eucDistance(playerPos, this.center)
-        spears.push(new Spear({initPos:this.center, dest:{x:playerPos.x, y:playerPos.y-distance*0.8}}))
+        this.time_since_throw = 0;
+        const distance = eucDistance(playerPos, this.center);
+        spears.push(
+          new Spear({
+            initPos: this.center,
+            dest: { x: playerPos.x, y: playerPos.y - distance * 0.8 },
+          })
+        );
       }
     }
   }

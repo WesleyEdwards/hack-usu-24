@@ -17,7 +17,6 @@ function App() {
   // const { mode, setMode } = useColorScheme();
   // useEffect(() => {
   //   setMode("dark");
-  //   console.log(mode);
   // }, []);
 
   const [lives, setLives] = useState(initialLifeCount);
