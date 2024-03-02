@@ -79,7 +79,7 @@ export class Background {
 
       ctx.font = `30px Pirata One`;
       ctx.textAlign;
-      ctx.fillText("- Nightblood", canvasWidth * 0.66, canvasHeight / 2 + 200);
+      // ctx.fillText("- Nightblood", canvasWidth * 0.66, canvasHeight / 2 + 200);
     } else if (gameState === "lostLevel") {
       ctx.font = `100px Pirata One`;
       ctx.fillText(`We need to try again.`, canvasWidth / 2, canvasHeight / 2);
