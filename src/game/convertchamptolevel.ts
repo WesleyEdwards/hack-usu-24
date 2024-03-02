@@ -45,27 +45,27 @@ type NightLevelInfo = {
   parshendiProps: { initPos: Coor }[];
 };
 
-function convertMateToNight(mateLevelInfo: MateLevelInfo): NightLevelInfo {
-  const platProps = mateLevelInfo.platforms.map((p) => ({
-    initPos: { x: p.x, y: p.y },
-    width: p.width,
-    floor: false,
-  }));
+// function convert(mateLevelInfo) {
+//   const platProps = mateLevelInfo.platforms.map((p) => ({
+//     initPos: { x: p.x, y: p.y },
+//     width: p.width,
+//     floor: false,
+//   }));
 
-  const morePlatProps = mateLevelInfo.floors.map((f) => ({
-    initPos: { x: f.x, y: 650 },
-    width: f.width,
-    floor: true,
-  }));
-  const fusedProps = mateLevelInfo.packages.map((p) => ({
-    initPos: { x: p.x, y: p.y },
-  }));
-  const parshendiProps = mateLevelInfo.opponents.grog.map((g) => ({
-    initPos: g.initPos,
-  }));
-  return {
-    platProps: [...platProps, ...morePlatProps],
-    fusedProps,
-    parshendiProps,
-  };
-}
+//   const morePlatProps = mateLevelInfo.floors.map((f) => ({
+//     initPos: { x: f.x, y: 650 },
+//     width: f.width,
+//     floor: true,
+//   }));
+//   const fusedProps = mateLevelInfo.packages.map((p) => ({
+//     initPos: { x: p.x, y: p.y },
+//   }));
+//   const parshendiProps = mateLevelInfo.opponents.grog.map((g) => ({
+//     initPos: g.initPos,
+//   }));
+//   return {
+//     platProps: [...platProps, ...morePlatProps],
+//     fusedProps,
+//     parshendiProps,
+//   };
+// }

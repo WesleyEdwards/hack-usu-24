@@ -1,5 +1,5 @@
 import { canvasHeight, canvasWidth, winXPos } from "../constants";
-import bricks from "../assets/grey-wall.jpg";
+import backgroundBack from "../assets/castle-back2-pixilart.png";
 import { StateOfGame } from "./GameState";
 
 const levelText: string[][] = [
@@ -17,17 +17,17 @@ const levelText: string[][] = [
   ["Just throw me in there", "If he’s evil, he’ll kill himself."],
 ];
 export class Background {
-  private image = new Image();
+  private backgroundBack = new Image();
 
   constructor() {
-    this.image.src = bricks;
+    this.backgroundBack.src = backgroundBack;
   }
   draw(ctx: CanvasRenderingContext2D, offsetX: number) {
     ctx.save();
 
     ctx.translate(offsetX, 0);
     for (let i = -1; i < 10; i++) {
-      ctx.drawImage(this.image, i * this.image.width, 0);
+      ctx.drawImage(this.backgroundBack, i * this.backgroundBack.width, 0);
     }
 
     // ctx.drawImage(this.image, 0, 0, canvasWidth, canvasHeight);
