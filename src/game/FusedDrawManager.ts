@@ -8,7 +8,7 @@ const idleScales = {
   distFromBottom: 20,
 };
 
-const idleSpriteCount = 6;
+// const idleSpriteCount = 6;
 
 export class FusedDrawManager {
   idle = new Image();
@@ -44,13 +44,15 @@ export class FusedDrawManager {
       ctx.scale(-1, 1);
       ctx.translate(-100, 0);
     }
-
-    const image = this.throwTimer < 400 ? this.throwing : this.idle;
+    const showThrowing = this.throwTimer < 400;
+    const image = showThrowing ? this.throwing : this.idle;
 
     if (window.gravity < 0) {
       ctx.scale(1, -1);
       ctx.translate(0, -fusedHeight);
     }
+
+    const idleSpriteCount = showThrowing ? 3 : 6;
 
     const whichSprite = Math.floor(this.spriteTimer / 100) % idleSpriteCount;
     ctx.drawImage(
