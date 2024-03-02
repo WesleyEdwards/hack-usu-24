@@ -1,5 +1,6 @@
 import { canvasHeight, canvasWidth, winXPos } from "../constants";
 import backgroundBack from "../assets/castle-back2-pixilart.png";
+import backgroundFront from "../assets/Castle_first_background.png";
 import { StateOfGame } from "./GameState";
 
 const levelText: string[][] = [
@@ -18,21 +19,27 @@ const levelText: string[][] = [
 ];
 export class Background {
   private backgroundBack = new Image();
+  private backgroundFront = new Image();
 
   constructor() {
     this.backgroundBack.src = backgroundBack;
-    // make the width and height of the image the same as the canvas
+    this.backgroundFront.src = backgroundFront;
   }
   draw(ctx: CanvasRenderingContext2D, offsetX: number) {
     ctx.save();
-
     ctx.translate(offsetX, 0);
     ctx.scale(2, 2);
     for (let i = -1; i < 10; i++) {
       ctx.drawImage(this.backgroundBack, i * this.backgroundBack.width, 0);
     }
+    ctx.restore();
 
-    // ctx.drawImage(this.image, 0, 0, canvasWidth, canvasHeight);
+    ctx.save();
+    ctx.translate(offsetX * 1.3, 0);
+    ctx.scale(2, 2);
+    for (let i = -1; i < 50; i++) {
+      ctx.drawImage(this.backgroundFront, i * this.backgroundFront.width, 0);
+    }
     ctx.restore();
     ctx.fillStyle = "#800000";
     ctx.fillRect(offsetX + winXPos, 0, 4000, canvasHeight);
