@@ -55,7 +55,7 @@ const levelToNightMod: Record<LevelNumber, NightMod[]> = {
   2: ["gravity-"],
   3: ["invertGravity"],
   4: ["gravity-"],
-  5: ["gravity-"],
+  5: ["invertGravity"],
 };
 
 export class GameState {

@@ -17,8 +17,13 @@ export function calculatePlayerPlatCollision(
     const leftRight =
       player.pos.x < p.pos.x + p.width && player.pos.x + playerWidth > p.pos.x;
     const topBottom =
+      window.gravity > 0 ?
+      // collide from the top
       player.pos.y + playerHeight >= p.pos.y &&
-      player.prevPos.y + playerHeight <= p.pos.y;
+      player.prevPos.y + playerHeight <= p.pos.y :
+      // collide from the bottom
+      player.pos.y <= p.pos.y + platformHeight &&
+      player.prevPos.y >= p.pos.y + platformHeight;
 
     if (!p.floor && keyDown) {
       return false;
@@ -46,8 +51,13 @@ export function calculateParshendiPlatCollision(
       const leftRight =
         par.pos.x < p.pos.x + p.width && par.pos.x + parshendiWidth > p.pos.x;
       const topBottom =
+        window.gravity > 0 ?
+        // collide from top
         par.pos.y + parshendiHeight >= p.pos.y &&
-        par.prevPos.y + parshendiHeight <= p.pos.y;
+        par.prevPos.y + parshendiHeight <= p.pos.y :
+        // collide from the bottom
+        par.pos.y <= p.pos.y + platformHeight &&
+        par.prevPos.y >= p.pos.y + platformHeight;
 
       if (leftRight && topBottom) {
         if (window.gravity > 0) {
