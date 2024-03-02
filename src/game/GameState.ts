@@ -228,7 +228,10 @@ export class GameState {
   }
 
   handleNightMod() {
-    const mods = levelToNightMod[this.level];
+    const mods =
+      this.level in levelToNightMod
+        ? levelToNightMod[this.level]
+        : levelToNightMod[0];
     if (mods.includes("gravity-") && window.gravity > 0.5) {
       window.gravity *= 0.95;
     }
