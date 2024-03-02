@@ -113,14 +113,21 @@ export function calculatePlayerEnemyCollision(
   player: Player,
   fused: Fused[],
   parshendi: Parshendi[]
-): boolean {
+): 'fused' | 'parshendi' | undefined {
   const hitFused = fused.find(
     (f) => eucDistance(f.center, player.center) < 100
   );
   const hitParshendi = parshendi.find(
     (p) => eucDistance(p.center, player.center) < 100
   );
-  return !!hitFused || !!hitParshendi;
+  if (hitFused) {
+    return 'fused';
+  }
+  if (hitParshendi) {
+    return 'parshendi'
+  }
+
+  return undefined;
 }
 
 export function eucDistance(p1: Coor, p2: Coor) {

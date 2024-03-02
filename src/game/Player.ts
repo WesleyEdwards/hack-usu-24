@@ -35,6 +35,9 @@ export class Player {
   windowShakeDist = 0;
   coyoteTime = 0;
   windowDarken = 0.99;
+  life_opacity = 0;
+  state:"live"|"dead" = "live";
+  invTime = 0;
 
   constructor() {
     this.prevPos = { ...playerInitPos };
@@ -106,6 +109,16 @@ export class Player {
     }
 
     this.drawManager.update(deltaTime);
+
+    this.life_opacity -= deltaTime / 1000 * 51;
+    if (this.life_opacity < 0) {
+      this.life_opacity = 0;
+    }
+
+    this.invTime -= deltaTime / 1000;
+    if (this.invTime < 0) {
+      this.invTime = 0;
+    }
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -197,5 +210,32 @@ export class Player {
       rootStyle.setProperty("--move-up-and-down", `${this.windowShakeDist}px`);
       rootStyle.setProperty("--darken", `${this.windowDarken}`);
     }
+  }
+
+  takeDamage(what:"spear"|"parshendi"|"fused") {
+    if (this.invTime <= 0) {
+      switch(what) {
+        case "spear":
+          this.health -= 10
+          break;
+        case "parshendi":
+          this.health -= 30
+          break;
+        case "fused":
+          this.health -= 20
+          break;
+      }
+      this.invTime = 1;
+      if (this.health <= 0) {
+          this.state = "dead";
+          this.health = 0;
+        }
+      }
+    this.life_opacity = 255;
+  }
+
+  respawn() {
+    this.health = 100;
+    this.state = "live";
   }
 }
