@@ -29,6 +29,8 @@ import {
   playSoundEffect,
 } from "./miscFunctions";
 import nextLevelSFX from "../assets/sound/nextLevel.ogg";
+import dieSFX from "../assets/sound/playerDie.ogg";
+import BGM from "../assets/sound/BGM.mp3";
 export type StateOfGame =
   | "showControls"
   | "playing"
@@ -73,8 +75,9 @@ export class GameState {
   level: LevelNumber = 0;
   playerShoot: PlayerShoot | null = null;
   smoke: Smoke = new Smoke();
+  bgm = new Audio(BGM);
   instructionTimer: number | null;
-
+  
   constructor(private ctx: CanvasRenderingContext2D) {
     this.keys = addEventListeners();
     const level = getLevelInfo(this.level);
@@ -82,6 +85,8 @@ export class GameState {
     this.fused = level.fusedProps.map((props) => new Fused(props));
     this.parshendi = level.parshendiProps.map((props) => new Parshendi(props));
     this.instructionTimer = 0;
+    this.bgm.loop = true;
+    this.bgm.volume = 0.4;
   }
 
   reset() {
@@ -114,6 +119,7 @@ export class GameState {
     this.levelTimer += deltaTime;
     if (this.levelTimer > levelQuoteTime) {
       this.gameState = "playing";
+      this.bgm.play();
     }
     if (this.gameState !== "playing") {
       return;
@@ -140,6 +146,7 @@ export class GameState {
       this.reset();
       this.gameState = "levelIntro";
       this.levelTimer = 0;
+      this.bgm.pause();
       playSoundEffect(nextLevelSFX);
     }
     calculateParshendiPlatCollision(this.parshendi, this.platforms);
@@ -214,6 +221,8 @@ export class GameState {
 
   handleLoseLife(modifyUi: ModifyUI) {
     modifyUi.decrementLife();
+    playSoundEffect(dieSFX);
+    this.bgm.pause();
     this.reset();
     this.gameState = "lostLevel";
     this.levelTimer = 0;

@@ -1,8 +1,14 @@
 import { fusedHeight, fusedWidth } from "../constants";
 import { FusedDrawManager } from "./FusedDrawManager";
 import { Spear } from "./Spear";
-import { eucDistance } from "./miscFunctions";
+import { eucDistance, playSoundEffect } from "./miscFunctions";
 import { Coor } from "./types";
+import hitSFX from "../assets/sound/enemyDie.ogg"
+import spear1 from "../assets/sound/swish_2.wav";
+import spear2 from "../assets/sound/swish_3.wav";
+import spear3 from "../assets/sound/swish_4.wav";
+
+const spearSFX = [spear1, spear2, spear3];
 
 const y_range = fusedHeight * 2;
 const x_range = fusedWidth / 2;
@@ -111,6 +117,7 @@ export class Fused {
       this.time_since_throw += deltaTime / 1000;
       if (this.time_since_throw > 3) {
         // time to throw
+        playSoundEffect(spearSFX[Math.floor(Math.random()*spearSFX.length)])
         this.time_since_throw = 0;
         this.drawManager.spriteTimer = 0;
         this.drawManager.throwTimer = 0;
@@ -121,5 +128,6 @@ export class Fused {
 
   hit() {
     this.state = "hit";
+    playSoundEffect(hitSFX);
   }
 }

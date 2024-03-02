@@ -25,9 +25,14 @@ import footstep7 from "../assets/sound/footstep07.ogg"
 import footstep8 from "../assets/sound/footstep08.ogg"
 import footstep9 from "../assets/sound/footstep09.ogg"
 import orbSFX from "../assets/sound/orb.ogg"
+import hit1 from "../assets/sound/hit10.mp3.flac"
+import hit2 from "../assets/sound/hit11.mp3.flac"
+import hit3 from "../assets/sound/hit12.mp3.flac"
+import hit4 from "../assets/sound/hit13.mp3.flac"
 
 import { playSoundEffect } from "./miscFunctions";
 const footsteps = [footstep5, footstep6, footstep7, footstep8, footstep9]
+const hits = [hit1,hit2,hit3,hit4]
 const playerInitPos: Coor = { x: playerDistFromLeft, y: 400 };
 
 export type DirectionX = "left" | "right";
@@ -165,17 +170,6 @@ export class Player {
     this.canJump = true;
   }
 
-  checkCollideSpear(spear: Spear) {
-    if (
-      spear.center.x >= this.pos.x - 5 &&
-      spear.center.x <= this.pos.x + playerWidth + 5 &&
-      spear.center.y >= this.pos.y - 5 &&
-      spear.center.y <= this.pos.y + playerHeight + 5
-    ) {
-      // TODO: add function
-    }
-  }
-
   get center() {
     return {
       x: this.pos.x + playerWidth / 2,
@@ -261,6 +255,10 @@ export class Player {
         case "soulDrain":
           this.health -= 5;
           break;
+      }
+      if (what != "soulDrain") {
+        const i = Math.floor(Math.random()*hits.length)
+        playSoundEffect(hits[i])
       }
       this.invTime = 1;
       if (this.health <= 0) {
