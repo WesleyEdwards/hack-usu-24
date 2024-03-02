@@ -1,3 +1,4 @@
+import { Spear } from "./Spear";
 import { eucDistance } from "./miscFunctions";
 import { Coor } from "./types";
 const fusedWidth = 100;
@@ -18,6 +19,7 @@ export class Fused {
   x_direction = 1;
   y_direction = 1;
   trackPos = { x: 0, y: 0 };
+  time_since_throw = 2;
 
   get center() {
     return {x:this.pos.x+fusedWidth/2, y:this.pos.y+fusedHeight/2}
@@ -100,11 +102,11 @@ export class Fused {
     if (eucDistance(playerPos, this.center) <= 700) {
       this.time_since_throw += deltaTime/1000;
       // debounceLog(this.time_since_throw)
-      if (this.time_since_throw > 5) {
+      if (this.time_since_throw > 3) {
         console.log("throwing")
         // time to throw
         this.time_since_throw=0;
-        spears.push(new Spear({initPos:this.pos, dest:playerPos}))
+        spears.push(new Spear({initPos:this.center, dest:playerPos}))
       }
     }
   }

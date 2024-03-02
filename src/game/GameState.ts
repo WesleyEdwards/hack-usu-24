@@ -13,6 +13,7 @@ import {
 import { Level, getLevelInfo } from "./levelsInfo/levelInfo";
 import { debounceLog } from "./helpers";
 import {
+  calculateFusedSpear,
   calculateParshendiPlatCollision,
   calculateParshendiSpear,
   calculatePlayerPlatCollision,
@@ -80,6 +81,12 @@ export class GameState {
       this.spears,
       deltaTime
     );
+    calculateFusedSpear(
+      this.fused,
+      this.player.center,
+      this.spears,
+      deltaTime
+    )
   }
 
   draw() {

@@ -1,4 +1,5 @@
 import { playerHeight, playerWidth } from "../constants";
+import { Fused } from "./Fused";
 import { Parshendi, parshendiHeight, parshendiWidth } from "./Parshendi";
 import { Platform } from "./Platform";
 import { Player } from "./Player";
@@ -52,6 +53,12 @@ export function calculateParshendiPlatCollision(
 export function calculateParshendiSpear(parshendi:Parshendi[], player_pos:Coor, spears:Spear[], deltaTime:number){
   parshendi.forEach((p) => {
     p.shouldThrow(player_pos, deltaTime, spears)
+  })
+}
+
+export function calculateFusedSpear(fused:Fused[], player_pos:Coor, spears:Spear[], deltaTime:number){
+  fused.forEach((f) => {
+    f.shouldThrow(player_pos, deltaTime, spears)
   })
 }
 
