@@ -1,7 +1,13 @@
 import { Coor } from "./types";
 import { canvasHeight } from "../constants";
-import { eucDistance } from "./miscFunctions";
+import { eucDistance, playSoundEffect } from "./miscFunctions";
 import { Spear } from "./Spear";
+import hitSFX from "../assets/sound/enemyDie.ogg"
+import spear1 from "../assets/sound/swish_2.wav";
+import spear2 from "../assets/sound/swish_3.wav";
+import spear3 from "../assets/sound/swish_4.wav";
+
+const spearSFX = [spear1, spear2, spear3];
 export const parshendiWidth = 100;
 export const parshendiHeight = 100;
 
@@ -98,6 +104,7 @@ export class Parshendi {
       // debounceLog(this.time_since_throw)
       if (this.time_since_throw > 5) {
         // time to throw
+        playSoundEffect(spearSFX[Math.floor(Math.random()*spearSFX.length)])
         this.time_since_throw = 0;
         const distance = eucDistance(playerPos, this.center);
         spears.push(
@@ -111,6 +118,7 @@ export class Parshendi {
   }
 
   hit() {
+    playSoundEffect(hitSFX);
     this.state = "hit";
   }
 }
