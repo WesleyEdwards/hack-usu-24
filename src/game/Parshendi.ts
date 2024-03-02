@@ -1,8 +1,8 @@
 import { Coor } from "./types";
 import { canvasHeight, gravity } from "../constants";
 import { debounceLog } from "./helpers";
-const parshendiWidth = 100;
-const parshendiHeight = 100;
+export const parshendiWidth = 100;
+export const parshendiHeight = 100;
 
 export type ParshendiProps = {
   initPos: Coor;
@@ -13,7 +13,7 @@ export class Parshendi {
   prevPos: Coor;
   x_direction: number;
   y_vel = 0;
-  x_speed = 75;
+  x_speed = 100;
   time_since_turn = 0;
 
   constructor(props: ParshendiProps) {
@@ -53,5 +53,10 @@ export class Parshendi {
     ctx.translate(this.pos.x + offsetX, this.pos.y);
     ctx.fillRect(0, 0, parshendiWidth, parshendiHeight);
     ctx.restore();
+  }
+
+  setOnPlatform(y: number) {
+    this.pos.y = y - parshendiHeight;
+    this.y_vel = 0;
   }
 }
