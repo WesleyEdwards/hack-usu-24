@@ -39,13 +39,14 @@ export type StateOfGame =
 
 export type NightMod = "gravity-" | "gravity+" | "shootTermDist-" | "spear+";
 
-type LevelNumber = 0 | 1 | 2 | 3;
+export type LevelNumber = 0 | 1 | 2 | 3 | 4;
 
 const levelToNightMod: Record<LevelNumber, NightMod[]> = {
   0: ["spear+"],
   1: ["gravity-"],
   2: ["gravity-"],
   3: ["spear+"], // correct
+  4: ["spear+"],
 };
 
 export class GameState {
