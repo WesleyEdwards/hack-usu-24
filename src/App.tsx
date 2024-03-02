@@ -22,7 +22,7 @@ function App() {
           height={canvasHeight}
           style={{
             border: "2px solid black",
-            borderRadius: "5px",
+            borderRadius: "10px",
           }}
         />
         <Stack direction="row" justifyContent="center" gap="1rem" margin="1rem">

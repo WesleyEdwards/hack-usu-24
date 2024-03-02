@@ -12,3 +12,7 @@ export const playerJumpSpeed = 1.1;
 
 
 export const platformHeight = 30;
+
+export const winXPos = 3000;
+
+export const levelTimerTime = 3000;
