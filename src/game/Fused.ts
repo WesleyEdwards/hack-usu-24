@@ -112,6 +112,8 @@ export class Fused {
       if (this.time_since_throw > 3) {
         // time to throw
         this.time_since_throw = 0;
+        this.drawManager.spriteTimer = 0;
+        this.drawManager.throwTimer = 0;
         spears.push(new Spear({ initPos: this.center, dest: playerPos }));
       }
     }
