@@ -87,7 +87,8 @@ export class Parshendi {
         console.log("throwing")
         // time to throw
         this.time_since_throw=0;
-        spears.push(new Spear({initPos:this.center, dest:playerPos}))
+        const distance = eucDistance(playerPos, this.center)
+        spears.push(new Spear({initPos:this.center, dest:{x:playerPos.x, y:playerPos.y-distance*0.8}}))
       }
     }
   }

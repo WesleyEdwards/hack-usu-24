@@ -4,7 +4,7 @@ import { debounceLog } from "./helpers";
 import { createVector, eucDistance, multiplyVectorConstant, normalizeVector } from "./miscFunctions";
 export const spearWidth = 50;
 export const spearHeight = 20;
-export const spearSpeed = 300;
+export const spearSpeed = 600;
 
 export type SpearProps = {
   initPos: Coor;
@@ -29,6 +29,8 @@ export class Spear {
 update(deltaTime: number) {
     // debounceLog(this.pos);
     this.prevPos = { ...this.pos };
+    // handle gravity
+    this.vel.y += gravity/10 * deltaTime / 1000;
     // debounceLog(this.pos)
     this.pos.y += (this.vel.y * deltaTime) / 1000;
     this.pos.x += (this.vel.x * deltaTime) / 1000;
