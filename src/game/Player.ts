@@ -19,7 +19,7 @@ import { Coor } from "./types";
 import { ShootProps } from "./PlayerShoot";
 import { ModifyUI } from "../App";
 
-const playerInitPos: Coor = { x: playerDistFromLeft, y: 200 };
+const playerInitPos: Coor = { x: playerDistFromLeft, y: 400 };
 
 export type DirectionX = "left" | "right";
 export type DirectionY = "up" | "down" | "straight";

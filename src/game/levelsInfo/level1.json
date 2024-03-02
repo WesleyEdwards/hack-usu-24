@@ -1,6 +1,6 @@
 {
   "platProps": [
-    { "initPos": { "x": -299, "y": 670 }, "width": 5000, "floor": true },
+    { "initPos": { "x": -400, "y": 670 }, "width": 5100, "floor": true },
     { "initPos": { "x": 5123, "y": 670 }, "width": 5000, "floor": true },
     { "initPos": { "x": 5276, "y": 377 }, "width": 200, "floor": false },
     { "initPos": { "x": 4901, "y": 527 }, "width": 200, "floor": false },

@@ -31,7 +31,7 @@ export class GameState {
   keys: Keys;
   gameState: "playing" | "levelIntro" = "levelIntro";
   levelTimer = 0;
-  level = 0;
+  level = 1;
   playerShoot: PlayerShoot[] = [];
 
   constructor(private ctx: CanvasRenderingContext2D) {
@@ -69,7 +69,7 @@ export class GameState {
       this.handleShoot.bind(this),
       modifyUi
     );
-    this.fused.forEach((f) => f.update(deltaTime));
+    this.fused.forEach((f) => f.update(deltaTime, this.player.pos.x));
     this.parshendi.forEach((p) => p.update(deltaTime));
     this.spears.forEach((s) => s.update(deltaTime));
     this.spears = this.spears.filter((s) => s.live);

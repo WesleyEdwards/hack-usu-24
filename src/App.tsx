@@ -38,19 +38,18 @@ function App() {
 
   useEffect(() => {
     const canvas = document.getElementById("canvas") as HTMLCanvasElement;
-
     const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-    // draw title
-
-    // background
     ctx.fillStyle = "black";
-
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-
-    ctx.font = "50px Pirata One";
-    ctx.fillStyle = "#800000";
-    ctx.textAlign = "center";
-    ctx.fillText("Nightblood", canvasWidth / 2, canvasHeight / 2);
+    const cleanup = setTimeout(() => {
+      const canvas = document.getElementById("canvas") as HTMLCanvasElement;
+      const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+      ctx.font = "50px Pirata One";
+      ctx.fillStyle = "#800000";
+      ctx.textAlign = "center";
+      ctx.fillText("Nightblood", canvasWidth / 2, canvasHeight / 2);
+    }, 300);
+    return () => clearTimeout(cleanup);
   }, []);
 
   return (
@@ -74,12 +73,23 @@ function App() {
               borderRadius: "10px",
             }}
           />
-          <Stack
-            direction="row"
-            justifyContent="center"
-            gap="1rem"
-            margin="1rem"
-          >
+          <Stack direction="row" justifyContent="space-between" margin="1rem">
+            <Stack
+              direction="row"
+              gap="0.5rem"
+              width="24rem"
+              alignItems="center"
+            >
+              {playing &&
+                Array.from({ length: lives }).map((_, i) => (
+                  <img
+                    key={i}
+                    alt="heart"
+                    src="https://emojicdn.elk.sh/❤️"
+                    style={{ height: "30px", width: "30px" }}
+                  />
+                ))}
+            </Stack>
             <Button
               sx={{
                 fontFamily: "Pirata One",
@@ -87,7 +97,6 @@ function App() {
                 minWidth: "200px",
                 background: "#800000",
                 color: "black",
-
                 "&:hover": {
                   backgroundColor: "#360f0f",
                 },
@@ -105,20 +114,9 @@ function App() {
             >
               Play
             </Button>
+            <div style={{ width: "24rem" }}></div>
           </Stack>
-          <Stack direction="row" gap="1rem">
-            {Array.from({ length: lives }).map((_, i) => (
-              <img
-                key={i}
-                alt="heart"
-                src="https://emojicdn.elk.sh/❤️"
-                style={{
-                  height: "30px",
-                  width: "30px",
-                }}
-              />
-            ))}
-          </Stack>
+          <Stack direction="row" gap="1rem"></Stack>
           <Input
             sx={{ maxWidth: "400px" }}
             type="number"

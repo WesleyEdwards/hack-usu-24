@@ -51,7 +51,7 @@ export class Fused {
     this.y_direction = Math.random() > 0.5 ? 1 : -1;
   }
 
-  update(deltaTime: number) {
+  update(deltaTime: number, playerPosX: number) {
     // update prevPos
     this.prevPos = { ...this.pos };
 
@@ -94,6 +94,12 @@ export class Fused {
     this.x_speed = this.x_speed > 15 ? this.x_speed : 15;
     this.y_speed = this.y_speed > 15 ? this.y_speed : 15;
 
+    if (playerPosX > this.pos.x && this.facing === "left") {
+      this.facing = "right";
+    }
+    if (playerPosX < this.pos.x && this.facing === "right") {
+      this.facing = "left";
+    }
     this.drawManager.update(deltaTime);
   }
 
