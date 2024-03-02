@@ -213,9 +213,10 @@ export class Player {
     }
   }
 
-  takeDamage(what: "spear" | "parshendi" | "fused") {
-    if (this.invTime <= 0) {
-      switch (what) {
+  takeDamage(what:"spear"|"parshendi"|"fused"|"soulDrain") {
+    if (this.invTime <= 0 || what == "soulDrain") {
+      switch(what) {
+
         case "spear":
           this.health -= 10;
           break;
@@ -224,6 +225,9 @@ export class Player {
           break;
         case "fused":
           this.health -= 20;
+          break;
+        case "soulDrain":
+          this.health -= 5
           break;
       }
       this.invTime = 1;

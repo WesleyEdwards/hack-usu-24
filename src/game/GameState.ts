@@ -37,7 +37,15 @@ export type StateOfGame =
   | "lostGame"
   | "wonGame";
 
-export type NightMod = "gravity-" | "gravity+" | "shootTermDist-" | "spear+";
+export type NightMod =
+  | "gravity-"
+  | "gravity+"
+  | "shootTermDist-"
+  | "spear+"
+  | "invertGravity"
+  | "timeSpeed+"
+  | "timeSpeed-"
+  | "soulDrain";
 
 export type LevelNumber = 0 | 1 | 2 | 3 | 4;
 
@@ -45,8 +53,8 @@ const levelToNightMod: Record<LevelNumber, NightMod[]> = {
   0: ["spear+"],
   1: ["gravity-"],
   2: ["gravity-"],
-  3: ["spear+"], // correct
-  4: ["spear+"],
+  3: ["invertGravity"],
+  4: ["gravity-"],
 };
 
 export class GameState {
@@ -78,6 +86,7 @@ export class GameState {
     window.gravity = initialGravity;
     window.shootTerminateDist = initialShootTerminateDist;
     window.spearVelMultiplier = 1;
+    window.timeMultiplier = 1;
     this.levelTimer = 0;
     const level = getLevelInfo(this.level);
     this.player = new Player();
@@ -97,6 +106,8 @@ export class GameState {
     if (this.gameState !== "playing") {
       return;
     }
+
+    deltaTime *= window.timeMultiplier;
 
     this.player.update(
       deltaTime,
@@ -226,6 +237,18 @@ export class GameState {
     }
     if (mods.includes("spear+")) {
       window.spearVelMultiplier *= 1.1;
+    }
+    if (mods.includes("invertGravity")) {
+      window.gravity = -window.gravity;
+    }
+    if (mods.includes("timeSpeed+") && window.timeMultiplier < 3) {
+      window.timeMultiplier += 0.2;
+    }
+    if (mods.includes("timeSpeed-") && window.timeMultiplier > 0.25) {
+      window.timeMultiplier -= 0.05;
+    }
+    if (mods.includes("soulDrain")) {
+      this.player.takeDamage("soulDrain");
     }
   }
 }
