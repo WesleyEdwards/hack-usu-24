@@ -15,6 +15,7 @@ export class Parshendi {
   y_vel = 0;
   x_speed = 100;
   time_since_turn = 0;
+  time_since_jump = 0;
 
   constructor(props: ParshendiProps) {
     this.prevPos = { ...props.initPos };
@@ -30,10 +31,18 @@ export class Parshendi {
       this.pos.y = canvasHeight - parshendiHeight;
       this.y_vel = 0;
     } else {
-      this.pos.y += this.y_vel += gravity;
+      this.y_vel += gravity*deltaTime;
     }
-    this.pos.x += 1 / deltaTime;
-    this.pos.y += this.y_vel * deltaTime;
+    // debounceLog(this.y_vel)
+    this.pos.y += this.y_vel * deltaTime/1000;
+
+    // Decide to jump
+    if (this.time_since_jump + Math.random() * 2000 > 10000) {
+      this.time_since_jump = 0;
+      this.y_vel = -1000;
+    } else {
+      this.time_since_jump += deltaTime;
+    }
 
     // update x velocity + position
     if (this.time_since_turn + Math.random() * 2000 > 5000) {
