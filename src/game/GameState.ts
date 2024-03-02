@@ -12,6 +12,7 @@ import { Parshendi } from "./Parshendi";
 import { Platform } from "./Platform";
 import { Player } from "./Player";
 import { PlayerShoot, ShootProps } from "./PlayerShoot";
+import { Smoke } from "./Smoke";
 import { Spear } from "./Spear";
 import {
   Keys,
@@ -70,6 +71,7 @@ export class GameState {
   levelTimer = 0;
   level: LevelNumber = 5;
   playerShoot: PlayerShoot | null = null;
+  smoke: Smoke = new Smoke();
 
   constructor(private ctx: CanvasRenderingContext2D) {
     this.keys = addEventListeners();
