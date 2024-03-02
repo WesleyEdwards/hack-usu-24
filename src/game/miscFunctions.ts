@@ -95,6 +95,20 @@ export function calculateFuseShootCollision(
   });
 }
 
+export function calculateParshendiShootCollision(
+  parshendi: Parshendi[],
+  playerShoot: PlayerShoot | null
+) {
+  if (!playerShoot) return;
+  parshendi.forEach((f) => {
+    const hit = eucDistance(f.center, playerShoot.center) < 100;
+    if (hit) {
+      f.hit();
+      playerShoot.live = false;
+    }
+  });
+}
+
 export function calculatePlayerEnemyCollision(
   player: Player,
   fused: Fused[],

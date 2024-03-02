@@ -17,6 +17,7 @@ import {
   calculateFuseShootCollision,
   calculateFusedSpear,
   calculateParshendiPlatCollision,
+  calculateParshendiShootCollision,
   calculateParshendiSpear,
   calculatePlayerEnemyCollision,
   calculatePlayerPlatCollision,
@@ -96,6 +97,7 @@ export class GameState {
     );
     this.fused.forEach((f) => f.update(deltaTime, this.player.pos.x));
     this.fused = this.fused.filter((f) => f.state !== "hit");
+    this.parshendi = this.parshendi.filter((f) => f.state !== "hit");
     this.parshendi.forEach((p) => p.update(deltaTime));
     this.spears.forEach((s) => s.update(deltaTime));
     this.spears = this.spears.filter((s) => s.live);
@@ -119,6 +121,7 @@ export class GameState {
 
     calculateFusedSpear(this.fused, this.player.center, this.spears, deltaTime);
     calculateFuseShootCollision(this.fused, this.playerShoot);
+    calculateParshendiShootCollision(this.parshendi, this.playerShoot);
     const hit = calculatePlayerEnemyCollision(
       this.player,
       this.fused,
