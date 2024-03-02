@@ -112,7 +112,7 @@ export class Player {
 
     this.drawManager.update(deltaTime);
 
-    this.life_opacity -= (deltaTime / 1000) * 51;
+    this.life_opacity -= (deltaTime / 1000) * 0.33;
     if (this.life_opacity < 0) {
       this.life_opacity = 0;
     }
@@ -241,7 +241,7 @@ export class Player {
         this.health = 0;
       }
     }
-    this.life_opacity = 255;
+    this.life_opacity = 1;
   }
 
   respawn() {
