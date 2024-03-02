@@ -1,10 +1,13 @@
+import { platformHeight } from "../constants";
 import { Coor } from "./types";
-
-const platformHeight = 30;
 
 export class Platform {
   pos: Coor;
-  constructor(initPos: Coor, public floor: boolean = false) {
+  constructor(
+    initPos: Coor,
+    public width: number = 100,
+    public floor: boolean = false
+  ) {
     this.pos = initPos;
   }
 

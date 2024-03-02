@@ -12,10 +12,7 @@ import { Coor } from "./types";
 
 const timeToJumpPeak = playerJumpSpeed / gravity;
 
-const playerInitPos: Coor = {
-  x: 200,
-  y: 200,
-};
+const playerInitPos: Coor = { x: 200, y: 200 };
 
 export class Player {
   pos: Coor;
@@ -35,6 +32,10 @@ export class Player {
     this.pos.y += this.vel.y * deltaTime;
 
     if (keys.jump || keys.jumpBuffer) {
+      if (this.vel.y < 1) {
+        keys.jumpBuffer = false;
+      }
+      // doesn't work. needs work
       if (this.jumpTimer > timeToJumpPeak + 5 && this.vel.y === 0) {
         this.vel.y = -playerJumpSpeed;
         keys.jumpBuffer = false;
