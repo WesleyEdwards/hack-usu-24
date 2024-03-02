@@ -25,8 +25,9 @@ import {
   calculateParshendiSpear,
   calculatePlayerEnemyCollision,
   calculatePlayerPlatCollision,
+  playSoundEffect,
 } from "./miscFunctions";
-
+import nextLevelSFX from "../assets/sound/nextLevel.ogg"
 export type StateOfGame =
   | "showControls"
   | "playing"
@@ -138,6 +139,7 @@ export class GameState {
       this.reset();
       this.gameState = "levelIntro";
       this.levelTimer = 0;
+      playSoundEffect(nextLevelSFX);
     }
     calculateParshendiPlatCollision(this.parshendi, this.platforms);
     const hitPlayer = calculateParshendiSpear(

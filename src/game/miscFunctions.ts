@@ -173,3 +173,11 @@ export function multiplyVectorConstant(v: Coor, c: number) {
   v.y = v.y * c;
   return v;
 }
+
+export function playSoundEffect(audio:string) {
+  // Create an Audio object
+  const sound = new Audio(audio);
+  
+  // Play the audio
+  sound.play();
+}

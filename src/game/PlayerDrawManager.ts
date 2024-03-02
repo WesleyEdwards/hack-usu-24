@@ -19,7 +19,7 @@ const scaleFactor = 0.65;
 
 const runningSpriteCount = 6;
 
-const runningSpriteFrequency = 100;
+export const runningSpriteFrequency = 100;
 
 export class PlayerDrawManager {
   topIdle = new Image();
