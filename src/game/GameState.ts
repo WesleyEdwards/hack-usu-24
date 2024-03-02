@@ -69,7 +69,7 @@ export class GameState {
   keys: Keys;
   gameState: StateOfGame = "showControls";
   levelTimer = 0;
-  level: LevelNumber = 1;
+  level: LevelNumber = 0;
   playerShoot: PlayerShoot | null = null;
   smoke: Smoke = new Smoke();
   instructionTimer: number | null;
@@ -90,9 +90,11 @@ export class GameState {
     window.timeMultiplier = 1;
     this.levelTimer = 0;
     const level = getLevelInfo(this.level);
+    console.log(this.level, level);
     this.player = new Player();
     this.fused = level.fusedProps.map((props) => new Fused(props));
     this.parshendi = level.parshendiProps.map((props) => new Parshendi(props));
+    this.platforms = level.platProps.map((props) => new Platform(props));
   }
 
   update(deltaTime: number, modifyUi: ModifyUI) {
