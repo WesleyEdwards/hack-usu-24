@@ -106,9 +106,11 @@ export class GameState {
     if (this.instructionTimer !== null) {
       this.gameState = "showControls";
       this.instructionTimer += deltaTime;
+      this.levelTimer = 0;
       if (this.instructionTimer > showControlsTime) {
-        this.gameState = "playing";
+        this.gameState = "levelIntro";
         this.instructionTimer = null;
+        this.bgm.play();
       }
       return;
     }
@@ -119,7 +121,6 @@ export class GameState {
     this.levelTimer += deltaTime;
     if (this.levelTimer > levelQuoteTime) {
       this.gameState = "playing";
-      this.bgm.play();
     }
     if (this.gameState !== "playing") {
       return;
