@@ -1,0 +1,22 @@
+{
+  "platProps": [
+    {
+      "initPos": {
+        "x": -300,
+        "y": 650
+      },
+      "width": 8000,
+      "floor": true
+    }
+  ],
+  "fusedProps": [
+    { "initPos": { "x": 1200, "y": 181 } },
+    { "initPos": { "x": 1850, "y": 200 } },
+    { "initPos": { "x": 2400, "y": 250 } },
+    { "initPos": { "x": 2600, "y": 250 } },
+    { "initPos": { "x": 2900, "y": 250 } },
+    { "initPos": { "x": 3200, "y": 110 } },
+    { "initPos": { "x": 3500, "y": 110 } }
+  ],
+  "parshendiProps": []
+}

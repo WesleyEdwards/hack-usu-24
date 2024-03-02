@@ -1,7 +1,7 @@
 {
   "platProps": [
-    { "initPos": { "x": -299, "y": 670 }, "width": 5000, "floor": true },
-    { "initPos": { "x": 5123, "y": 670 }, "width": 5000, "floor": true },
+    { "initPos": { "x": -299, "y": 650 }, "width": 5000, "floor": true },
+    { "initPos": { "x": 5123, "y": 650 }, "width": 5000, "floor": true },
     { "initPos": { "x": 667, "y": 468 }, "width": 300, "floor": false },
     { "initPos": { "x": 974, "y": 347 }, "width": 300, "floor": false },
     { "initPos": { "x": 1427, "y": 573 }, "width": 300, "floor": false },

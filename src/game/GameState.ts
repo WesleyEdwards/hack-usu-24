@@ -31,7 +31,7 @@ export class GameState {
   keys: Keys;
   gameState: "playing" | "levelIntro" = "levelIntro";
   levelTimer = 0;
-  level = 1;
+  level = 3;
   playerShoot: PlayerShoot[] = [];
 
   constructor(private ctx: CanvasRenderingContext2D) {
@@ -123,7 +123,7 @@ export class GameState {
         new Platform({
           initPos: {
             x: +coors.x.toFixed(0),
-            y: makeFloor ? 670 : +coors.y.toFixed(0),
+            y: makeFloor ? 650 : +coors.y.toFixed(0),
           },
           width: window.selectedWidth ?? 200,
           floor: makeFloor,

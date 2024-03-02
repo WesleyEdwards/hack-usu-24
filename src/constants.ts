@@ -13,12 +13,12 @@ export const playerShootSpeed = 2000;
 export const playerShootDistFromPlayer = 10;
 export const maxCoyoteTime = 120;
 
-export const platformHeight = 30;
+export const platformHeight = 50;
 
 export const winXPos = 6000;
 
-export const levelTimerTime = 1000;
-// export const levelTimerTime = 3000;
+// export const levelTimerTime = 1000;
+export const levelTimerTime = 3000;
 
 export const initialLifeCount = 5;
 
