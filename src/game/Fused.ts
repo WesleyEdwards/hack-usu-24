@@ -81,7 +81,7 @@ export class Fused {
   draw(ctx: CanvasRenderingContext2D, offsetX:number) {
     ctx.save();
     ctx.fillStyle = "red";
-    ctx.translate(this.pos.x-offsetX, this.pos.y);
+    ctx.translate(this.pos.x+offsetX, this.pos.y);
     ctx.fillRect(0, 0, fusedWidth, fusedHeight);
     ctx.restore();
   }
