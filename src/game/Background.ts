@@ -1,7 +1,7 @@
 import { canvasHeight, canvasWidth, winXPos } from "../constants";
 import backgroundBack from "../assets/castle-back2-pixilart.png";
 import backgroundFront from "../assets/Castle_first_background.png";
-import instruction_page from "../assets/instructions-second.png";
+import instruction_page from "../assets/instructions-update3.png";
 import { StateOfGame } from "./GameState";
 
 const levelText: string[][] = [
