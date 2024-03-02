@@ -18,10 +18,10 @@ export class Parshendi {
     this.pos.y += 1 / deltaTime;
   }
 
-  draw(ctx: CanvasRenderingContext2D) {
+  draw(ctx: CanvasRenderingContext2D, offsetX: number) {
     ctx.save();
     ctx.fillStyle = "green";
-    ctx.translate(this.pos.x, this.pos.y);
+    ctx.translate(this.pos.x+offsetX, this.pos.y);
     ctx.fillRect(0, 0, parshendiWidth, parshendiHeight);
     ctx.restore();
   }

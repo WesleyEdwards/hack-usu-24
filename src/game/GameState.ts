@@ -41,7 +41,7 @@ export class GameState {
     this.platforms.forEach((p) => p.draw(this.ctx, this.offsetX));
 
     this.fused.forEach((f) => f.draw(this.ctx, this.offsetX));
-    this.parshendi.forEach((p) => p.draw(this.ctx));
+    this.parshendi.forEach((p) => p.draw(this.ctx, this.offsetX));
     this.player.draw(this.ctx);
   }
 
