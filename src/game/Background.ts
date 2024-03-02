@@ -60,17 +60,18 @@ export class Background {
     }
     ctx.restore();
     // const;
-
-    // ctx.fillStyle = "#464646";
-    const gradient = ctx.createLinearGradient(0, 0, 700, canvasHeight);
+    ctx.fillStyle = "rgb(46,46,46)"
+    ctx.fillRect(offsetX + winXPos + 180, 0, 1000, canvasHeight);
+    ctx.fillStyle = "#565656";
+    const gradient = ctx.createLinearGradient(offsetX+winXPos+180, 0, offsetX+winXPos+180+1000, 0);
 
     gradient.addColorStop(0, "#46464600");
-    gradient.addColorStop(0.5, "black");
+    gradient.addColorStop(0.8, "black");
     // gradient.addColorStop(0, "#464646");
 
     ctx.fillStyle = gradient;
 
-    ctx.fillRect(offsetX + winXPos + 180, 0, 600, canvasHeight);
+    ctx.fillRect(offsetX + winXPos + 180, 0, 1000, canvasHeight);
 
     ctx.save();
     ctx.translate(offsetX + winXPos, 0);
